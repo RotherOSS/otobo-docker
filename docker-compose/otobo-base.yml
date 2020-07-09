@@ -1,7 +1,7 @@
 # Docker compose file for the OTOBO webapp.
 # Note that no port is exposed as both HTTP and HTTPS are supported.
-# For HTTP see the extension file scripts/docker-compose/http.yml.
-# For HTTPS see the extension file scripts/docker-compose/https.yml.
+# For HTTP see the extension file docker-compose/otobo-override-http.yml.
+# For HTTPS see the extension file docker-compose/otobo-override-https.yml.
 # See also README_DOCKER.md.
 
 # most current docker-compose file version, as of 2020-05-21
@@ -28,22 +28,21 @@ services:
     # OTOBO_DB_ROOT_PASSWORD=otobo_root
     environment:
       MYSQL_ROOT_PASSWORD: ${OTOBO_DB_ROOT_PASSWORD:?err}
-
     command: --max_allowed_packet=68157440 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --innodb-log-file-size=268435456
 
   web:
-    # use ./Dockerfile for building, image otobo_web
-    build:
-      context: ../..
-      dockerfile: otobo.web.dockerfile
+#    # use ./Dockerfile for building, image otobo_web
+#    build:
+#      context: ../..
+#      dockerfile: otobo.web.dockerfile
     # give a name to the built image so that the service 'cron' can reuse it
-    image: otobo_web:latest
+    image: rotheross/otobo:latest
     depends_on:
       - db
       - elastic
       - redis
     restart: always
-    # The HTTP port might be specified in a docker-compose extension file, e.g. scripts/docker-compose/http.yml.
+    # The HTTP port might be specified in a docker-compose extension file, e.g. docker-compose/otobo-override-http.yml.
     # For HTTPS no HTTP port is exposed.
     #ports:
     #    - "80:5000"
@@ -52,7 +51,7 @@ services:
     command: web
 
   cron:
-    image: otobo_web:latest
+    image: rotheross/otobo:latest
     depends_on:
       - web
     volumes:

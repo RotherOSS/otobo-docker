@@ -104,7 +104,7 @@ Set in case the HTTPS port should deviate from the standard port 443.
 ### COMPOSE_PROJECT_NAME
 
 The project name is used as a prefix for the generated volumes and containers.
-Must be set because the compose file is located in scripts/docker-compose and thus docker-compose
+Must be set because the compose file is located in docker-compose and thus docker-compose
 would be used per default.
 
 ### COMPOSE_PATH_SEPARATOR
@@ -113,8 +113,8 @@ Seperator for the value of COMPOSE_FILE
 
 ### COMPOSE_FILE
 
-Use scripts/docker-compose/otobo-base.yml as the base and add the wanted extension files.
-E.g scripts/docker-compose/otobo-override-http.yml or scripts/docker-compose/otobo-override-https.yml.
+Use docker-compose/otobo-base.yml as the base and add the wanted extension files.
+E.g docker-compose/otobo-override-http.yml or docker-compose/otobo-override-https.yml.
 
 ## Set up TLS
 
