@@ -49,14 +49,16 @@ The relevant files for running OTOBO with Docker are:
 * `.docker_compose_env_https`
 * `.docker_compose_env_http_port_5000`
 * `scripts/docker-compose/otobo-base.yml`
-* `scripts/docker-compose/otobo-override-http.yml`
-* `scripts/docker-compose/otobp-override-https.yml`
+* `docker-compose/otobo-override-http.yml`
+* `docker-compose/otobp-override-https.yml`
+
+The file .env is also relevant. This is the file that needs to be created by the user.
+
+### Source files in https://github.com/RotherOSS/otobo
+
 * `otobo.web.dockerfile`
 * `otobo.nginx.dockerfile`
-* The scripts in `bin/docker`
-* More setup and config files in `scripts/docker`
-
-The file .env is also relavant. This is the file that needs to be created by the user.
+* the scripts in `bin/docker`
 
 ## Requirements
 
