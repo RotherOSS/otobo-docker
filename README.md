@@ -145,8 +145,8 @@ The filenames otobo_nginx-selfsigned.key and otobo_nginx-selfsigned.crt happen t
 In the general case the companys certificate and private key can be copied into the volume.
 The names of the copied files can be set via environment options when starting the container.
 For this make sure that files are declared in your .env file. E.g.
-`OTOBO_NGINX_SSL_CERTIFICATE=/etc/nginx/ssl/acme.crt`
-`OTOBO_NGINX_SSL_CERTIFICATE_KEY=/etc/nginx/ssl/acme.key`
+`OTOBO_NGINX_SSL_CERTIFICATE=/etc/nginx/ssl/otobo_nginx-selfsigned.crt`
+`OTOBO_NGINX_SSL_CERTIFICATE_KEY=/etc/nginx/ssl/otobo_nginx-selfsigned.key`
 
 ## Building the docker image for otobo web and otobo nginx
 
