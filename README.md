@@ -48,7 +48,7 @@ The relevant files for running OTOBO with Docker are:
 * `.docker_compose_env_http`
 * `.docker_compose_env_https`
 * `.docker_compose_env_http_port_5000`
-* `scripts/docker-compose/otobo-base.yml`
+* `docker-compose/otobo-base.yml`
 * `docker-compose/otobo-override-http.yml`
 * `docker-compose/otobp-override-https.yml`
 
