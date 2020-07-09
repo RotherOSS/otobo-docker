@@ -132,8 +132,15 @@ registered certificates must be used.
 
 The certificate and the private key are stored in a volume, so that they can be used by nginx later on.
 
+In any case the volume needs to be generated manually:
+
 `docker volume create otobo_nginx_ssl`
+
+For the sample self-generated certificate:
+
 `sudo cp otobo_nginx-selfsigned.key otobo_nginx-selfsigned.crt $(docker volume inspect --format '{{ .Mountpoint }}' otobo_nginx_ssl)`
+
+The filenames otobo_nginx-selfsigned.key and otobo_nginx-selfsigned.crt happen to be the default configuration in the otobo nginx image.
 
 In the general case the companys certificate and private key can be copied into the volume.
 The names of the copied files can be set via environment options when starting the container.
