@@ -60,7 +60,7 @@ services:
 
   # a container running Elasticsearch
   elastic:
-          image: rotheross/otobo-elasticsearch:latest
+    image: rotheross/otobo-elasticsearch:latest
     restart: always
     environment:
       discovery.type: single-node
