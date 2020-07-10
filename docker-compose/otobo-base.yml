@@ -64,7 +64,7 @@ services:
     restart: always
     environment:
       discovery.type: single-node
-      ES_JAVA_OPTS: ${OTOBO_Elasticsearch_ES_JAVA_OPTS:?err}
+      ES_JAVA_OPTS: ${OTOBO_ELASTICSEARCH_ES_JAVA_OPTS:?err}
     volumes:
       - elasticsearch_data:/usr/share/elasticsearch/data
 

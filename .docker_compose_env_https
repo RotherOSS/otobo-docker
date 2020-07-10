@@ -4,7 +4,7 @@ OTOBO_DB_ROOT_PASSWORD=otobo_root
 #OTOBO_NGINX_SSL_CERTIFICATE_KEY=/etc/nginx/ssl/<your company>.key
 
 # Elasticsearch options
-OTOBO_Elasticsearch_ES_JAVA_OPTS=-Xms512m -Xmx512m
+OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
 COMPOSE_PROJECT_NAME=otobo
 COMPOSE_PATH_SEPARATOR=:
