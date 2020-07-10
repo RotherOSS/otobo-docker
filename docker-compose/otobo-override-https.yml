@@ -8,14 +8,14 @@ version: '3.3'
 
 services:
 
-  # There is no HTTP port is specified, as OTOBO should only be reachable via HTTPS,.
-  # Note that the nginx service does provide service to port 80, but only to redirect to HTTPS
+  # There is no HTTP port is specified, as the otobo webserver should only be reachable via HTTPS.
+  # Note that the nginx service does provide service to port 80, but only to redirect to HTTPS.
   #web:
   #  ports:
   #    - "${OTOBO_WEB_HTTP_PORT:-80}:5000"
 
   nginx:
-    image: rotheross/otobo-nginx-webproxy:latest
+    image: ${OTOBO_IMAGE_OTOBO_NGINX:-rotheross:otobo-nginx-webproxy}:latest
     depends_on:
       - web
     volumes:
