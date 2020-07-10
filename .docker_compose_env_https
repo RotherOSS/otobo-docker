@@ -2,6 +2,10 @@ OTOBO_DB_ROOT_PASSWORD=otobo_root
 #OTOBO_WEB_ROOT_HTTPS_PORT=<your special port>
 #OTOBO_NGINX_SSL_CERTIFICATE=/etc/nginx/ssl/<your company>.crt
 #OTOBO_NGINX_SSL_CERTIFICATE_KEY=/etc/nginx/ssl/<your company>.key
+
+# Elasticsearch options
+OTOBO_Elasticsearch_ES_JAVA_OPTS=-Xms512m -Xmx512m
+
 COMPOSE_PROJECT_NAME=otobo
 COMPOSE_PATH_SEPARATOR=:
 COMPOSE_FILE=docker-compose/otobo-base.yml:docker-compose/otobo-override-https.yml

@@ -58,13 +58,13 @@ services:
       - opt_otobo:/opt/otobo
     command: cron
 
-  # a container running ElasticSearch
+  # a container running Elasticsearch
   elastic:
-    image: elasticsearch:7.8.0
+          image: rotheross/otobo-elasticsearch:latest
     restart: always
     environment:
       discovery.type: single-node
-      ES_JAVA_OPTS: -Xms512m -Xmx512m
+      ES_JAVA_OPTS: ${OTOBO_Elasticsearch_ES_JAVA_OPTS:?err}
     volumes:
       - elasticsearch_data:/usr/share/elasticsearch/data
 

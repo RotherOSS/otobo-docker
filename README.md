@@ -101,6 +101,14 @@ Set in case the HTTP port should deviate from the standard port 80.
 
 Set in case the HTTPS port should deviate from the standard port 443.
 
+# Elasticsearch options
+
+### OTOBO_Elasticsearch_ES_JAVA_OPTS
+Example setting:
+OTOBO_Elasticsearch_ES_JAVA_OPTS=-Xms512m -Xmx512m
+Please adjust this value for production env to a value up to 4g. 
+
+
 ### COMPOSE_PROJECT_NAME
 
 The project name is used as a prefix for the generated volumes and containers.
