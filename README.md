@@ -84,6 +84,8 @@ Run HTTP on port 80 or on the port specified in $OTOBO_WEB_HTTP_PORT.
 
 Run HTTPS on port 443 or on the port specified in $OTOBO_WEB_HTTPS_PORT.
 
+Manually adapt the .env file.
+
 ### OTOBO_DB_ROOT_PASSWORD
 
 The root password for MySQL. Must be set for running otobo db.
@@ -91,18 +93,19 @@ The root password for MySQL. Must be set for running otobo db.
 ### OTOBO_WEB_ROOT_HTTP_PORT
 
 Set in case the HTTP port should deviate from the standard port 80.
+This is only relevant for the case when OTOBO is actually served via HTTP.
+The automatic redirect from HTTP to HTTPS is set up explicitly only for port 80.
 
 ### OTOBO_WEB_ROOT_HTTPS_PORT
 
 Set in case the HTTPS port should deviate from the standard port 443.
 
-# Elasticsearch options
-
 ### OTOBO_ELASTICSEARCH_ES_JAVA_OPTS
-Example setting:
-OTOBO_Elasticsearch_ES_JAVA_OPTS=-Xms512m -Xmx512m
-Please adjust this value for production env to a value up to 4g. 
 
+This is an option for the Elasticsearch container.
+Example setting:
+    # Please adjust this value for production env to a value up to 4g.
+    OTOBO_Elasticsearch_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
 ### COMPOSE_PROJECT_NAME
 
