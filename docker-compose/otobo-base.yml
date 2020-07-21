@@ -54,6 +54,7 @@ services:
     image: ${OTOBO_IMAGE_OTOBO:-rotheross/otobo}:latest
     depends_on:
       - web
+    restart: always
     volumes:
       - opt_otobo:/opt/otobo
     command: cron
