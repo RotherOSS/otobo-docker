@@ -57,6 +57,7 @@ The file .env is also relevant. This is the file that needs to be created by the
 
 * `otobo.web.dockerfile`
 * `otobo.nginx.dockerfile`
+* `otobo.elasticsearch.dockerfile`
 * the scripts in `bin/docker`
 
 ## Requirements
