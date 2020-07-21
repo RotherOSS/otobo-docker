@@ -18,6 +18,7 @@ services:
     image: ${OTOBO_IMAGE_OTOBO_NGINX:-rotheross/otobo-nginx-webproxy}:latest
     depends_on:
       - web
+    restart: always
     volumes:
       - otobo_nginx_ssl:/etc/nginx/ssl
     # The HTTP port is exposed, but only redirects to HTTPS
