@@ -9,7 +9,7 @@ The setup is controlled via the file .env.
 
 ### Container otobo_web_1
 
-OTOBO webserver on port 5000.
+OTOBO webserver on internal port 5000.
 
 ### Container otobo_cron_1
 
@@ -47,7 +47,6 @@ The relevant files for running OTOBO with Docker are:
 
 * `.docker_compose_env_http`
 * `.docker_compose_env_https`
-* `.docker_compose_env_http_port_5000`
 * `docker-compose/otobo-base.yml`
 * `docker-compose/otobo-override-http.yml`
 * `docker-compose/otobp-override-https.yml`
@@ -73,9 +72,9 @@ Choose one of
 
 * .docker_compose_env_http
 * .docker_compose_env_https
-* .docker_compose_env_http_port_5000
 
 and merge it with an maybe already existing file .env.
+When there is no previous .env file then simply copy the sample env file.
 
 ### .docker_compose_env_http
 
@@ -84,10 +83,6 @@ Run HTTP on port 80 or on the port specified in $OTOBO_WEB_HTTP_PORT.
 ### .docker_compose_env_https
 
 Run HTTPS on port 443 or on the port specified in $OTOBO_WEB_HTTPS_PORT.
-
-### .docker_compose_env_http_port_5000
-
-Same as .docker_compose_env_http but $OTOBO_WEB_HTTP_PORT is already set to 5000
 
 ### OTOBO_DB_ROOT_PASSWORD
 
@@ -198,8 +193,8 @@ Note that all previous data will be lost.
 * `sudo service docker restart`    # workaround when sometimes the cached images are not available
 * `docker-compose down -v`         # volumes are also removed
 * `docker-compose up --build`      # rebuild when the Dockerfile or the code has changed
-* Check sanity at [hello](http://localhost:5000/hello)
-* Run the installer at [installer.pl](http://localhost:5000/otobo/installer.pl)
+* Check sanity at [hello](http://localhost/hello)
+* Run the installer at [installer.pl](http://localhost/otobo/installer.pl)
     * Keep the default 'db' for the database host
     * Keep logging to the file /opt/otobo/var/log/otobo.log
 
@@ -226,7 +221,7 @@ See above.
 
 This is only an example. In the general case where there is an already existing reverse proxy.
 
-Start the HTTP webserver on port 5000. Make sure that port 5000 is set in .env.
+Start the HTTP webserver on port 5000. This is done by setting OTOBO_WEB_HTTP_PORT to 5000 in the file .env.
 `docker-compose up`
 
 Nginx running in a separate container should forward to port 80 of the host.
