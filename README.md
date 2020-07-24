@@ -249,15 +249,18 @@ In some cases the default OTOBO_NGINX_WEB_HOST, as defined in scripts/docker/ngi
 
 * start over:             `docker system prune -a`
 * show version:           `docker version`
-* build an image:         `docker build --tag otobo-web --file=otobo.web.Dockerfile .`
-* run the new image:      `docker run --publish 80:5000 otobo-web`
-* log into the new image: `docker run  -v opt_otobo:/opt/otobo -it otobo-web bash`
+* build an image:         `docker build --tag otobo --file=otobo.web.Dockerfile .`
+* run the new image:      `docker run --publish 80:5000 otobo`
+* log into the new image: `docker run -it -v opt_otobo:/opt/otobo otobo bash`
+* with broke entrypoint:  `docker run -it -v opt_otobo:/opt/otobo --entrypoint bash otobo`
 * show running images:    `docker ps`
 * show available images:  `docker images`
 * list volumes :          `docker volume ls`
 * inspect a volumne:      `docker volume inspect otobo_opt_otobo`
 * get volumne mountpoint: `docker volume inspect --format '{{ .Mountpoint }}' otobo_nginx_ssl`
 * inspect a container:    `docker inspect <container>`
+* list files in an image: `docker save --output otobo.tar otobo:latest && tar -tvf otobo.tar`
+
 
 ## Useful Docker compose commands
 
