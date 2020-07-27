@@ -219,10 +219,10 @@ Then proceed as described above.
 
 ### Force a patchlevel upgrade
 
-* `docker-compose down`                                                stop and remove the containers, named volumes are kept
-* `docker run --rm otobo upgrade_patchlevel_release__with_reinstall`   force upgrade
-* `docker run --rm otobo upgrade_patchlevel_release`                   force upgrade, skip package reinstall
-* `docker-compose up`                                                  start again with the new images
+* `docker-compose down` stop and remove the containers, named volumes are kept
+* `docker run -it --rm --volume otobo_opt_otobo:/opt/otobo otobo upgrade_patchlevel_release_with_reinstall` force upgrade
+* `docker run -it --rm --volume otobo_opt_otobo:/opt/otobo otobo upgrade_patchlevel_release` force upgrade, skip reinstall
+* `docker-compose up` start again with the new images
 
 ### An example workflow for restarting with a new installation
 
