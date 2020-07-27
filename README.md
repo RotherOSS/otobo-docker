@@ -159,8 +159,6 @@ For this make sure that files are declared in your .env file. E.g.
 
 The docker images are pulled from https://hub.docker.com unless they are already available locally.
 
-TODO: actually provide the images on https://hub.docker.com.
-
 * If HTTP should not run on port 80 then also set OTOBO_WEB_HTTP_PORT in the .env file.
 * If HTTPS should not run on port 443 then also set OTOBO_WEB_HTTPS_PORT in the .env file.
 * run `docker-compose up`
@@ -178,6 +176,13 @@ Install OTOBO by opening http://localhost/otobo/installer.pl.
 ## Stopping the running containers
 
 * `docker-compose down`
+
+## Upgrading to a new patchlevel release
+
+* Make sure that the images have the tag `latest` or the wanted version
+* `docker-compose pull`   fetch the new images
+* `docker-compose down`   stop and remove the containers, names volumes are kept
+* `docker-compose up`     start again with the new images
 
 ## Useful commands
 
