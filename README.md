@@ -181,7 +181,7 @@ Install OTOBO by opening http://localhost/otobo/installer.pl.
 
 * Make sure that the images have the tag `latest` or the wanted version
 * `docker-compose pull`   fetch the new images
-* `docker-compose down`   stop and remove the containers, names volumes are kept
+* `docker-compose down`   stop and remove the containers, named volumes are kept
 * `docker-compose up`     start again with the new images
 
 ## Useful commands
@@ -216,6 +216,13 @@ This step not needed when the images from http://hub.docker.com are used.
 Change into a checked out otobo git repository. E.g. https://github.com/RotherOSS/otobo or a clone of the repository.
 Call  bin/docker/build_docker_images.sh`. Go back to the otobo-docker dir and set up the local images in .env.
 Then proceed as described above.
+
+### Force a patchlevel upgrade
+
+* `docker-compose down`                                                stop and remove the containers, named volumes are kept
+* `docker run --rm otobo upgrade_patchlevel_release__with_reinstall`   force upgrade
+* `docker run --rm otobo upgrade_patchlevel_release`                   force upgrade, skip package reinstall
+* `docker-compose up`                                                  start again with the new images
 
 ### An example workflow for restarting with a new installation
 
