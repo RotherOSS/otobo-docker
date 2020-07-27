@@ -1,7 +1,7 @@
 # Some info regarding running OTOBO under Docker.
 
 For running OTOBO under HTTP altogether five containers are started.
-For HTTPS an additional container running nginx is started.
+For HTTPS another container for nginx as a webproxy is started.
 These containers are managed via Docker compose.
 The setup is controlled via the file .env.
 
@@ -17,11 +17,11 @@ Cron and the OTOBO Daemon.
 
 ### Container otobo_db_1
 
-Run the relational database MariaDB on port 3306.
+Run the relational database MariaDB on internal port 3306.
 
 ### Container otobo_elastic_1
 
-Run Elastic Search on the ports 9200 and 9300.
+Run Elastic Search on the internal ports 9200 and 9300.
 
 ### Container otobo_redis_1
 
@@ -155,17 +155,6 @@ For this make sure that files are declared in your .env file. E.g.
 `OTOBO_NGINX_SSL_CERTIFICATE=/etc/nginx/ssl/otobo_nginx-selfsigned.crt`
 `OTOBO_NGINX_SSL_CERTIFICATE_KEY=/etc/nginx/ssl/otobo_nginx-selfsigned.key`
 
-## Building the docker image for otobo web and otobo nginx
-
-This step not needed when the images from http://hub.docker.com are used.
-
-Only the image for otobo web and otobo nginx need to be built. The image otobe web is also used for otobo cron.
-For the other service the images are pulled http://hub.docker.com.
-
-* cd into the toplevel OTOBO source dir, which contains the subdir scripts.
-* Double check your .env file.
-* run `docker-compose build`
-
 ## Starting the containers
 
 The docker images are pulled from https://hub.docker.com unless they are already available locally.
@@ -190,38 +179,71 @@ Install OTOBO by opening http://localhost/otobo/installer.pl.
 
 * `docker-compose down`
 
-## An example workflow for restarting with a new installation
+## Useful commands
+
+### docker
+
+* start over:             `docker system prune -a`
+* show version:           `docker version`
+* build an image:         `docker build --tag otobo --file=otobo.web.Dockerfile .`
+* run the new image:      `docker run --publish 80:5000 otobo`
+* log into the new image: `docker run -it -v opt_otobo:/opt/otobo otobo bash`
+* with broke entrypoint:  `docker run -it -v opt_otobo:/opt/otobo --entrypoint bash otobo`
+* show running images:    `docker ps`
+* show available images:  `docker images`
+* list volumes :          `docker volume ls`
+* inspect a volumne:      `docker volume inspect otobo_opt_otobo`
+* get volumne mountpoint: `docker volume inspect --format '{{ .Mountpoint }}' otobo_nginx_ssl`
+* inspect a container:    `docker inspect <container>`
+* list files in an image: `docker save --output otobo.tar otobo:latest && tar -tvf otobo.tar`
+
+### docker-compose
+
+* check config:           `docker-compose config`
+* check containers:       `docker-compose ps`
+
+## Advanced topics
+
+### Building docker images locally.
+
+This step not needed when the images from http://hub.docker.com are used.
+
+Change into a checked out otobo git repository. E.g. https://github.com/RotherOSS/otobo or a clone of the repository.
+Call  bin/docker/build_docker_images.sh`. Go back to the otobo-docker dir and set up the local images in .env.
+Then proceed as described above.
+
+### An example workflow for restarting with a new installation
 
 Note that all previous data will be lost.
 
 * `sudo service docker restart`    # workaround when sometimes the cached images are not available
 * `docker-compose down -v`         # volumes are also removed
-* `docker-compose up --build`      # rebuild when the Dockerfile or the code has changed
+* Rebuild local images, see above
 * Check sanity at [hello](http://localhost/hello)
 * Run the installer at [installer.pl](http://localhost/otobo/installer.pl)
     * Keep the default 'db' for the database host
     * Keep logging to the file /opt/otobo/var/log/otobo.log
 
-## Running with a seperate nginx as a reverse proxy for supporting HTTPS
+### Running with a seperate nginx as a reverse proxy for supporting HTTPS
 
 This is basically an example for running OTOBO behind an external reverse proxy.
 
-### Build the nginx image
+#### Build the nginx image
 
 The image contains nginx and openssl along with an adapted config. But there is no sensible editor.
 The config for nginx is located in /etc/nginx.
 
 `docker build --tag otobo_nginx --file otobo.nginx.dockerfile .`
 
-### Create a self-signed TLS certificate and private key
+#### Create a self-signed TLS certificate and private key
 
 See above.
 
-### Store the certificate in a volume
+#### Store the certificate in a volume
 
 See above.
 
-### Run the container separate from otobo web
+#### Run the container separate from otobo web
 
 This is only an example. In the general case where there is an already existing reverse proxy.
 
@@ -244,28 +266,6 @@ Or `ip -4 addr show docker0 | grep -Po 'inet \K[\d.]+'`
 In some cases the default OTOBO_NGINX_WEB_HOST, as defined in scripts/docker/nginx.Docker, suffices:
 
 `docker run --volume=otobo_nginx_ssl:/etc/nginx/ssl --publish 443:443 --publish 80:80 --name otobo_nginx_1 otobo_nginx`
-
-## Useful Docker commands
-
-* start over:             `docker system prune -a`
-* show version:           `docker version`
-* build an image:         `docker build --tag otobo --file=otobo.web.Dockerfile .`
-* run the new image:      `docker run --publish 80:5000 otobo`
-* log into the new image: `docker run -it -v opt_otobo:/opt/otobo otobo bash`
-* with broke entrypoint:  `docker run -it -v opt_otobo:/opt/otobo --entrypoint bash otobo`
-* show running images:    `docker ps`
-* show available images:  `docker images`
-* list volumes :          `docker volume ls`
-* inspect a volumne:      `docker volume inspect otobo_opt_otobo`
-* get volumne mountpoint: `docker volume inspect --format '{{ .Mountpoint }}' otobo_nginx_ssl`
-* inspect a container:    `docker inspect <container>`
-* list files in an image: `docker save --output otobo.tar otobo:latest && tar -tvf otobo.tar`
-
-
-## Useful Docker compose commands
-
-* check config:           `docker-compose config`
-* check containers:       `docker-compose ps`
 
 ## Resources
 
