@@ -100,34 +100,38 @@ Configure the root database password by setting the config item **OTOBO_DB_ROOT_
 
 The are some optional settings that can be set in _.env_.
 
-### OTOBO_WEB_ROOT_HTTP_PORT
+* OTOBO_WEB_ROOT_HTTP_PORT
 
 Set in case the HTTP port should deviate from the standard port 80.
 This is only relevant for the case when OTOBO is actually served via HTTP.
 The automatic redirect from HTTP to HTTPS is explicitly set up only for port 80.
 
-### OTOBO_WEB_ROOT_HTTPS_PORT
+* OTOBO_WEB_ROOT_HTTPS_PORT
 
 Set in case the HTTPS port should deviate from the standard port 443.
 
-### OTOBO_ELASTICSEARCH_ES_JAVA_OPTS
+* OTOBO_ELASTICSEARCH_ES_JAVA_OPTS
 
 This is an option for the Elasticsearch container.
 Example setting:
     # Please adjust this value for production env to a value up to 4g.
     OTOBO_Elasticsearch_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
-### COMPOSE_PROJECT_NAME
+## Infrastructure
+
+These settings in _.env_ should usually not be changed.
+
+* COMPOSE_PROJECT_NAME
 
 The project name is used as a prefix for the generated volumes and containers.
 Must be set because the compose file is located in docker-compose and thus docker-compose
 would be used per default.
 
-### COMPOSE_PATH_SEPARATOR
+* COMPOSE_PATH_SEPARATOR
 
 Seperator for the value of **COMPOSE_FILE**. 
 
-### COMPOSE_FILE
+* COMPOSE_FILE
 
 Use docker-compose/otobo-base.yml as the base and add the wanted extension files.
 E.g docker-compose/otobo-override-http.yml or docker-compose/otobo-override-https.yml.
@@ -135,6 +139,7 @@ E.g docker-compose/otobo-override-http.yml or docker-compose/otobo-override-http
 ## Set up TLS
 
 This step is only needed for HTTPS support.
+
 For TLS the webproyx nginx needs a certificate and a private key.
 For testing and development a self-signed certificate can be used. In the general case
 registered certificates must be used.
