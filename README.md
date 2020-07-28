@@ -1,11 +1,14 @@
-# Some info regarding running OTOBO under Docker.
+This README contains detailed info about running OTOBO under Docker.
+For a regular installation see https://doc.otobo.org/manual/installation/stable/en/content/installation-docker.html .
 
-For running OTOBO under HTTP altogether five containers are started.
-For HTTPS another container for nginx as a webproxy is started.
+# Basic info regarding running OTOBO under Docker.
+
+For running OTOBO under HTTP altogether five docker containers are started.
+For HTTPS yet another container for nginx as a webproxy is started.
 These containers are managed via Docker compose.
-The setup is controlled via the file .env.
+The user can control the setup via the file _.env_.
 
-## Containers
+## Overview over the containers
 
 ### Container otobo_web_1
 
@@ -13,7 +16,7 @@ OTOBO webserver on internal port 5000.
 
 ### Container otobo_cron_1
 
-Cron and the OTOBO Daemon.
+The OTOBO daemon. A cronjob checks restarts the daemon in case of failures.
 
 ### Container otobo_db_1
 
@@ -21,7 +24,7 @@ Run the relational database MariaDB on internal port 3306.
 
 ### Container otobo_elastic_1
 
-Run Elastic Search on the internal ports 9200 and 9300.
+Run Elasticsearch on the internal ports 9200 and 9300.
 
 ### Container otobo_redis_1
 
@@ -33,7 +36,9 @@ Run nginx as a reverse proxy for providing HTTPS support.
 
 ## Volumes
 
-Some volumes are created on the host. These allow starting and stopping the services without loosing data.
+Volumes are created on the host in order to allow for persistent dats.
+These allow starting and stopping the services without loosing data. Keep in mind that
+containers are ephemeral and only the data in the volumes is for keeps.
 
 * **otobo_opt_otobo** containing `/opt/otobo` on the container `web` and `cron`.
 * **otobo_mariadb_data** containing `/var/lib/mysql` on the container `db`.
@@ -51,9 +56,9 @@ The relevant files for running OTOBO with Docker are:
 * `docker-compose/otobo-override-http.yml`
 * `docker-compose/otobp-override-https.yml`
 
-The file .env is also relevant. This is the file that needs to be created by the user.
+The file _.env_ is also relevant. This is the file that needs to be created by the user.
 
-### Source files in https://github.com/RotherOSS/otobo
+### Relevant files in https://github.com/RotherOSS/otobo
 
 * `otobo.web.dockerfile`
 * `otobo.nginx.dockerfile`
@@ -67,15 +72,19 @@ The minimal versions that have been tested are listed here. Older versions might
 * Docker 19.03.08
 * Docker compose 1.25.0
 
-## Setting up the the environment for Docker Compose
+# Step by step guide for running OTOBO under Docker
 
-Choose one of
+## Get the supporting files
 
-* .docker_compose_env_http
-* .docker_compose_env_https
+* Clone the repository https://github.com/RotherOSS/otobo-docker
 
-and merge it with an maybe already existing file .env.
-When there is no previous .env file then simply copy the sample env file.
+## Configure Docker Compose
+
+Decide whether OTOBO should run under HTTPS or HTTP.
+Back up the hidden file _.env_ when it already exists. Copy the appropriate sampe file to _.env_.
+In case _.env_ already existed check whether you want to tranfer setting from the backup to the new file.
+
+Currenty there are two choices.
 
 ### .docker_compose_env_http
 
@@ -85,17 +94,17 @@ Run HTTP on port 80 or on the port specified in $OTOBO_WEB_HTTP_PORT.
 
 Run HTTPS on port 443 or on the port specified in $OTOBO_WEB_HTTPS_PORT.
 
-Manually adapt the .env file.
+Configure the root database password by setting the config item **OTOBO_DB_ROOT_PASSWORD** in _.env_. This is a required setting.
 
-### OTOBO_DB_ROOT_PASSWORD
+## Optional configuration of Docker Compose
 
-The root password for MySQL. Must be set for running otobo db.
+The are some optional settings that can be set in _.env_.
 
 ### OTOBO_WEB_ROOT_HTTP_PORT
 
 Set in case the HTTP port should deviate from the standard port 80.
 This is only relevant for the case when OTOBO is actually served via HTTP.
-The automatic redirect from HTTP to HTTPS is set up explicitly only for port 80.
+The automatic redirect from HTTP to HTTPS is explicitly set up only for port 80.
 
 ### OTOBO_WEB_ROOT_HTTPS_PORT
 
@@ -116,7 +125,7 @@ would be used per default.
 
 ### COMPOSE_PATH_SEPARATOR
 
-Seperator for the value of COMPOSE_FILE
+Seperator for the value of **COMPOSE_FILE**. 
 
 ### COMPOSE_FILE
 
@@ -126,41 +135,42 @@ E.g docker-compose/otobo-override-http.yml or docker-compose/otobo-override-http
 ## Set up TLS
 
 This step is only needed for HTTPS support.
-
-### Create a self-signed TLS certificate and private key
-
-Nginx need for TLS a certificate and a private key.
+For TLS the webproyx nginx needs a certificate and a private key.
 For testing and development a self-signed certificate can be used. In the general case
 registered certificates must be used.
 
+### Create a self-signed TLS certificate and private key
+
 `sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout otobo_nginx-selfsigned.key -out otobo_nginx-selfsigned.crt`
 
-### Store the certificate in a volume
+### Store the certificate and the private key in a volume
 
 The certificate and the private key are stored in a volume, so that they can be used by nginx later on.
 
-In any case the volume needs to be generated manually:
+In any case the volume needs to be generated manually when it doesn't already exist.
 
-`docker volume create otobo_nginx_ssl`
+* `docker volumne inspect otobo_nginx_ssl`
+* `docker volume create otobo_nginx_ssl`
 
 For the sample self-generated certificate:
 
 `sudo cp otobo_nginx-selfsigned.key otobo_nginx-selfsigned.crt $(docker volume inspect --format '{{ .Mountpoint }}' otobo_nginx_ssl)`
 
-The filenames otobo_nginx-selfsigned.key and otobo_nginx-selfsigned.crt happen to be the default configuration in the otobo nginx image.
+The filenames _otobo_nginx-selfsigned.key_ and _otobo_nginx-selfsigned.crt_ happen to be the default configuration in the otobo nginx image.
 
 In the general case the companys certificate and private key can be copied into the volume.
-The names of the copied files can be set via environment options when starting the container.
+The names of the copied files must the be set via environment options when starting the container.
 For this make sure that files are declared in your .env file. E.g.
-`OTOBO_NGINX_SSL_CERTIFICATE=/etc/nginx/ssl/otobo_nginx-selfsigned.crt`
-`OTOBO_NGINX_SSL_CERTIFICATE_KEY=/etc/nginx/ssl/otobo_nginx-selfsigned.key`
+
+* `OTOBO_NGINX_SSL_CERTIFICATE=/etc/nginx/ssl/otobo_nginx-selfsigned.crt`
+* `OTOBO_NGINX_SSL_CERTIFICATE_KEY=/etc/nginx/ssl/otobo_nginx-selfsigned.key`
 
 ## Starting the containers
 
 The docker images are pulled from https://hub.docker.com unless they are already available locally.
 
-* If HTTP should not run on port 80 then also set OTOBO_WEB_HTTP_PORT in the .env file.
-* If HTTPS should not run on port 443 then also set OTOBO_WEB_HTTPS_PORT in the .env file.
+* If HTTP should not run on port 80 then also set **OTOBO_WEB_HTTP_PORT** in the _.env _ file.
+* If HTTPS should not run on port 443 then also set **OTOBO_WEB_HTTPS_PORT** in the _.env_ file.
 * run `docker-compose up`
 * open http://localhost/hello as a sanity check
 
