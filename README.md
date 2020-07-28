@@ -76,7 +76,7 @@ The minimal versions that have been tested are listed here. Older versions might
 
 ## Get the supporting files
 
-* Clone the repository https://github.com/RotherOSS/otobo-docker
+Clone the repository https://github.com/RotherOSS/otobo-docker
 
 ## Configure Docker Compose
 
