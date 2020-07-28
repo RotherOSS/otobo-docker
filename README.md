@@ -86,11 +86,11 @@ In case _.env_ already existed check whether you want to tranfer setting from th
 
 Currenty there are two choices.
 
-### .docker_compose_env_http
+* .docker_compose_env_http
 
 Run HTTP on port 80 or on the port specified in $OTOBO_WEB_HTTP_PORT.
 
-### .docker_compose_env_https
+* .docker_compose_env_https
 
 Run HTTPS on port 443 or on the port specified in $OTOBO_WEB_HTTPS_PORT.
 
