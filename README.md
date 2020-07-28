@@ -10,27 +10,27 @@ The user can control the setup via the file _.env_.
 
 ## Overview over the containers
 
-### Container otobo_web_1
+* Container otobo_web_1
 
 OTOBO webserver on internal port 5000.
 
-### Container otobo_cron_1
+* Container otobo_cron_1
 
 The OTOBO daemon. A cronjob checks restarts the daemon in case of failures.
 
-### Container otobo_db_1
+* Container otobo_db_1
 
 Run the relational database MariaDB on internal port 3306.
 
-### Container otobo_elastic_1
+* Container otobo_elastic_1
 
-Run Elasticsearch on the internal ports 9200 and 9300.
+Elasticsearch on the internal ports 9200 and 9300.
 
-### Container otobo_redis_1
+* Container otobo_redis_1
 
 Run Redis as the caching service.
 
-### Container otobo_nginx_1
+* Optional container otobo_nginx_1
 
 Run nginx as a reverse proxy for providing HTTPS support.
 
