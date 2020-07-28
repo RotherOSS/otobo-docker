@@ -5,10 +5,10 @@ For a regular installation see https://doc.otobo.org/manual/installation/stable/
 
 For running OTOBO under HTTP altogether five docker containers are started.
 For HTTPS yet another container for nginx as a webproxy is started.
-These containers are managed via Docker compose.
-The user can control the setup via the file _.env_.
+These containers are managed via Docker Compose.
+The user can control the workings of Docker Compose via the file _.env_.
 
-## Overview over the containers
+## Overview over the Docker containers
 
 * Container otobo_web_1
 
@@ -34,7 +34,7 @@ Run Redis as the caching service.
 
 Run nginx as a reverse proxy for providing HTTPS support.
 
-## Volumes
+## Overview ober the Docker volumes
 
 Volumes are created on the host in order to allow for persistent dats.
 These allow starting and stopping the services without loosing data. Keep in mind that
@@ -56,7 +56,7 @@ The relevant files for running OTOBO with Docker are:
 * `docker-compose/otobo-override-http.yml`
 * `docker-compose/otobp-override-https.yml`
 
-The file _.env_ is also relevant. This is the file that needs to be created by the user.
+The file _.env_ is also relevant. This is the docker control file that needs to be created by the user.
 
 ### Relevant files in https://github.com/RotherOSS/otobo
 
@@ -116,6 +116,20 @@ This is an option for the Elasticsearch container.
 Example setting:
     # Please adjust this value for production env to a value up to 4g.
     OTOBO_Elasticsearch_ES_JAVA_OPTS=-Xms512m -Xmx512m
+
+* OTOBO_IMAGE_OTOBO
+
+Override the image used for running the Docker containers **otobo_web_1** and **otobo_cron_1**.
+This is useful for running locally built images. Or for running images with additional features like
+access to other database systems.
+
+* OTOBO_IMAGE_OTOBO_ELASTICSEARCH
+
+For overriding the image used for the docker container **otobo_elastic_1**.
+
+* OTOBO_IMAGE_OTOBO_NGINX
+
+For overriding the image used for the container **otobo_nginx_1**.
 
 ## Infrastructure
 
