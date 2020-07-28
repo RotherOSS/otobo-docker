@@ -229,11 +229,12 @@ Install OTOBO by opening http://localhost/otobo/installer.pl.
 This step not needed when the images from http://hub.docker.com are used.
 
 Change into a checked out otobo git repository. E.g. https://github.com/RotherOSS/otobo or a clone of the repository.
-Call  bin/docker/build_docker_images.sh`. Go back to the otobo-docker dir and set up the local images in .env.
+Call  `bin/docker/build_docker_images.sh`. Go back to the otobo-docker dir and set up the local images in _.env_.
 Then proceed as described above.
 
 ### Force a patchlevel upgrade
 
+Devel image are not upgraded automatically. But the upgrade can be forced.
 * `docker-compose down` stop and remove the containers, named volumes are kept
 * `docker run -it --rm --volume otobo_opt_otobo:/opt/otobo otobo upgrade_patchlevel_release_with_reinstall` force upgrade
 * `docker run -it --rm --volume otobo_opt_otobo:/opt/otobo otobo upgrade_patchlevel_release` force upgrade, skip reinstall
@@ -254,13 +255,6 @@ Note that all previous data will be lost.
 ### Running with a seperate nginx as a reverse proxy for supporting HTTPS
 
 This is basically an example for running OTOBO behind an external reverse proxy.
-
-#### Build the nginx image
-
-The image contains nginx and openssl along with an adapted config. But there is no sensible editor.
-The config for nginx is located in /etc/nginx.
-
-`docker build --tag otobo_nginx --file otobo.nginx.dockerfile .`
 
 #### Create a self-signed TLS certificate and private key
 
