@@ -64,6 +64,7 @@ The file _.env_ is also relevant. This is the docker control file that needs to 
 * `otobo.nginx.dockerfile`
 * `otobo.elasticsearch.dockerfile`
 * the scripts in `bin/docker`
+* the hook scripts in `hooks` (starting in OTOBO 10.1.1)
 
 ## Requirements
 
