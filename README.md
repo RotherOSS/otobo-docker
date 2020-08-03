@@ -315,3 +315,4 @@ In some cases the default OTOBO_NGINX_WEB_HOST, as defined in scripts/docker/ngi
 * [Docker Host IP](https://nickjanetakis.com/blog/docker-tip-65-get-your-docker-hosts-ip-address-from-in-a-container)
 * [Environment](https://vsupalov.com/docker-arg-env-variable-guide/)
 * [Self signed certificate](https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-in-ubuntu-18-04)
+* [Inspect failed builds](https://pythonspeed.com/articles/debugging-docker-build/)
