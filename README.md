@@ -34,7 +34,7 @@ Run Redis as the caching service.
 
 Run nginx as a reverse proxy for providing HTTPS support.
 
-## Overview ober the Docker volumes
+## Overview over the Docker volumes
 
 Volumes are created on the host in order to allow for persistent dats.
 These allow starting and stopping the services without loosing data. Keep in mind that
@@ -85,7 +85,7 @@ Decide whether OTOBO should run under HTTPS or HTTP.
 Back up the hidden file _.env_ when it already exists. Copy the appropriate sampe file to _.env_.
 In case _.env_ already existed check whether you want to tranfer setting from the backup to the new file.
 
-Currenty there are two choices.
+Currently there are two choices.
 
 * .docker_compose_env_http
 
@@ -169,7 +169,7 @@ The certificate and the private key are stored in a volume, so that they can be 
 
 In any case the volume needs to be generated manually when it doesn't already exist.
 
-* `docker volumne inspect otobo_nginx_ssl`
+* `docker volume inspect otobo_nginx_ssl`
 * `docker volume create otobo_nginx_ssl`
 
 For the sample self-generated certificate:
