@@ -104,8 +104,8 @@ The are some optional settings that can be set in _.env_.
 * OTOBO_WEB_HTTP_PORT
 
 Set in case the HTTP port should deviate from the standard port 80.
-This is only relevant for the case when OTOBO is actually served via HTTP.
-The automatic redirect from HTTP to HTTPS is explicitly set up only for port 80.
+The changed port also applies to the automatic redirect from HTTP to HTTPS when
+HTTPS support is enabled.
 
 * OTOBO_WEB_HTTPS_PORT
 
