@@ -249,22 +249,12 @@ Then proceed as described above.
 
 ### Force a patchlevel upgrade
 
-Devel image are not upgraded automatically. But the upgrade can be forced. The caveat is that for reinstalling packages a running
-database is required.
-
-When packages do not have to be reinstalled.
+Devel image are not upgraded automatically. But the upgrade can be forced.
+Note that this does not reinstall or upgrade the installed packages.
 
 * `docker-compose down` stop and remove the containers, named volumes are kept
 * `docker run -it --rm --volume otobo_opt_otobo:/opt/otobo otobo upgrade` force upgrade, skip reinstall
 * `docker-compose up` start again with the new images
-
-When the OTOBO packages must be reinstalled.
-
-* `docker-compose down` stop and remove the containers, named volumes are kept
-* `docker-compose up` run with the new containers, but opt_otobo was not upgraded
-* `docker stop otobo_web_1`
-* `docker run -it --rm --volume otobo_opt_otobo:/opt/otobo --network otobo_default otobo:local upgrade_reinstall` force upgrade
-* `docker start otobo_web_1`
 
 ### An example workflow for restarting with a new installation
 
