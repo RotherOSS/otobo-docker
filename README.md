@@ -14,9 +14,9 @@ The user can control the workings of Docker Compose via the file _.env_.
 
 OTOBO webserver on internal port 5000.
 
-* Container otobo_cron_1
+* Container otobo_daemon_1
 
-The OTOBO daemon. A cronjob checks restarts the daemon in case of failures.
+The OTOBO daemon. There is a check that restarts the daemon when it has failed.
 
 * Container otobo_db_1
 
@@ -40,7 +40,7 @@ Volumes are created on the host in order to allow for persistent dats.
 These allow starting and stopping the services without loosing data. Keep in mind that
 containers are ephemeral and only the data in the volumes is for keeps.
 
-* **otobo_opt_otobo** containing `/opt/otobo` on the container `web` and `cron`.
+* **otobo_opt_otobo** containing `/opt/otobo` on the container `web` and `daemon`.
 * **otobo_mariadb_data** containing `/var/lib/mysql` on the container `db`.
 * **otobo_elasticsearch_data** containing `/usr/share/elasticsearch/datal` on the container `elastic`.
 * **otobo_redis_data** containing data on the container `redis`.
@@ -120,7 +120,7 @@ Example setting:
 
 * OTOBO_IMAGE_OTOBO
 
-Override the image used for running the Docker containers **otobo_web_1** and **otobo_cron_1**.
+Override the image used for running the Docker containers **otobo_web_1** and **otobo_daemon_1**.
 This is useful for running locally built images. Or for running images with additional features like
 access to other database systems.
 
