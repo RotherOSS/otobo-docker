@@ -35,7 +35,7 @@ services:
 #    build:
 #      context: ../..
 #      dockerfile: otobo.web.dockerfile
-    # give a name to the built image so that the service 'cron' can reuse it
+    # give a name to the built image so that the service 'daemon' can reuse it
     image: ${OTOBO_IMAGE_OTOBO:-rotheross/otobo:latest}
     depends_on:
       - db
@@ -50,14 +50,14 @@ services:
       - opt_otobo:/opt/otobo
     command: web
 
-  cron:
+  daemon:
     image: ${OTOBO_IMAGE_OTOBO:-rotheross/otobo:latest}
     depends_on:
       - web
     restart: always
     volumes:
       - opt_otobo:/opt/otobo
-    command: cron
+    command: daemon
 
   # a container running Elasticsearch
   elastic:
