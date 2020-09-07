@@ -12,6 +12,7 @@ services:
   # the database
   db:
     image: mariadb:10.5.3-bionic
+    user: mysql:mysql
     restart: always
     volumes:
       - mariadb_data:/var/lib/mysql
@@ -72,6 +73,7 @@ services:
   # a container running Redis
   redis:
     image: redis:6.0.5-alpine
+    user: redis:redis
     restart: always
     volumes:
       - redis_data:/data
