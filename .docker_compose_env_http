@@ -1,4 +1,6 @@
 OTOBO_DB_ROOT_PASSWORD=otobo_root
+
+# set this var when the HTTP port is not 80
 #OTOBO_WEB_ROOT_HTTP_PORT=<your special port>
 
 # Elasticsearch options

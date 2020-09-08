@@ -1,5 +1,8 @@
 OTOBO_DB_ROOT_PASSWORD=otobo_root
-#OTOBO_WEB_ROOT_HTTPS_PORT=<your special port>
+
+# set this var when the HTTPS port is not 443
+#OTOBO_WEB_HTTPS_PORT=<your special port>
+
 #OTOBO_NGINX_SSL_CERTIFICATE=/etc/nginx/ssl/<your company>.crt
 #OTOBO_NGINX_SSL_CERTIFICATE_KEY=/etc/nginx/ssl/<your company>.key
 

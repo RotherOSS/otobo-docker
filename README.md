@@ -101,13 +101,13 @@ Configure the root database password by setting the config item **OTOBO_DB_ROOT_
 
 The are some optional settings that can be set in _.env_.
 
-* OTOBO_WEB_ROOT_HTTP_PORT
+* OTOBO_WEB_HTTP_PORT
 
 Set in case the HTTP port should deviate from the standard port 80.
-This is only relevant for the case when OTOBO is actually served via HTTP.
-The automatic redirect from HTTP to HTTPS is explicitly set up only for port 80.
+The changed port also applies to the automatic redirect from HTTP to HTTPS when
+HTTPS support is enabled.
 
-* OTOBO_WEB_ROOT_HTTPS_PORT
+* OTOBO_WEB_HTTPS_PORT
 
 Set in case the HTTPS port should deviate from the standard port 443.
 
@@ -249,22 +249,12 @@ Then proceed as described above.
 
 ### Force a patchlevel upgrade
 
-Devel image are not upgraded automatically. But the upgrade can be forced. The caveat is that for reinstalling packages a running
-database is required.
-
-When packages do not have to be reinstalled.
+Devel image are not upgraded automatically. But the upgrade can be forced.
+Note that this does not reinstall or upgrade the installed packages.
 
 * `docker-compose down` stop and remove the containers, named volumes are kept
 * `docker run -it --rm --volume otobo_opt_otobo:/opt/otobo otobo upgrade` force upgrade, skip reinstall
 * `docker-compose up` start again with the new images
-
-When the OTOBO packages must be reinstalled.
-
-* `docker-compose down` stop and remove the containers, named volumes are kept
-* `docker-compose up` run with the new containers, but opt_otobo was not upgraded
-* `docker stop otobo_web_1`
-* `docker run -it --rm --volume otobo_opt_otobo:/opt/otobo --network otobo_default otobo:local upgrade_reinstall` force upgrade
-* `docker start otobo_web_1`
 
 ### An example workflow for restarting with a new installation
 
