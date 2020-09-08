@@ -37,14 +37,14 @@ Run nginx as a reverse proxy for providing HTTPS support.
 ## Overview over the Docker volumes
 
 Volumes are created on the host in order to allow for persistent dats.
-These allow starting and stopping the services without loosing data. Keep in mind that
+These allow starting and stopping the services without losing data. Keep in mind that
 containers are ephemeral and only the data in the volumes is for keeps.
 
 * **otobo_opt_otobo** containing `/opt/otobo` on the container `web` and `cron`.
 * **otobo_mariadb_data** containing `/var/lib/mysql` on the container `db`.
 * **otobo_elasticsearch_data** containing `/usr/share/elasticsearch/datal` on the container `elastic`.
 * **otobo_redis_data** containing data on the container `redis`.
-* **otobo_nginx_ssl** contains the TLS files, certificate and private key, must be initialzed manually
+* **otobo_nginx_ssl** contains the TLS files, certificate and private key, must be initialized manually
 
 ## Source files
 
@@ -82,8 +82,8 @@ Clone the repository https://github.com/RotherOSS/otobo-docker
 ## Configure Docker Compose
 
 Decide whether OTOBO should run under HTTPS or HTTP.
-Back up the hidden file _.env_ when it already exists. Copy the appropriate sampe file to _.env_.
-In case _.env_ already existed check whether you want to tranfer setting from the backup to the new file.
+Back up the hidden file _.env_ when it already exists. Copy the appropriate sample file to _.env_.
+In case _.env_ already existed check whether you want to transfer setting from the backup to the new file.
 
 Currently there are two choices.
 
@@ -144,7 +144,7 @@ would be used per default.
 
 * COMPOSE_PATH_SEPARATOR
 
-Seperator for the value of **COMPOSE_FILE**. 
+Separator for the value of **COMPOSE_FILE**.
 
 * COMPOSE_FILE
 
@@ -155,7 +155,7 @@ E.g docker-compose/otobo-override-http.yml or docker-compose/otobo-override-http
 
 This step is only needed for HTTPS support.
 
-For TLS the webproyx nginx needs a certificate and a private key.
+For TLS the webproxy nginx needs a certificate and a private key.
 For testing and development a self-signed certificate can be used. In the general case
 registered certificates must be used.
 
@@ -178,7 +178,7 @@ For the sample self-generated certificate:
 
 The filenames _otobo_nginx-selfsigned.key_ and _otobo_nginx-selfsigned.crt_ happen to be the default configuration in the otobo nginx image.
 
-In the general case the companys certificate and private key can be copied into the volume.
+In the general case the company's certificate and private key can be copied into the volume.
 The names of the copied files must the be set via environment options when starting the container.
 For this make sure that files are declared in your .env file. E.g.
 
@@ -189,7 +189,7 @@ For this make sure that files are declared in your .env file. E.g.
 
 The docker images are pulled from https://hub.docker.com unless they are already available locally.
 
-* If HTTP should not run on port 80 then also set **OTOBO_WEB_HTTP_PORT** in the _.env _ file.
+* If HTTP should not run on port 80 then also set **OTOBO_WEB_HTTP_PORT** in the _.env_ file.
 * If HTTPS should not run on port 443 then also set **OTOBO_WEB_HTTPS_PORT** in the _.env_ file.
 * run `docker-compose up`
 * open http://localhost/hello as a sanity check
@@ -227,8 +227,8 @@ Install OTOBO by opening http://localhost/otobo/installer.pl.
 * show running images:    `docker ps`
 * show available images:  `docker images`
 * list volumes :          `docker volume ls`
-* inspect a volumne:      `docker volume inspect otobo_opt_otobo`
-* get volumne mountpoint: `docker volume inspect --format '{{ .Mountpoint }}' otobo_nginx_ssl`
+* inspect a volume:       `docker volume inspect otobo_opt_otobo`
+* get volume mountpoint:  `docker volume inspect --format '{{ .Mountpoint }}' otobo_nginx_ssl`
 * inspect a container:    `docker inspect <container>`
 * list files in an image: `docker save --output otobo.tar otobo:latest && tar -tvf otobo.tar`
 
@@ -268,7 +268,7 @@ Note that all previous data will be lost.
     * Keep the default 'db' for the database host
     * Keep logging to the file /opt/otobo/var/log/otobo.log
 
-### Running with a seperate nginx as a reverse proxy for supporting HTTPS
+### Running with a separate nginx as a reverse proxy for supporting HTTPS
 
 This is basically an example for running OTOBO behind an external reverse proxy.
 
