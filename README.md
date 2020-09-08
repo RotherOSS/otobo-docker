@@ -1,12 +1,12 @@
 This README contains detailed info about running OTOBO under Docker.
-For a regular installation see https://doc.otobo.org/manual/installation/stable/en/content/installation-docker.html .
+For a regular installation see OTOBO Installation Guide https://doc.otobo.org/manual/installation/stable/en/content/installation-docker.html .
 
 # Basic info regarding running OTOBO under Docker.
 
-For running OTOBO under HTTP altogether five docker containers are started.
-For HTTPS yet another container for nginx as a webproxy is started.
+For running OTOBO under HTTP five docker containers are started.
+For HTTPS another container for nginx as a webproxy is started.
 These containers are managed via Docker Compose.
-The user can control the workings of Docker Compose via the file _.env_.
+The user can control Docker Compose via the file _.env_.
 
 ## Overview over the Docker containers
 
@@ -16,11 +16,11 @@ OTOBO webserver on internal port 5000.
 
 * Container otobo_cron_1
 
-The OTOBO daemon. A cronjob checks restarts the daemon in case of failures.
+OTOBO daemon. A cronjob checks and restarts the daemon in case of failures.
 
 * Container otobo_db_1
 
-Run the relational database MariaDB on internal port 3306.
+Run the database MariaDB on internal port 3306.
 
 * Container otobo_elastic_1
 
@@ -28,17 +28,17 @@ Elasticsearch on the internal ports 9200 and 9300.
 
 * Container otobo_redis_1
 
-Run Redis as the caching service.
+Run Redis as caching service.
 
 * Optional container otobo_nginx_1
 
-Run nginx as a reverse proxy for providing HTTPS support.
+Run nginx as reverse proxy for providing HTTPS support.
 
 ## Overview over the Docker volumes
 
-Volumes are created on the host in order to allow for persistent dats.
+Volumes are created on the host for persistent data.
 These allow starting and stopping the services without losing data. Keep in mind that
-containers are ephemeral and only the data in the volumes is for keeps.
+containers are temporary and only data in the volumes is permanent.
 
 * **otobo_opt_otobo** containing `/opt/otobo` on the container `web` and `cron`.
 * **otobo_mariadb_data** containing `/var/lib/mysql` on the container `db`.
@@ -83,7 +83,7 @@ Clone the repository https://github.com/RotherOSS/otobo-docker
 
 Decide whether OTOBO should run under HTTPS or HTTP.
 Back up the hidden file _.env_ when it already exists. Copy the appropriate sample file to _.env_.
-In case _.env_ already existed check whether you want to transfer setting from the backup to the new file.
+In case _.env_ already existed check whether you want to transfer settings from the backup to the new file.
 
 Currently there are two choices.
 
@@ -99,17 +99,17 @@ Configure the root database password by setting the config item **OTOBO_DB_ROOT_
 
 ## Optional configuration of Docker Compose
 
-The are some optional settings that can be set in _.env_.
+There are some optional settings that can be set in _.env_.
 
 * OTOBO_WEB_HTTP_PORT
 
-Set in case the HTTP port should deviate from the standard port 80.
+Set in case the HTTP port should be different from the standard port 80.
 The changed port also applies to the automatic redirect from HTTP to HTTPS when
 HTTPS support is enabled.
 
 * OTOBO_WEB_HTTPS_PORT
 
-Set in case the HTTPS port should deviate from the standard port 443.
+Set in case the HTTPS port should be different from the standard port 443.
 
 * OTOBO_ELASTICSEARCH_ES_JAVA_OPTS
 
@@ -176,7 +176,7 @@ For the sample self-generated certificate:
 
 `sudo cp otobo_nginx-selfsigned.key otobo_nginx-selfsigned.crt $(docker volume inspect --format '{{ .Mountpoint }}' otobo_nginx_ssl)`
 
-The filenames _otobo_nginx-selfsigned.key_ and _otobo_nginx-selfsigned.crt_ happen to be the default configuration in the otobo nginx image.
+The filenames _otobo_nginx-selfsigned.key_ and _otobo_nginx-selfsigned.crt_ are the default configuration in the otobo nginx image.
 
 In the general case the company's certificate and private key can be copied into the volume.
 The names of the copied files must the be set via environment options when starting the container.
@@ -241,7 +241,7 @@ Install OTOBO by opening http://localhost/otobo/installer.pl.
 
 ### Building docker images locally.
 
-This step not needed when the images from http://hub.docker.com are used.
+This step is not needed when the images from http://hub.docker.com are used.
 
 Change into a checked out otobo git repository. E.g. https://github.com/RotherOSS/otobo or a clone of the repository.
 Call  `bin/docker/build_docker_images.sh`. Go back to the otobo-docker dir and set up the local images in _.env_.
@@ -249,7 +249,7 @@ Then proceed as described above.
 
 ### Force a patchlevel upgrade
 
-Devel image are not upgraded automatically. But the upgrade can be forced.
+Devel images are not upgraded automatically. But the upgrade can be forced.
 Note that this does not reinstall or upgrade the installed packages.
 
 * `docker-compose down` stop and remove the containers, named volumes are kept
@@ -289,7 +289,7 @@ Start the HTTP webserver on port 5000. This is done by setting OTOBO_WEB_HTTP_PO
 
 Nginx running in a separate container should forward to port 80 of the host.
 This should work because the otobo web container exposes port 80.
-However the container does know the IP of the docker host. Therefore the host must tell the container
+However the container does not know the IP of the docker host. Therefore the host must tell the container
 the relevant IP.
 
 See https://nickjanetakis.com/blog/docker-tip-65-get-your-docker-hosts-ip-address-from-in-a-container
