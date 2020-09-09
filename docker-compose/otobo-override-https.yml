@@ -16,6 +16,15 @@ services:
 
   nginx:
     image: ${OTOBO_IMAGE_OTOBO_NGINX:-rotheross/otobo-nginx-webproxy:latest}
+    # according to https://stackoverflow.com/questions/43467670/which-capabilities-can-i-drop-in-a-docker-nginx-container
+    cap_drop:
+        - ALL
+    cap_add:
+        - CAP_SYS_CHROOT
+        - CAP_CHOWN
+        - CAP_DAC_OVERRIDE
+        - CAP_SETGID
+        - CAP_SETUID
     depends_on:
       - web
     restart: always
