@@ -35,12 +35,9 @@ services:
       MYSQL_ROOT_PASSWORD: ${OTOBO_DB_ROOT_PASSWORD:?err}
     command: --max-allowed-packet=68157440 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --innodb-log-file-size=268435456
 
+  # a container running a webserver
   web:
-#    # use ./Dockerfile for building, image otobo_web
-#    build:
-#      context: ../..
-#      dockerfile: otobo.web.dockerfile
-    # give a name to the built image so that the service 'daemon' can reuse it
+    # The services 'web' and 'daemon' use the same image.
     image: ${OTOBO_IMAGE_OTOBO:-rotheross/otobo:latest}
     cap_drop:
         - ALL
@@ -58,7 +55,9 @@ services:
       - opt_otobo:/opt/otobo
     command: web
 
+  # a container running the OTOBO daemon
   daemon:
+    # The services 'web' and 'daemon' use the same image.
     image: ${OTOBO_IMAGE_OTOBO:-rotheross/otobo:latest}
     cap_drop:
         - ALL
