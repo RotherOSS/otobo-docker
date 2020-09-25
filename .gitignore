@@ -1,1 +1,8 @@
+# Files created by the user
 .env
+
+# Editor swap files
+*.swn
+*.swp
+*.swo
+*~

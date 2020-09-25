@@ -12,6 +12,11 @@ services:
   # the database
   db:
     image: mariadb:10.5.3-bionic
+    user: mysql:mysql
+    cap_drop:
+        - ALL
+    cap_add:
+        - CAP_SYS_CHROOT
     restart: always
     volumes:
       - mariadb_data:/var/lib/mysql
@@ -34,6 +39,9 @@ services:
   web:
     # The services 'web' and 'daemon' use the same image.
     image: ${OTOBO_IMAGE_OTOBO:-rotheross/otobo:latest}
+    cap_drop:
+        - ALL
+    #cap_add:
     depends_on:
       - db
       - elastic
@@ -51,17 +59,24 @@ services:
   daemon:
     # The services 'web' and 'daemon' use the same image.
     image: ${OTOBO_IMAGE_OTOBO:-rotheross/otobo:latest}
+    cap_drop:
+        - ALL
+    #cap_add:
     depends_on:
       - web
     restart: always
     volumes:
       - opt_otobo:/opt/otobo
-    # NOTE: the command will change in OTOBO 10.0.4
-    command: cron
+    command: daemon
 
   # a container running Elasticsearch
   elastic:
     image: ${OTOBO_IMAGE_OTOBO_ELASTICSEARCH:-rotheross/otobo-elasticsearch:latest}
+    cap_drop:
+        - ALL
+    cap_add:
+        - CAP_SYS_CHROOT
+        - CAP_SETUID
     restart: always
     environment:
       discovery.type: single-node
@@ -72,6 +87,10 @@ services:
   # a container running Redis
   redis:
     image: redis:6.0.5-alpine
+    user: redis:redis
+    cap_drop:
+        - ALL
+    #cap_add:
     restart: always
     volumes:
       - redis_data:/data
