@@ -1,6 +1,6 @@
-# Run the OTOBO web app via HTTPS on the port $OTOBO_WEB_HTTPS_PORT or port 80 443 default.
-# In addition to base.yml there is a nginx reverse proxy.
-# Note that only HTTPS and the port $OTOBO_WEB_HTTPS_PORT, or 443 per default, is exposed.
+# Run the OTOBO web app via HTTPS on the port $OTOBO_WEB_HTTPS_PORT or port 443 per default.
+# HTTP on port 80 redirects to HTTPS on port 443.
+# This is implemented by running nginx as a reverse proxy for a webserver running otobo.psgi.
 # See also README_DOCKER.md.
 
 # most current docker-compose file version, as of 2020-05-21
@@ -16,6 +16,15 @@ services:
 
   nginx:
     image: ${OTOBO_IMAGE_OTOBO_NGINX:-rotheross/otobo-nginx-webproxy:latest}
+    # according to https://stackoverflow.com/questions/43467670/which-capabilities-can-i-drop-in-a-docker-nginx-container
+    cap_drop:
+        - ALL
+    cap_add:
+        - CAP_SYS_CHROOT
+        - CAP_CHOWN
+        - CAP_DAC_OVERRIDE
+        - CAP_SETGID
+        - CAP_SETUID
     depends_on:
       - web
     restart: always
@@ -23,8 +32,8 @@ services:
       - otobo_nginx_ssl:/etc/nginx/ssl
     # The HTTP port is exposed, but only redirects to HTTPS
     ports:
-      - "${OTOBO_WEB_HTTPS_PORT:-443}:443"
-      - "${OTOBO_WEB_HTTP_PORT:-80}:80"
+      - "${OTOBO_WEB_HTTPS_PORT:-443}:8443"
+      - "${OTOBO_WEB_HTTP_PORT:-80}:8080"
     # inside the docker network the host and the port is fixed
     environment:
       OTOBO_NGINX_WEB_HOST: web
