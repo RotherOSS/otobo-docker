@@ -1,14 +1,50 @@
-OTOBO_DB_ROOT_PASSWORD=otobo_root
+# Settings needed by docker-compose itself
+# COMPOSE_FILE is used for switching between HTTP and HTPPS
+COMPOSE_PROJECT_NAME=otobo
+COMPOSE_PATH_SEPARATOR=:
+COMPOSE_FILE=docker-compose/otobo-base.yml:docker-compose/otobo-override-https.yml
 
-# set this var when the HTTPS port is not 443
+# Database configuration
+# OTOBO_DB_ROOT_PASSWORD must be set
+OTOBO_DB_ROOT_PASSWORD=
+
+# HTTP options
+# In the HTTPS case http:// redirect to https://
+# Set OTOBO_WEB_HTTP_PORT when the HTTP port is not 80
+#OTOBO_WEB_HTTP_PORT=<your special port>
+
+# HTTPS options
+# set OTOBO_WEB_HTTPS_PORT when the HTTPS port is not 443
 #OTOBO_WEB_HTTPS_PORT=<your special port>
-
-#OTOBO_NGINX_SSL_CERTIFICATE=/etc/nginx/ssl/<your company>.crt
-#OTOBO_NGINX_SSL_CERTIFICATE_KEY=/etc/nginx/ssl/<your company>.key
+# OTOBO_NGINX_SSL_CERTIFICATE and OTOBO_NGINX_SSL_CERTIFICATE_KEY are required
+OTOBO_NGINX_SSL_CERTIFICATE=
+OTOBO_NGINX_SSL_CERTIFICATE_KEY=
 
 # Elasticsearch options
 OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
-COMPOSE_PROJECT_NAME=otobo
-COMPOSE_PATH_SEPARATOR=:
-COMPOSE_FILE=docker-compose/otobo-base.yml:docker-compose/otobo-override-https.yml
+################################################################################
+# Advanced options
+# Docker image selection, mostly for devel and testing
+################################################################################
+
+# Docker image for otobo_web_1 and otobe_daemon_1, default is :latest
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-10_0_3
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-10_0
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-10_1
+#OTOBO_IMAGE_OTOBO=otobo:local-10.0.x
+#OTOBO_IMAGE_OTOBO=otobo:local-10.1.x
+
+# Docker image for otobo_elastic_1, default is :latest
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-10_0_3
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-10_0
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-10_1
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-10.0.x
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-10.1.x
+
+# Docker image for otobo_nginx_1, default is :latest
+#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:rel-10_0_3
+#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:devel-rel-10_0
+#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:devel-rel-10_1
+#OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-webproxy:local-10.0.x
+#OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-webproxy:local-10.1.x
