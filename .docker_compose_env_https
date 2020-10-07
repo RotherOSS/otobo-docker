@@ -16,7 +16,11 @@ OTOBO_DB_ROOT_PASSWORD=
 # HTTPS options
 # set OTOBO_WEB_HTTPS_PORT when the HTTPS port is not 443
 #OTOBO_WEB_HTTPS_PORT=<your special port>
-# OTOBO_NGINX_SSL_CERTIFICATE and OTOBO_NGINX_SSL_CERTIFICATE_KEY are required
+# The settings OTOBO_NGINX_SSL_CERTIFICATE and OTOBO_NGINX_SSL_CERTIFICATE_KEY
+# are mandatory when HTTPS is used.
+# The configured pathes must be absolute pathes that are available in the container.
+#OTOBO_NGINX_SSL_CERTIFICATE=/etc/nginx/ssl/ssl-cert.crt
+#OTOBO_NGINX_SSL_CERTIFICATE_KEY=/etc/nginx/ssl/ssl-key.key
 OTOBO_NGINX_SSL_CERTIFICATE=
 OTOBO_NGINX_SSL_CERTIFICATE_KEY=
 
@@ -48,3 +52,7 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 #OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:devel-rel-10_1
 #OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-webproxy:local-10.0.x
 #OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-webproxy:local-10.1.x
+
+# provide a custom Nginx config template dir
+#NGINX_ENVSUBST_TEMPLATE_DIR=/etc/nginx/config/template-custom
+#COMPOSE_FILE=docker-compose/otobo-base.yml:docker-compose/otobo-override-https.yml:docker-compose/otobo-nginx-custom-config.yml
