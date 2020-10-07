@@ -1,0 +1,12 @@
+# Provide a custom nginx config.
+
+version: '3.3'
+
+services:
+  nginx:
+    volumes:
+      - otobo_nginx_custom_config:/etc/nginx/config/template-custom
+
+volumes:
+  otobo_nginx_custom_config:
+    external: true
