@@ -58,7 +58,12 @@ Usage:
     $0
 
     # passing repository and tag
-    $0   --repository rotheross --tag 10.0.6
+    $0 --repository rotheross --tag 10.0.6
+
+    # specify 'local' for local images
+    $0 --repository local --tag local-10.0.x
+    $0 --repository local --tag local-10.1.x
+
 END_HELP
 
     exit $1
@@ -74,15 +79,22 @@ fi
 
 echo "going on"
 
+image="$REPOSITORY/otobo:$TAG"
+image_processed="${image/local\//}"
+
+echo "image: '$image'"
+echo "image_processed: '$image_processed'"
+
 exit 0
 
 # Pass the # stop and remove the containers, but keep the named volumes
 docker-compose down
 
+# TODO: update .env, e.g. with m4
+
 # copy the OTOBO software, while containers are still stopped
 # e.g. scripts/update.sh rotheross/otobo:rel-10_x_y
-# TODO: update .env
-docker run -it --rm --volume otobo_opt_otobo:/opt/otobo $1 copy_otobo_next
+docker run -it --rm --volume otobo_opt_otobo:/opt/otobo $image_processed copy_otobo_next
 
 # start containers again, using the new version
 docker-compose up --detach
