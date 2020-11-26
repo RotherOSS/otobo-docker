@@ -100,16 +100,21 @@ REPOSITORY="${REPOSITORY/\/\//\/}"
 echo "REPOSITORY: '$REPOSITORY'"
 echo "TAG: '$TAG'"
 
-exit 0
-
 # Pass the # stop and remove the containers, but keep the named volumes
 docker-compose down
 
-# TODO: update .env, e.g. with m4
+# update .env, e.g. with m4
+if [[ -e "env.m4" ]]; then
+
+    cp --backup=numbered .env .env.bak
+
+    m4 --define "_macro_REPOSITORY=$REPOSITORY"  --define "_macro_TAG=$TAG" env.m4 > .env
+
+fi
 
 # copy the OTOBO software, while containers are still stopped
 # e.g. scripts/update.sh rotheross/otobo:rel-10_x_y
-docker run -it --rm --volume otobo_opt_otobo:/opt/otobo ${REPOSITORY}otobo:$TAG$image_processed copy_otobo_next
+docker run -it --rm --volume "otobo_opt_otobo:/opt/otobo" "${REPOSITORY}otobo:$TAG" copy_otobo_next
 
 # start containers again, using the new version
 docker-compose up --detach
