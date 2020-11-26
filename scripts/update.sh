@@ -11,11 +11,13 @@ function args()
     # --repository and --tag have mandatory parameters, as indicated by ':'
     options=$(getopt -o h --long help --long repository: --long tag: -- "$@")
 
+    # print help message in case of invalid optiond
     [ $? -eq 0 ] || {
         print_help_and_exit 1
     }
 
-    # default values
+    # set default values
+    HELP_FLAG=0
     REPOSITORY="rotheross"
     TAG="latest"
 
@@ -25,21 +27,26 @@ function args()
         -h)
             HELP_FLAG=1
             ;;
+
         --help)
             HELP_FLAG=1
             ;;
+
         --repository)
             shift; # The arg is next in position args
             REPOSITORY=$1
             ;;
+
         --tag)
             shift; # The arg is next in position args
             TAG=$1
             ;;
+
         --)
             shift
             break
             ;;
+
         esac
         shift
     done
@@ -60,9 +67,9 @@ Usage:
     # passing repository and tag
     $0 --repository rotheross --tag 10.0.6
 
-    # specify 'local' for local images
-    $0 --repository local --tag local-10.0.x
-    $0 --repository local --tag local-10.1.x
+    # specify the empty string for local images
+    $0 --repository "" --tag local-10.0.x
+    $0 --repository "" --tag local-10.1.x
 
 END_HELP
 
@@ -77,13 +84,21 @@ then
     print_help_and_exit 0
 fi
 
-echo "going on"
+# For easier processing we require that the separator is already added to the repository.
+# But don't add the '/' for the local repository.
+if [[ "$REPOSITORY" == "" ]]; then
+    :  # local repository, nothing to do
+elif [[ "$REPOSITORY" == "/" ]]; then
+    REPOSITORY=""
+else
+    REPOSITORY+="/"
+fi
 
-image="$REPOSITORY/otobo:$TAG"
-image_processed="${image/local\//}"
+# in case the repository was passed with a trailing /
+REPOSITORY="${REPOSITORY/\/\//\/}"
 
-echo "image: '$image'"
-echo "image_processed: '$image_processed'"
+echo "REPOSITORY: '$REPOSITORY'"
+echo "TAG: '$TAG'"
 
 exit 0
 
@@ -94,7 +109,7 @@ docker-compose down
 
 # copy the OTOBO software, while containers are still stopped
 # e.g. scripts/update.sh rotheross/otobo:rel-10_x_y
-docker run -it --rm --volume otobo_opt_otobo:/opt/otobo $image_processed copy_otobo_next
+docker run -it --rm --volume otobo_opt_otobo:/opt/otobo ${REPOSITORY}otobo:$TAG$image_processed copy_otobo_next
 
 # start containers again, using the new version
 docker-compose up --detach
