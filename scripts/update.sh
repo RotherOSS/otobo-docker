@@ -112,8 +112,10 @@ if [[ -e "env.m4" ]]; then
 
 fi
 
-# get, or update, the image
-docker-compose pull
+# get, or update, the non-local images
+if [[ "$REPOSITORY" != "" ]]; then
+    docker-compose pull
+fi
 
 # copy the OTOBO software, while containers are still stopped
 # e.g. scripts/update.sh rotheross/otobo:rel-10_x_y
