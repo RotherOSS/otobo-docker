@@ -104,11 +104,11 @@ echo "TAG: '$TAG'"
 docker-compose down
 
 # update .env, e.g. with m4
-if [[ -e "env.m4" ]]; then
+if [[ -e "dot_env.m4" ]]; then
 
     cp --backup=numbered .env .env.bak
 
-    m4 --define "_macro_REPOSITORY=$REPOSITORY"  --define "_macro_TAG=$TAG" env.m4 > .env
+    m4 --define "_macro_REPOSITORY=$REPOSITORY"  --define "_macro_TAG=$TAG" dot_env.m4 > .env
 
 fi
 
