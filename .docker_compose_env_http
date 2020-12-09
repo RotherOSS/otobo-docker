@@ -12,6 +12,7 @@ OTOBO_DB_ROOT_PASSWORD=
 # Set OTOBO_WEB_HTTP_PORT when the HTTP port is not 80
 #OTOBO_WEB_HTTP_PORT=<your special port>
 
+
 # Elasticsearch options
 OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
@@ -59,3 +60,4 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 #OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:devel-rel-10_1
 #OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-webproxy:local-10.0.x
 #OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-webproxy:local-10.1.x
+
