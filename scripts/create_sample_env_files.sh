@@ -69,8 +69,8 @@ fi
 if [[ -e "etc/templates/dot_env.m4" ]]; then
 
     cp --backup=numbered .docker_compose_env_http  .docker_compose_env_http.bak
-    m4 --define "_enable_HTTP" etc/templates/dot_env.m4 > .docker_compose_env_http
+    m4 --prefix-builtins --define "_enable_HTTP" etc/templates/dot_env.m4 > .docker_compose_env_http
 
     cp --backup=numbered .docker_compose_env_https .docker_compose_env_https.bak
-    m4 etc/templates/dot_env.m4 > .docker_compose_env_https
+    m4 --prefix-builtins etc/templates/dot_env.m4 > .docker_compose_env_https
 fi
