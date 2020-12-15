@@ -2,7 +2,9 @@
 # COMPOSE_FILE is used for switching between HTTP and HTPPS
 m4_divert(-1)
 m4_ifdef(
-`otoflag_HTTP',`m4_define(`otovar_WEB_OVERRIDE', `docker-compose/otobo-override-http.yml')',`m4_define(`otovar_WEB_OVERRIDE', `docker-compose/otobo-override-https.yml')')
+  `otoflag_HTTP',
+  `m4_define(`otovar_WEB_OVERRIDE', `docker-compose/otobo-override-http.yml')',
+  `m4_define(`otovar_WEB_OVERRIDE', `docker-compose/otobo-override-https.yml')')
 m4_divert`'m4_dnl
 COMPOSE_PROJECT_NAME=otobo
 COMPOSE_PATH_SEPARATOR=:
