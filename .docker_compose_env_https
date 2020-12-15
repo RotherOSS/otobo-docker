@@ -1,5 +1,6 @@
 # Settings needed by docker-compose itself
 # COMPOSE_FILE is used for switching between HTTP and HTPPS
+
 COMPOSE_PROJECT_NAME=otobo
 COMPOSE_PATH_SEPARATOR=:
 COMPOSE_FILE=docker-compose/otobo-base.yml:docker-compose/otobo-override-https.yml
@@ -33,8 +34,8 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 # The default is rotheross/otobo:latest
 ################################################################################
 
-# For use with scripts/update.sh, _macro_XXX() will be replaced
-#OTOBO_IMAGE_OTOBO=_macro_REPOSITORY()otobo:_macro_TAG()
+# For use with scripts/update.sh, otovar_XXX() will be replaced
+#OTOBO_IMAGE_OTOBO=otovar_REPOSITORY()otobo:otovar_TAG()
 
 # more examples
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-10_0_6
@@ -48,8 +49,8 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 # The default is rotheross/otobo-elasticsearch:latest
 ################################################################################
 
-# For use with scripts/update.sh, _macro_XXX() will be replaced
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=_macro_REPOSITORY()otobo-elasticsearch:_macro_TAG()
+# For use with scripts/update.sh, otovar_XXX() will be replaced
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otovar_REPOSITORY()otobo-elasticsearch:otovar_TAG()
 
 # more examples
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-10_0_6
@@ -63,8 +64,8 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 # The default is rotheross/otobo-nginx-webproxy:latest
 ################################################################################
 
-# For use with scripts/update.sh, _macro_XXX() will be replaced
-#OTOBO_IMAGE_OTOBO_NGINX=_macro_REPOSITORY()otobo-nginx-webproxy:_macro_TAG()
+# For use with scripts/update.sh, otovar_XXX() will be replaced
+#OTOBO_IMAGE_OTOBO_NGINX=otovar_REPOSITORY()otobo-nginx-webproxy:otovar_TAG()
 
 # more examples
 #OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:rel-10_0_6

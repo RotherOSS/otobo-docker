@@ -108,7 +108,7 @@ if [[ -e "dot_env.m4" ]]; then
 
     cp --backup=numbered .env .env.bak
 
-    m4 --prefix-builtins --define "_macro_REPOSITORY=$REPOSITORY"  --define "_macro_TAG=$TAG" dot_env.m4 > .env
+    m4 --prefix-builtins --define "otovar_REPOSITORY=$REPOSITORY"  --define "otovar_TAG=$TAG" dot_env.m4 > .env
 
 fi
 
