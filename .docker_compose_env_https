@@ -1,6 +1,5 @@
 # Settings needed by docker-compose itself
 # COMPOSE_FILE is used for switching between HTTP and HTPPS
-
 COMPOSE_PROJECT_NAME=otobo
 COMPOSE_PATH_SEPARATOR=:
 COMPOSE_FILE=docker-compose/otobo-base.yml:docker-compose/otobo-override-https.yml
