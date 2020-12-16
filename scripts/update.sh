@@ -9,7 +9,7 @@ function args()
 {
     # -h and --help take no parameters
     # --repository and --tag have mandatory parameters, as indicated by ':'
-    options=$(getopt -o h --long help --long repository: --long tag: -- "$@")
+    options=$(getopt -o h --long help --long template --long repository: --long tag: -- "$@")
 
     # print help message in case of invalid optiond
     [ $? -eq 0 ] || {
@@ -18,6 +18,7 @@ function args()
 
     # set default values
     HELP_FLAG=0
+    TEMPLATE=""
     REPOSITORY="rotheross"
     TAG="latest"
 
@@ -30,6 +31,11 @@ function args()
 
         --help)
             HELP_FLAG=1
+            ;;
+
+        --template)
+            shift; # The arg is next in position args
+            TEMPLATE=$1
             ;;
 
         --repository)
@@ -61,15 +67,17 @@ Usage:
     $0 -h
     $0 --help
 
-    # the standard behavior for the repository rotheross and the tag latest
+    # the standard behavior using the setup from .env
+    # in .env one may set up a specific repository or tag
     $0
 
-    # passing repository and tag
-    $0 --repository rotheross --tag 10.0.6
+    # passing repository and tag is only useful when an m4 template has been set up
+    # this is useful mostly during development
+    $0 --template dot_env.m4 --repository rotheross --tag 10.0.6
 
     # specify the empty string for local images
-    $0 --repository "" --tag local-10.0.x
-    $0 --repository "" --tag local-10.1.x
+    $0 --template dot_env.m4 --repository "" --tag local-10.0.x
+    $0 --template dot_env.m4 --repository "" --tag local-10.1.x
 
 END_HELP
 
@@ -86,6 +94,7 @@ fi
 
 # For easier processing we require that the separator is already added to the repository.
 # But don't add the '/' for the local repository.
+# TODO: extract values from .env
 if [[ "$REPOSITORY" == "" ]]; then
     :  # local repository, nothing to do
 elif [[ "$REPOSITORY" == "/" ]]; then
