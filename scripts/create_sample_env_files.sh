@@ -1,7 +1,9 @@
 #!/bin/bash
 
-# This is a helper for generating sample Docker Compose environment files from a template.
-# The goal is to have a single source.
+# This script is a helper for generating sample Docker Compose environment files from a template.
+# It is meant to be used by developers of otobo-docker.
+# The goal is to have a single source file for all sample .env files.
+
 # Pass -h for usage info.
 
 # parse command line argument
@@ -49,7 +51,8 @@ Usage:
     $0 -h
     $0 --help
 
-    # the standard behavior, create .docker_compose_env_http and .docker_compose_env_https
+    # the standard behavior:
+    # create .docker_compose_env_http, .docker_compose_env_https .docker_compose_env_https_custom_nginx
     $0
 
 END_HELP
@@ -68,9 +71,16 @@ fi
 # for now we support only the hardcoded template
 if [[ -e "etc/templates/dot_env.m4" ]]; then
 
+    # the default file
+    cp --backup=numbered .docker_compose_env_https .docker_compose_env_https.bak
+    m4 --prefix-builtins etc/templates/dot_env.m4 > .docker_compose_env_https
+
+    # HTTP only
     cp --backup=numbered .docker_compose_env_http  .docker_compose_env_http.bak
     m4 --prefix-builtins --define "otoflag_HTTP" etc/templates/dot_env.m4 > .docker_compose_env_http
 
-    cp --backup=numbered .docker_compose_env_https .docker_compose_env_https.bak
-    m4 --prefix-builtins etc/templates/dot_env.m4 > .docker_compose_env_https
+    # HTTPS with a custom nginx config
+    cp --backup=numbered .docker_compose_env_https_custom_nginx .docker_compose_env_https_custom_nginx.bak
+    m4 --prefix-builtins --define "otoflag_CUSTOM_NGINX" etc/templates/dot_env.m4 > .docker_compose_env_https_custom_nginx
+
 fi

@@ -81,8 +81,9 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 #OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-webproxy:local-10.0.x
 #OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-webproxy:local-10.1.x
 m4_ifdef( `otoflag_HTTP', `m4_divert(-1)')m4_dnl
+m4_ifdef( `otoflag_CUSTOM_NGINX', `', `m4_divert(-1)')m4_dnl
 
 # provide a custom Nginx config template dir
-#NGINX_ENVSUBST_TEMPLATE_DIR=/etc/nginx/config/template-custom
-#COMPOSE_FILE=docker-compose/otobo-base.yml:docker-compose/otobo-override-https.yml:docker-compose/otobo-nginx-custom-config.yml
-m4_ifdef( `otoflag_HTTP', `m4_divert')
+NGINX_ENVSUBST_TEMPLATE_DIR=/etc/nginx/config/template-custom
+COMPOSE_FILE=docker-compose/otobo-base.yml:docker-compose/otobo-override-https.yml:docker-compose/otobo-nginx-custom-config.yml
+m4_ifdef( `otoflag_CUSTOM_NGINX', `', `m4_divert')m4_dnl
