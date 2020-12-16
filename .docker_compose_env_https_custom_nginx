@@ -1,8 +1,8 @@
-# Settings needed by docker-compose itself
-# COMPOSE_FILE is used for switching between HTTP and HTPPS
+# Settings that are needed by Docker Compose itself.
+# COMPOSE_FILE is a collection of snippets that make up the final config.
 COMPOSE_PROJECT_NAME=otobo
 COMPOSE_PATH_SEPARATOR=:
-COMPOSE_FILE=docker-compose/otobo-base.yml:docker-compose/otobo-override-https.yml
+COMPOSE_FILE=docker-compose/otobo-base.yml:docker-compose/otobo-override-https.yml:docker-compose/otobo-nginx-custom-config.yml
 
 # Database configuration
 # OTOBO_DB_ROOT_PASSWORD must be set
@@ -23,7 +23,6 @@ OTOBO_DB_ROOT_PASSWORD=
 #OTOBO_NGINX_SSL_CERTIFICATE_KEY=/etc/nginx/ssl/ssl-key.key
 OTOBO_NGINX_SSL_CERTIFICATE=
 OTOBO_NGINX_SSL_CERTIFICATE_KEY=
-
 
 # Elasticsearch options
 OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
@@ -75,4 +74,3 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
 # provide a custom Nginx config template dir
 NGINX_ENVSUBST_TEMPLATE_DIR=/etc/nginx/config/template-custom
-COMPOSE_FILE=docker-compose/otobo-base.yml:docker-compose/otobo-override-https.yml:docker-compose/otobo-nginx-custom-config.yml
