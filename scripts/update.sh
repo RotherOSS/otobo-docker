@@ -137,8 +137,14 @@ docker-compose up --detach
 # a quick sanity check
 docker-compose ps
 
+# There isn't yet a good check that the database is already running when the webserver starts up.
+# So let's sleep for a while and hope the best for later.
+echo "sleeping for 10s, while the database is starting up"
+sleep 10
+echo "finished with sleeping"
+
 # complete the update, with running database
 docker exec -t otobo_web_1 /opt/otobo_install/entrypoint.sh do_update_tasks
 
 # inspect the update log
-docker exec -t otobo_web_1  cat /opt/otobo/var/log/update.log
+docker exec -t otobo_web_1 cat /opt/otobo/var/log/update.log
