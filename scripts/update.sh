@@ -9,7 +9,7 @@ function args()
 {
     # -h and --help take no parameters
     # --repository and --tag have mandatory parameters, as indicated by ':'
-    options=$(getopt -o h --long help --long template --long repository: --long tag: -- "$@")
+    options=$(getopt -o h --long help --long template: --long repository: --long tag: -- "$@")
 
     # print help message in case of invalid optiond
     [ $? -eq 0 ] || {
