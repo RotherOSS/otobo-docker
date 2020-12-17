@@ -5,8 +5,7 @@
 # Pass -h for usage info.
 
 # parse command line argument
-function args()
-{
+function args() {
     # -h and --help take no parameters
     # --repository and --tag have mandatory parameters, as indicated by ':'
     options=$(getopt -o h --long help --long template: --long repository: --long tag: -- "$@")
@@ -84,6 +83,45 @@ END_HELP
     exit $1
 }
 
+# update the .env file
+function write_env_file() {
+
+    local template=$1
+    local repository=$2
+    local tag=$3
+
+# checking the m4 file
+    if [[ ! -e "$template" ]]; then
+        echo "The template file $template does not exist. Exiting";
+    exit 1;
+    fi
+
+        if [[ ! -r "$template" ]]; then
+            echo "The template file $template is not readable. Exiting";
+    exit 2;
+    fi
+
+# For easier processing we require that the separator is already added to the repository.
+# But don't add the '/' for the local repository.
+        if [[ "$repository" == "" ]]; then
+        :  # local repository, nothing to do
+    elif [[ "$repository" == "/" ]]; then
+        repository=""
+    else
+        repository+="/"
+    fi
+
+    # in case the repository was passed with a trailing /
+    repository="${repository/\/\//\/}"
+
+    echo "repository: '$repository'"
+    echo "tag: '$tag'"
+
+    # update .env
+    cp --backup=numbered .env .env.bak
+    m4 --prefix-builtins --define "otovar_REPOSITORY=$repository"  --define "otovar_TAG=$tag" dot_env.m4 > .env
+}
+
 # actually parse the command line
 args $0 "$@"
 
@@ -92,34 +130,17 @@ then
     print_help_and_exit 0
 fi
 
-# For easier processing we require that the separator is already added to the repository.
-# But don't add the '/' for the local repository.
-# TODO: extract values from .env
-if [[ "$REPOSITORY" == "" ]]; then
-    :  # local repository, nothing to do
-elif [[ "$REPOSITORY" == "/" ]]; then
-    REPOSITORY=""
-else
-    REPOSITORY+="/"
-fi
-
-# in case the repository was passed with a trailing /
-REPOSITORY="${REPOSITORY/\/\//\/}"
-
-echo "REPOSITORY: '$REPOSITORY'"
-echo "TAG: '$TAG'"
-
 # stop and remove the containers, but keep the named volumes
 docker-compose down
 
-# update .env, e.g. with m4
-if [[ -e "dot_env.m4" ]]; then
+# we might want to update the .env file
+if [[ "$TEMPLATE" != "" ]]; then
 
-    cp --backup=numbered .env .env.bak
-
-    m4 --prefix-builtins --define "otovar_REPOSITORY=$REPOSITORY"  --define "otovar_TAG=$TAG" dot_env.m4 > .env
+    write_env_file $TEMPLATE $REPOSITORY $TAG
 
 fi
+
+# TODO: warn when --repository or --tag was passed uselessly
 
 # get, or update, the non-local images
 if [[ "$REPOSITORY" != "" ]]; then
