@@ -126,9 +126,10 @@ if [[ "$REPOSITORY" != "" ]]; then
     docker-compose pull
 fi
 
-# copy the OTOBO software, while containers are still stopped
-# e.g. scripts/update.sh rotheross/otobo:rel-10_x_y
-docker run -it --rm --volume "otobo_opt_otobo:/opt/otobo" "${REPOSITORY}otobo:$TAG" copy_otobo_next
+# The containers are still stopped.
+# Copy the OTOBO software from the potentially changed image into the volume mounted at /opt/otobo.
+# The required config is taken from the .env file.
+docker-compose run --no-deps --rm web copy_otobo_next
 
 # start containers again, using the new version
 docker-compose up --detach
