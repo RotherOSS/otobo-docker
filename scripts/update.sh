@@ -72,7 +72,9 @@ Usage:
 
     # passing repository and tag is only useful when an m4 template has been set up
     # this is useful mostly during development
-    $0 --template dot_env.m4 --repository rotheross --tag 10.0.6
+    $0 --template dot_env.m4 --repository rotheross --tag 10.0.7
+    $0 --template dot_env.m4 --repository rotheross --tag devel-rel-10_0
+    $0 --template dot_env.m4 --repository rotheross --tag devel-rel-10_1
 
     # specify the empty string for local images
     $0 --template dot_env.m4 --repository "" --tag local-10.0.x
