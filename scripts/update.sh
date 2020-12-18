@@ -12,7 +12,7 @@ function args() {
 
     # print help message in case of invalid optiond
     [ $? -eq 0 ] || {
-        print_help_and_exit 1
+        print_help_and_exit "1"
     }
 
     # set default values
@@ -125,11 +125,11 @@ function write_env_file() {
 }
 
 # actually parse the command line
-args $0 "$@"
+args "$0" "$@"
 
 if [[ $HELP_FLAG -eq 1 ]]
 then
-    print_help_and_exit 0
+    print_help_and_exit "0"
 fi
 
 # stop and remove the containers, but keep the named volumes
@@ -138,7 +138,7 @@ docker-compose down
 # we might want to update the .env file
 if [[ "$TEMPLATE" != "" ]]; then
 
-    write_env_file $TEMPLATE $REPOSITORY $TAG
+    write_env_file "$TEMPLATE" "$REPOSITORY" "$TAG"
 
 fi
 
