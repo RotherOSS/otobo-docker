@@ -1,5 +1,5 @@
-# Settings needed by docker-compose itself
-# COMPOSE_FILE is used for switching between HTTP and HTPPS
+# Settings that are needed by Docker Compose itself.
+# COMPOSE_FILE is a collection of snippets that make up the final config.
 COMPOSE_PROJECT_NAME=otobo
 COMPOSE_PATH_SEPARATOR=:
 COMPOSE_FILE=docker-compose/otobo-base.yml:docker-compose/otobo-override-https.yml
@@ -28,31 +28,46 @@ OTOBO_NGINX_SSL_CERTIFICATE_KEY=
 OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
 ################################################################################
-# Advanced options
-# Docker image selection, mostly for devel and testing
+# The Docker image for otobo_web_1 and otobo_daemon_1 can be specified explicitly.
+# The default is rotheross/otobo:latest
 ################################################################################
 
-# Docker image for otobo_web_1 and otobe_daemon_1, default is :latest
-#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-10_0_3
+# For use with scripts/update.sh, otovar_XXX() will be replaced
+#OTOBO_IMAGE_OTOBO=otovar_REPOSITORY()otobo:otovar_TAG()
+
+# more examples
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-10_0_6
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-10_0
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-10_1
 #OTOBO_IMAGE_OTOBO=otobo:local-10.0.x
 #OTOBO_IMAGE_OTOBO=otobo:local-10.1.x
 
-# Docker image for otobo_elastic_1, default is :latest
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-10_0_3
+################################################################################
+# The Docker image for otobo_elastic_1 can be specified explicitly.
+# The default is rotheross/otobo-elasticsearch:latest
+################################################################################
+
+# For use with scripts/update.sh, otovar_XXX() will be replaced
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otovar_REPOSITORY()otobo-elasticsearch:otovar_TAG()
+
+# more examples
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-10_0_6
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-10_0
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-10_1
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-10.0.x
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-10.1.x
 
-# Docker image for otobo_nginx_1, default is :latest
-#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:rel-10_0_3
+################################################################################
+# The Docker image for otobo_nginx_1 can be specified explicitly.
+# The default is rotheross/otobo-nginx-webproxy:latest
+################################################################################
+
+# For use with scripts/update.sh, otovar_XXX() will be replaced
+#OTOBO_IMAGE_OTOBO_NGINX=otovar_REPOSITORY()otobo-nginx-webproxy:otovar_TAG()
+
+# more examples
+#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:rel-10_0_6
 #OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:devel-rel-10_0
 #OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:devel-rel-10_1
 #OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-webproxy:local-10.0.x
 #OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-webproxy:local-10.1.x
-
-# provide a custom Nginx config template dir
-#NGINX_ENVSUBST_TEMPLATE_DIR=/etc/nginx/config/template-custom
-#COMPOSE_FILE=docker-compose/otobo-base.yml:docker-compose/otobo-override-https.yml:docker-compose/otobo-nginx-custom-config.yml

@@ -1,5 +1,6 @@
 # Files created by the user
 .env
+env.m4
 
 # Editor swap files
 *.swn
