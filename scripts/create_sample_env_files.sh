@@ -83,4 +83,8 @@ if [[ -e "etc/templates/dot_env.m4" ]]; then
     cp --backup=numbered .docker_compose_env_https_custom_nginx .docker_compose_env_https_custom_nginx.bak || :
     m4 --prefix-builtins --define "otoflag_CUSTOM_NGINX" etc/templates/dot_env.m4 > .docker_compose_env_https_custom_nginx
 
+    # for testing: HTTPS and additionally Selenium Testing with Chrome
+    cp --backup=numbered .docker_compose_env_https_selenium .docker_compose_env_https_selenium.bak || :
+    m4 --prefix-builtins --define "otoflag_SELENIUM" etc/templates/dot_env.m4 > .docker_compose_env_https_selenium
+
 fi
