@@ -71,16 +71,16 @@ fi
 # for now we support only the hardcoded template
 if [[ -e "etc/templates/dot_env.m4" ]]; then
 
-    # the default file
-    cp --backup=numbered .docker_compose_env_https .docker_compose_env_https.bak
+    # the default file supporting HTTPS via Nginx
+    cp --backup=numbered .docker_compose_env_https .docker_compose_env_https.bak || :
     m4 --prefix-builtins etc/templates/dot_env.m4 > .docker_compose_env_https
 
     # HTTP only
-    cp --backup=numbered .docker_compose_env_http  .docker_compose_env_http.bak
+    cp --backup=numbered .docker_compose_env_http  .docker_compose_env_http.bak || :
     m4 --prefix-builtins --define "otoflag_HTTP" etc/templates/dot_env.m4 > .docker_compose_env_http
 
     # HTTPS with a custom nginx config
-    cp --backup=numbered .docker_compose_env_https_custom_nginx .docker_compose_env_https_custom_nginx.bak
+    cp --backup=numbered .docker_compose_env_https_custom_nginx .docker_compose_env_https_custom_nginx.bak || :
     m4 --prefix-builtins --define "otoflag_CUSTOM_NGINX" etc/templates/dot_env.m4 > .docker_compose_env_https_custom_nginx
 
 fi
