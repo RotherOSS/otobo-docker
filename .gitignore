@@ -1,9 +1,10 @@
 # Files created by the user
 .env
-env.m4
+dot_env.m4
 
 # Editor swap files
 *.swn
 *.swp
 *.swo
 *~
+*.bak

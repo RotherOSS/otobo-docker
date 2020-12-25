@@ -2,7 +2,8 @@
 # Note that no port is exposed as both HTTP and HTTPS are supported.
 # For HTTP see the extension file docker-compose/otobo-override-http.yml.
 # For HTTPS see the extension file docker-compose/otobo-override-https.yml.
-# See also README_DOCKER.md.
+
+# See also README.md.
 
 # most current docker-compose file version, as of 2020-05-21
 version: '3.3'

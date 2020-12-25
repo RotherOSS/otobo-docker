@@ -1,0 +1,25 @@
+# Run a standalone container for Selenium testing.
+# Access via port 4444.
+
+# See also README.md.
+
+# most current docker-compose file version, as of 2020-05-21
+version: '3.3'
+
+services:
+
+  selenium-chrome:
+    image: selenium/standalone-chrome:3
+    #cap_drop:
+    #    - ALL
+    #cap_add:
+    #    - CAP_SYS_CHROOT
+    #    - CAP_CHOWN
+    #    - CAP_DAC_OVERRIDE
+    #    - CAP_SETGID
+    #    - CAP_SETUID
+    restart: always
+    volumes:
+      - /dev/shm:/dev/shm
+    ports:
+      - "${OTOBO_SELENIUM_VNC_CHROME:-5900}:5900"
