@@ -1,7 +1,8 @@
 # Run the OTOBO web app via HTTPS on the port $OTOBO_WEB_HTTPS_PORT or port 443 per default.
 # HTTP on port 80 redirects to HTTPS on port 443.
 # This is implemented by running nginx as a reverse proxy for a webserver running otobo.psgi.
-# See also README_DOCKER.md.
+
+# See also README.md.
 
 # most current docker-compose file version, as of 2020-05-21
 version: '3.3'
