@@ -9,7 +9,7 @@ version: '3.3'
 services:
 
   selenium-chrome:
-    image: selenium/standalone-chrome:3
+    image: selenium/standalone-chrome-debug:3
     #cap_drop:
     #    - ALL
     #cap_add:
