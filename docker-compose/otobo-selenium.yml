@@ -21,9 +21,5 @@ services:
     restart: always
     volumes:
       - /dev/shm:/dev/shm
-      - opt_otobo:/opt/otobo
     ports:
       - "${OTOBO_SELENIUM_VNC_CHROME:-5900}:5900"
-
-volumes:
-  opt_otobo: {}

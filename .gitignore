@@ -8,3 +8,6 @@ dot_env.m4
 *.swo
 *~
 *.bak
+
+# temporary dir
+tmp
