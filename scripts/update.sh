@@ -65,9 +65,6 @@ then
     print_help_and_exit "0"
 fi
 
-# stop and remove the containers, but keep the named volumes
-docker-compose down
-
 # get, or update, the non-local images
 # There will be error messages for local images,
 # but this is acceptable as developers are responsible for the local images.
@@ -75,6 +72,9 @@ echo "Updating Docker images from their repositories."
 echo "See the file .env for which repositories and tags are used."
 echo "Error messages for local images can be ignored."
 docker-compose pull
+
+# stop and remove the containers, but keep the named volumes
+docker-compose down
 
 # The containers are still stopped.
 # Copy the OTOBO software from the potentially changed image into the volume mounted at /opt/otobo.
