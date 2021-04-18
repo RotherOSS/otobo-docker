@@ -2,7 +2,7 @@
 # COMPOSE_FILE is a collection of snippets that make up the final config.
 COMPOSE_PROJECT_NAME=otobo
 COMPOSE_PATH_SEPARATOR=:
-COMPOSE_FILE=docker-compose/otobo-base.yml:docker-compose/otobo-override-https.yml
+COMPOSE_FILE=docker-compose/otobo-base.yml:docker-compose/otobo-override-https-kerberos.yml
 
 # Database configuration
 # OTOBO_DB_ROOT_PASSWORD must be set
@@ -23,6 +23,19 @@ OTOBO_DB_ROOT_PASSWORD=
 #OTOBO_NGINX_SSL_CERTIFICATE_KEY=/etc/nginx/ssl/ssl-key.key
 OTOBO_NGINX_SSL_CERTIFICATE=
 OTOBO_NGINX_SSL_CERTIFICATE_KEY=
+
+# Kerberos Options
+# Kerberos keytab 
+OTOBO_NGINX_KERBEROS_KEYTAB=/opt/otobo-docker/nginx-conf/krb5.keytab
+
+# Kerberos config 
+OTOBO_NGINX_KERBEROS_CONFIG=/opt/otobo-docker/nginx-conf/krb5.conf
+
+# Kerberos Service Name
+OTOBO_NGINX_KERBEROS_SERVICE_NAME=HTTP/portal.rother-oss.com
+
+# Kerberos REALM
+OTOBO_NGINX_KERBEROS_REALM=PORTAL.ROTHER-OSS.COM
 
 # Elasticsearch options
 OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
@@ -59,15 +72,16 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
 ################################################################################
 # The Docker image for otobo_nginx_1 can be specified explicitly.
-# The default is rotheross/otobo-nginx-webproxy:latest
+# The default is rotheross/otobo-nginx-kerberos-webproxy:latest
+# NGINX SSO Kerberos Example
 ################################################################################
 
 # For use with scripts/update.sh, otovar_XXX() will be replaced
-#OTOBO_IMAGE_OTOBO_NGINX=otovar_REPOSITORY()otobo-nginx-webproxy:otovar_TAG()
+#OTOBO_IMAGE_OTOBO_NGINX=otovar_REPOSITORY()otobo-nginx-kerberos-webproxy:otovar_TAG()
 
 # More examples
-#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:rel-10_0_9
-#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:devel-rel-10_0
-#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:devel-rel-10_1
-#OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-webproxy:local-10.0.x
-#OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-webproxy:local-10.1.x
+#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-kerberos-webproxy:rel-10_0_9
+#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-kerberos-webproxy:devel-rel-10_0
+#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-kerberos-webproxy:devel-rel-10_1
+#OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-kerberos-webproxy:local-10.0.x
+#OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-kerberos-webproxy:local-10.1.x
