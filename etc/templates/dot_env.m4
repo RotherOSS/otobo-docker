@@ -71,7 +71,7 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 # For use with scripts/update.sh, otovar_XXX() will be replaced
 #OTOBO_IMAGE_OTOBO=otovar_REPOSITORY()otobo:otovar_TAG()
 
-# more examples
+# More examples
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-10_0_10
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-10_0
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-10_1

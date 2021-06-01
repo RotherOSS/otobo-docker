@@ -25,10 +25,10 @@ OTOBO_NGINX_SSL_CERTIFICATE=
 OTOBO_NGINX_SSL_CERTIFICATE_KEY=
 
 # Kerberos Options
-# Kerberos keytab 
+# Kerberos keytab
 OTOBO_NGINX_KERBEROS_KEYTAB=/opt/otobo-docker/nginx-conf/krb5.keytab
 
-# Kerberos config 
+# Kerberos config
 OTOBO_NGINX_KERBEROS_CONFIG=/opt/otobo-docker/nginx-conf/krb5.conf
 
 # Kerberos Service Name
@@ -72,8 +72,7 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
 ################################################################################
 # The Docker image for otobo_nginx_1 can be specified explicitly.
-# The default is rotheross/otobo-nginx-kerberos-webproxy:latest
-# NGINX SSO Kerberos Example
+# The default image is rotheross/otobo-nginx-kerberos-webproxy:latest
 ################################################################################
 
 # For use with scripts/update.sh, otovar_XXX() will be replaced
