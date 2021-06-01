@@ -54,6 +54,7 @@ Usage:
     # the standard behavior is to create sample .env files:
     #    .docker_compose_env_http
     #    .docker_compose_env_https
+    #    .docker_compose_env_https_kerberos
     #    .docker_compose_env_https_custom_nginx
     #    .docker_compose_env_https_selenium
     $0
@@ -74,9 +75,13 @@ fi
 # for now we support only the hardcoded template
 if [[ -e "etc/templates/dot_env.m4" ]]; then
 
-    # the default file supporting HTTPS via Nginx
+    # the default file: HTTPS with Nginx
     cp --backup=numbered .docker_compose_env_https .docker_compose_env_https.bak || :
-    m4 --prefix-builtins etc/templates/dot_env.m4 > .docker_compose_env_https
+    m4 --prefix-builtins --define "otoflag_HTTPS" etc/templates/dot_env.m4 > .docker_compose_env_https
+
+    # HTTPS with Kerberos configuration
+    cp --backup=numbered .docker_compose_env_https_kerberos .docker_compose_env_https_kerberos.bak || :
+    m4 --prefix-builtins --define "otoflag_KERBEROS" etc/templates/dot_env.m4 > .docker_compose_env_https_kerberos
 
     # HTTP only
     cp --backup=numbered .docker_compose_env_http  .docker_compose_env_http.bak || :
@@ -84,10 +89,10 @@ if [[ -e "etc/templates/dot_env.m4" ]]; then
 
     # HTTPS with a custom nginx config
     cp --backup=numbered .docker_compose_env_https_custom_nginx .docker_compose_env_https_custom_nginx.bak || :
-    m4 --prefix-builtins --define "otoflag_CUSTOM_NGINX" etc/templates/dot_env.m4 > .docker_compose_env_https_custom_nginx
+    m4 --prefix-builtins --define "otoflag_HTTPS" --define "otoflag_CUSTOM_NGINX" etc/templates/dot_env.m4 > .docker_compose_env_https_custom_nginx
 
     # for testing: HTTPS and additionally Selenium Testing with Chrome
     cp --backup=numbered .docker_compose_env_https_selenium .docker_compose_env_https_selenium.bak || :
-    m4 --prefix-builtins --define "otoflag_SELENIUM" etc/templates/dot_env.m4 > .docker_compose_env_https_selenium
+    m4 --prefix-builtins --define "otoflag_HTTPS" --define "otoflag_SELENIUM" etc/templates/dot_env.m4 > .docker_compose_env_https_selenium
 
 fi
