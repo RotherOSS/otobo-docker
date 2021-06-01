@@ -136,6 +136,7 @@ m4_define(
     `otobo-nginx-webproxy'))
 
 m4_divert(0)m4_dnl
+m4_ifdef( `otoflag_HTTP', `m4_divert(-1)')m4_dnl
 ################################################################################
 # The Docker image for otobo_nginx_1 can be specified explicitly.
 `#' The default image is rotheross/otovar_NGINX_IMAGE:latest
@@ -150,6 +151,7 @@ m4_divert(0)m4_dnl
 `#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE:devel-rel-10_1
 `#'OTOBO_IMAGE_OTOBO_NGINX=otovar_NGINX_IMAGE:local-10.0.x
 `#'OTOBO_IMAGE_OTOBO_NGINX=otovar_NGINX_IMAGE:local-10.1.x
+m4_ifdef( `otoflag_HTTP', `m4_divert(0)')m4_dnl
 m4_ifdef( `otoflag_CUSTOM_NGINX', `', `m4_divert(-1)')m4_dnl
 
 # provide a custom Nginx config template dir
