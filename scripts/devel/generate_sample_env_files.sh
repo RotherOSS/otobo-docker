@@ -51,8 +51,11 @@ Usage:
     $0 -h
     $0 --help
 
-    # the standard behavior:
-    # create .docker_compose_env_http, .docker_compose_env_https .docker_compose_env_https_custom_nginx
+    # the standard behavior is to create sample .env files:
+    #    .docker_compose_env_http
+    #    .docker_compose_env_https
+    #    .docker_compose_env_https_custom_nginx
+    #    .docker_compose_env_https_selenium
     $0
 
 END_HELP
