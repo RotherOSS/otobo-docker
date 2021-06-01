@@ -58,8 +58,8 @@ OTOBO_DB_ROOT_PASSWORD=
 # HTTP options
 m4_ifdef(
   `otoflag_HTTP',
-  ,
-  `# In the HTTPS case http:// redirect to https://
+  `',
+  `# In the HTTPS case http:// redirects to https://
 ')m4_dnl
 # Set OTOBO_WEB_HTTP_PORT when the HTTP port is not 80
 #OTOBO_WEB_HTTP_PORT=<your special port>

@@ -2,27 +2,15 @@
 # COMPOSE_FILE is a collection of snippets that make up the final config.
 COMPOSE_PROJECT_NAME=otobo
 COMPOSE_PATH_SEPARATOR=:
-COMPOSE_FILE=docker-compose/otobo-base.yml:docker-compose/otobo-override-https.yml:docker-compose/otobo-nginx-custom-config.yml
+COMPOSE_FILE=docker-compose/otobo-base.yml:docker-compose/otobo-override-http.yml:docker-compose/otobo-selenium.yml
 
 # Database configuration
 # OTOBO_DB_ROOT_PASSWORD must be set
 OTOBO_DB_ROOT_PASSWORD=
 
 # HTTP options
-# In the HTTPS case http:// redirects to https://
 # Set OTOBO_WEB_HTTP_PORT when the HTTP port is not 80
 #OTOBO_WEB_HTTP_PORT=<your special port>
-
-# HTTPS options
-# set OTOBO_WEB_HTTPS_PORT when the HTTPS port is not 443
-#OTOBO_WEB_HTTPS_PORT=<your special port>
-# The settings OTOBO_NGINX_SSL_CERTIFICATE and OTOBO_NGINX_SSL_CERTIFICATE_KEY
-# are mandatory when HTTPS is used.
-# The configured pathes must be absolute pathes that are available in the container.
-#OTOBO_NGINX_SSL_CERTIFICATE=/etc/nginx/ssl/ssl-cert.crt
-#OTOBO_NGINX_SSL_CERTIFICATE_KEY=/etc/nginx/ssl/ssl-key.key
-OTOBO_NGINX_SSL_CERTIFICATE=
-OTOBO_NGINX_SSL_CERTIFICATE_KEY=
 
 # Elasticsearch options
 OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
@@ -57,20 +45,3 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-10.0.x
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-10.1.x
 
-################################################################################
-# The Docker image for otobo_nginx_1 can be specified explicitly.
-# The default image is rotheross/otobo-nginx-webproxy:latest
-################################################################################
-
-# For use with scripts/update.sh, otovar_XXX() will be replaced
-#OTOBO_IMAGE_OTOBO_NGINX=otovar_REPOSITORY()otobo-nginx-webproxy:otovar_TAG()
-
-# More examples
-#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:rel-10_0_10
-#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:devel-rel-10_0
-#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:devel-rel-10_1
-#OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-webproxy:local-10.0.x
-#OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-webproxy:local-10.1.x
-
-# provide a custom Nginx config template dir
-NGINX_ENVSUBST_TEMPLATE_DIR=/etc/nginx/config/template-custom
