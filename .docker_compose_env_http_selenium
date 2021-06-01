@@ -1,0 +1,47 @@
+# Settings that are needed by Docker Compose itself.
+# COMPOSE_FILE is a collection of snippets that make up the final config.
+COMPOSE_PROJECT_NAME=otobo
+COMPOSE_PATH_SEPARATOR=:
+COMPOSE_FILE=docker-compose/otobo-base.yml:docker-compose/otobo-override-http.yml:docker-compose/otobo-selenium.yml
+
+# Database configuration
+# OTOBO_DB_ROOT_PASSWORD must be set
+OTOBO_DB_ROOT_PASSWORD=
+
+# HTTP options
+# Set OTOBO_WEB_HTTP_PORT when the HTTP port is not 80
+#OTOBO_WEB_HTTP_PORT=<your special port>
+
+# Elasticsearch options
+OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
+
+################################################################################
+# The Docker image for otobo_web_1 and otobo_daemon_1 can be specified explicitly.
+# The default is rotheross/otobo:latest
+################################################################################
+
+# For use with scripts/update.sh, otovar_XXX() will be replaced
+#OTOBO_IMAGE_OTOBO=otovar_REPOSITORY()otobo:otovar_TAG()
+
+# More examples
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-10_0_10
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-10_0
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-10_1
+#OTOBO_IMAGE_OTOBO=otobo:local-10.0.x
+#OTOBO_IMAGE_OTOBO=otobo:local-10.1.x
+
+################################################################################
+# The Docker image for otobo_elastic_1 can be specified explicitly.
+# The default is rotheross/otobo-elasticsearch:latest
+################################################################################
+
+# For use with scripts/update.sh, otovar_XXX() will be replaced
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otovar_REPOSITORY()otobo-elasticsearch:otovar_TAG()
+
+# More examples
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-10_0_10
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-10_0
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-10_1
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-10.0.x
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-10.1.x
+

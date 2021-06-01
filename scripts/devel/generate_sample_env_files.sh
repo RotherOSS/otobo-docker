@@ -53,9 +53,10 @@ Usage:
 
     # the standard behavior is to create sample .env files:
     #    .docker_compose_env_http
+    #    .docker_compose_env_http_selenium
     #    .docker_compose_env_https
-    #    .docker_compose_env_https_kerberos
     #    .docker_compose_env_https_custom_nginx
+    #    .docker_compose_env_https_kerberos
     #    .docker_compose_env_https_selenium
     $0
 
@@ -94,5 +95,9 @@ if [[ -e "etc/templates/dot_env.m4" ]]; then
     # for testing: HTTPS and additionally Selenium Testing with Chrome
     cp --backup=numbered .docker_compose_env_https_selenium .docker_compose_env_https_selenium.bak || :
     m4 --prefix-builtins --define "otoflag_HTTPS" --define "otoflag_SELENIUM" etc/templates/dot_env.m4 > .docker_compose_env_https_selenium
+
+    # for testing: HTTP and additionally Selenium Testing with Chrome
+    cp --backup=numbered .docker_compose_env_http_selenium .docker_compose_env_http_selenium.bak || :
+    m4 --prefix-builtins --define "otoflag_HTTP" --define "otoflag_SELENIUM" etc/templates/dot_env.m4 > .docker_compose_env_http_selenium
 
 fi
