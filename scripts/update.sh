@@ -94,7 +94,7 @@ sleep 10
 echo "finished with sleeping"
 
 # complete the update, with running database
-docker exec -t otobo_web_1 /opt/otobo_install/entrypoint.sh do_update_tasks
+docker-compose exec web /opt/otobo_install/entrypoint.sh do_update_tasks
 
 # inspect the update log
-docker exec -t otobo_web_1 cat /opt/otobo/var/log/update.log
+docker-compose exec web cat /opt/otobo/var/log/update.log
