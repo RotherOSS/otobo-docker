@@ -1,11 +1,11 @@
 # The webbrowser needs some sample files for running the tests.
 
 # copy the needed files from the web container
-mkdir -p tmp/scripts/test
+mkdir --parent tmp/scripts/test
 docker cp "$(docker-compose ps -q web)":/opt/otobo/scripts/test/sample tmp/scripts/test
 
 # create the target dir in the selenium container
-docker-compose exec selenium-chrome sudo mkdir /opt/otobo
+docker-compose exec selenium-chrome sudo mkdir --parent /opt/otobo
 docker-compose exec selenium-chrome sudo chown seluser:seluser /opt/otobo
 
 # copy the files
