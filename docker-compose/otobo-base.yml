@@ -23,7 +23,7 @@ services:
       - mariadb_data:/var/lib/mysql
 
     # do not expose the mysql default port to the docker host host
-    # use 'docker exec -it otobo_db_1 mysql ...' when access is needed
+    # use 'docker-compose exec -it db mysql ...' when access is needed
     # because the the otobo DB user is allowed for the complete Docker network
     # ports:
       #- "5001:3306"
