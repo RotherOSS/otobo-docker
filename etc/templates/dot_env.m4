@@ -151,9 +151,27 @@ m4_ifdef( `otoflag_HTTP', `m4_divert(-1)')m4_dnl
 `#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE:devel-rel-10_1
 `#'OTOBO_IMAGE_OTOBO_NGINX=otovar_NGINX_IMAGE:local-10.0.x
 `#'OTOBO_IMAGE_OTOBO_NGINX=otovar_NGINX_IMAGE:local-10.1.x
+
 m4_ifdef( `otoflag_HTTP', `m4_divert(0)')m4_dnl
 m4_ifdef( `otoflag_CUSTOM_NGINX', `', `m4_divert(-1)')m4_dnl
 
 # provide a custom Nginx config template dir
 NGINX_ENVSUBST_TEMPLATE_DIR=/etc/nginx/config/template-custom
 m4_ifdef( `otoflag_CUSTOM_NGINX', `', `m4_divert(0)')m4_dnl
+m4_ifdef( `otoflag_SELENIUM', `', `m4_divert(-1)')m4_dnl
+################################################################################
+# The Docker image for otobo_selenium_1 can be specified explicitly.
+`#' The default image is rotheross/otobo-selenium-chrome:latest
+################################################################################
+
+# For use with scripts/update.sh, otovar_XXX() will be replaced
+`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=otovar_REPOSITORY()otobo-selenium-chrome:otovar_TAG()
+
+# More examples
+`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:rel-10_0_11
+`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:devel-rel-10_0
+`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:devel-rel-10_1
+`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=otobo-selenium-chrome:local-10.0.x
+`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=otobo-selenium-chrome:local-10.1.x
+
+m4_ifdef( `otoflag_SELENIUM', `', `m4_divert(0)')m4_dnl
