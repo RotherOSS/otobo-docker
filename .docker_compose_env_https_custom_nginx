@@ -72,5 +72,6 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 #OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-webproxy:local-10.0.x
 #OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-webproxy:local-10.1.x
 
+
 # provide a custom Nginx config template dir
 NGINX_ENVSUBST_TEMPLATE_DIR=/etc/nginx/config/template-custom

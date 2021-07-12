@@ -84,3 +84,4 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 #OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-kerberos-webproxy:devel-rel-10_1
 #OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-kerberos-webproxy:local-10.0.x
 #OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-kerberos-webproxy:local-10.1.x
+
