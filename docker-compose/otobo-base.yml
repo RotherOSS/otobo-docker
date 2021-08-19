@@ -78,6 +78,7 @@ services:
     cap_add:
         - CAP_SYS_CHROOT
         - CAP_SETUID
+        - CAP_SETGID
     restart: always
     environment:
       discovery.type: single-node
