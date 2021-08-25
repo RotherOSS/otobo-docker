@@ -3,6 +3,7 @@
 # This script is a helper for generating sample Docker Compose environment files from a template.
 # It is meant to be used by developers of otobo-docker.
 # The goal is to have a single source file for all sample .env files.
+# The default template is located at "etc/templates/dot_env.m4"
 
 # Pass -h for usage info.
 
@@ -51,7 +52,7 @@ Usage:
     $0 -h
     $0 --help
 
-    # the standard behavior is to create sample .env files:
+    # the standard behavior is to create sample .env files from the template etc/templates/dot_env.m4
     #    .docker_compose_env_http
     #    .docker_compose_env_http_selenium
     #    .docker_compose_env_https
