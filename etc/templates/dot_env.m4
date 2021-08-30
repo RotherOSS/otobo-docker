@@ -46,8 +46,12 @@ m4_define(
 
 m4_divert(0)m4_dnl
 # Settings that are needed by Docker Compose itself.
-# COMPOSE_FILE is a collection of snippets that make up the final config.
+
+# This determines the name of the Docker containers, e.g. 'otobo_web_1'.
 COMPOSE_PROJECT_NAME=otobo
+
+# COMPOSE_FILE is a collection of files, separated by COMPOSE_PATH_SEPARATOR, that make up the final config.
+# The files usually reside in the subdirectory docker-compose.
 COMPOSE_PATH_SEPARATOR=:
 COMPOSE_FILE=otovar_COMPOSE_FILE
 
@@ -114,7 +118,7 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 #OTOBO_IMAGE_OTOBO=otobo:local-10.1.x
 
 ################################################################################
-# The Docker image for otobo_elastic_1 can be specified explicitly.
+# The Docker image for the service 'eleastic' can be specified explicitly.
 # The default is rotheross/otobo-elasticsearch:latest
 ################################################################################
 
@@ -141,7 +145,7 @@ m4_define(
 m4_divert(0)m4_dnl
 m4_ifdef( `otoflag_HTTP', `m4_divert(-1)')m4_dnl
 ################################################################################
-# The Docker image for otobo_nginx_1 can be specified explicitly.
+# The Docker image for the service 'nginx' can be specified explicitly.
 `#' The default image is rotheross/otovar_NGINX_IMAGE:latest
 ################################################################################
 
@@ -163,7 +167,7 @@ NGINX_ENVSUBST_TEMPLATE_DIR=/etc/nginx/config/template-custom
 m4_ifdef( `otoflag_CUSTOM_NGINX', `', `m4_divert(0)')m4_dnl
 m4_ifdef( `otoflag_SELENIUM', `', `m4_divert(-1)')m4_dnl
 ################################################################################
-# The Docker image for otobo_selenium_1 can be specified explicitly.
+# The Docker image for the service 'selenium' can be specified explicitly.
 `#' The default image is rotheross/otobo-selenium-chrome:latest
 ################################################################################
 
