@@ -103,7 +103,13 @@ m4_ifdef( `otoflag_KERBEROS', `', `m4_divert(0)')m4_dnl
 OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
 ################################################################################
-# The Docker image for otobo_web_1 and otobo_daemon_1 can be specified explicitly.
+# The Docker image for the service 'db' can be specified explicitly.
+# The default is mariadb:10.5
+################################################################################
+#OTOBO_IMAGE_DB=
+
+################################################################################
+# The Docker image for the services 'web' and 'daemon' can be specified explicitly.
 # The default is rotheross/otobo:latest
 ################################################################################
 

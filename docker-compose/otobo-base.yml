@@ -12,7 +12,7 @@ services:
 
   # the database
   db:
-    image: mariadb:10.5
+    image: ${OTOBO_IMAGE_DB:-mariadb:10.5}
     user: mysql:mysql
     cap_drop:
         - ALL
