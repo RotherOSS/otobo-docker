@@ -138,6 +138,12 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-10.0.x
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-10.1.x
 
+################################################################################
+# The Docker image for the service 'redis' can be specified explicitly.
+# The default is redis:6.0-alpine
+################################################################################
+#OTOBO_IMAGE_REDIS=
+
 m4_divert(-1)m4_dnl
 
 # find the image used for Nginx service
