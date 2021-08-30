@@ -12,7 +12,7 @@ services:
 
   # the database
   db:
-    image: mariadb:10.5
+    image: ${OTOBO_IMAGE_DB:-mariadb:10.5}
     user: mysql:mysql
     cap_drop:
         - ALL
@@ -88,7 +88,7 @@ services:
 
   # a container running Redis
   redis:
-    image: redis:6.0-alpine
+    image: ${OTOBO_IMAGE_REDIS:-redis:6.0-alpine}
     user: redis:redis
     cap_drop:
         - ALL
