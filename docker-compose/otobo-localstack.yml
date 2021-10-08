@@ -1,0 +1,26 @@
+# Docker compose file for mocking AWS S3 with localstack.
+# This is intended only for development and for testing.
+
+# Access via port 4566 which is exposed to the Docker host.
+
+# See also README.md .
+# See also https://hub.docker.com/r/localstack/localstack .
+
+# same version as in otobo-base.yml
+version: '3.3'
+
+services:
+
+  localstack:
+    image: localstack/localstack
+    ports:
+      - "4566:4566"
+      - "4571:4571"
+      - "${PORT_WEB_UI-8080}:${PORT_WEB_UI-8080}"
+    environment:
+      - SERVICES=${SERVICES-s3}
+      - DEFAULT_REGION=eu-central-1
+    volumes:
+      - tmp_localstack:/tmp/localstack
+volumes:
+  tmp_localstack: {}
