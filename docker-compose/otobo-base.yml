@@ -54,6 +54,8 @@ services:
     #    - "80:5000"
     volumes:
       - opt_otobo:/opt/otobo
+    environment:
+      OTOBO_SYNC_WITH_S3: ${OTOBO_SYNC_WITH_S3:-0}
     command: web
 
   # a container running the OTOBO daemon
@@ -68,6 +70,8 @@ services:
     restart: always
     volumes:
       - opt_otobo:/opt/otobo
+    environment:
+      OTOBO_SYNC_WITH_S3: ${OTOBO_SYNC_WITH_S3:-0}
     command: daemon
 
   # a container running Elasticsearch

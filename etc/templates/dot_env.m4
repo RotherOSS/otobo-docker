@@ -134,6 +134,10 @@ m4_ifdef( `otoflag_KERBEROS', `', `m4_divert(0)')m4_dnl
 # Elasticsearch options
 OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
+# Special configuration when running OTOBO in a cluster
+#OTOBO_SYNC_WITH_S3=1
+OTOBO_SYNC_WITH_S3=0
+
 ################################################################################
 # The Docker image for the service 'db' can be specified explicitly.
 # The default is mariadb:10.5
