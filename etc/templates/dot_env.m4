@@ -119,7 +119,16 @@ OTOBO_NGINX_KERBEROS_CONFIG=/opt/otobo-docker/nginx-conf/krb5.conf
 OTOBO_NGINX_KERBEROS_SERVICE_NAME=HTTP/portal.rother-oss.com
 
 # Kerberos REALM
-OTOBO_NGINX_KERBEROS_REALM=PORTAL.ROTHER-OSS.COM
+OTOBO_NGINX_KERBEROS_REALM=ROTHER-OSS.COM
+
+# Kerberos kdc / AD Controller
+OTOBO_NGINX_KERBEROS_KDC=rother-oss.com
+
+# Kerberos Admin Server
+OTOBO_NGINX_KERBEROS_ADMIN_SERVER=rother-oss.com
+
+# Kerberos Default Domain
+OTOBO_NGINX_KERBEROS_DEFAULT_DOMAIN=rother-oss.com
 m4_ifdef( `otoflag_KERBEROS', `', `m4_divert(0)')m4_dnl
 
 # Elasticsearch options
