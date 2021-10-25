@@ -59,12 +59,16 @@ function args() {
 # print help
 function print_help_and_exit() {
     cat <<END_HELP
+This script is a helper for easily switching Docker repositories and Docker image versions.
+For using the script one needs a M4 template file from which the file .env can be generated.
+The template file is usually called 'dot_env.m4'. In that file,
+the macros otovar_REPOSITORY() and otovar_TAG() are expanded to the values passed on the command line.
+
 Usage:
 
     # print this help message
     $0 -h
     $0 --help
-
 
     # passing repository and tag is only useful when an m4 template has been set up
     # this is useful mostly during development

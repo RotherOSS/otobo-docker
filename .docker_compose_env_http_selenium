@@ -33,7 +33,9 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 # The default is rotheross/otobo:latest
 ################################################################################
 
-# For use with scripts/update.sh, otovar_XXX() will be replaced
+# During development it is convenient to be able to switch between different Docker repositories and Docker image versions.
+# The switching can be done with scripts/devel/generate_dot_env.sh. In order to activate this feature,
+# create the file dot_env.m4 in your Docker Compose working dir, e.g. /opt/otobo-docker, and uncomment the line below.
 #OTOBO_IMAGE_OTOBO=otovar_REPOSITORY()otobo:otovar_TAG()
 
 # More examples
@@ -48,7 +50,9 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 # The default is rotheross/otobo-elasticsearch:latest
 ################################################################################
 
-# For use with scripts/update.sh, otovar_XXX() will be replaced
+# During development it is convenient to be able to switch between different Docker repositories and Docker image versions.
+# The switching can be done with scripts/devel/generate_dot_env.sh. In order to activate this feature,
+# create the file dot_env.m4 in your Docker Compose working dir, e.g. /opt/otobo-docker, and uncomment the line below.
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otovar_REPOSITORY()otobo-elasticsearch:otovar_TAG()
 
 # More examples
@@ -69,7 +73,9 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 # The default image is rotheross/otobo-selenium-chrome:latest
 ################################################################################
 
-# For use with scripts/update.sh, otovar_XXX() will be replaced
+# During development it is convenient to be able to switch between different Docker repositories and Docker image versions.
+# The switching can be done with scripts/devel/generate_dot_env.sh. In order to activate this feature,
+# create the file dot_env.m4 in your Docker Compose working dir, e.g. /opt/otobo-docker, and uncomment the line below.
 #OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=otovar_REPOSITORY()otobo-selenium-chrome:otovar_TAG()
 
 # More examples
