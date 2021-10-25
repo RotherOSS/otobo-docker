@@ -28,8 +28,8 @@ OTOBO_DB_ROOT_PASSWORD=
 # The configured pathes must be absolute pathes that are available in the container.
 #OTOBO_NGINX_SSL_CERTIFICATE=/etc/nginx/ssl/ssl-cert.crt
 #OTOBO_NGINX_SSL_CERTIFICATE_KEY=/etc/nginx/ssl/ssl-key.key
-OTOBO_NGINX_SSL_CERTIFICATE=/etc/nginx/ssl/
-OTOBO_NGINX_SSL_CERTIFICATE_KEY=/etc/nginx/ssl/
+OTOBO_NGINX_SSL_CERTIFICATE=
+OTOBO_NGINX_SSL_CERTIFICATE_KEY=
 
 # Kerberos Options
 # Kerberos keytab
