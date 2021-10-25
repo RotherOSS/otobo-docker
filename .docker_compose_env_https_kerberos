@@ -28,8 +28,8 @@ OTOBO_DB_ROOT_PASSWORD=
 # The configured pathes must be absolute pathes that are available in the container.
 #OTOBO_NGINX_SSL_CERTIFICATE=/etc/nginx/ssl/ssl-cert.crt
 #OTOBO_NGINX_SSL_CERTIFICATE_KEY=/etc/nginx/ssl/ssl-key.key
-OTOBO_NGINX_SSL_CERTIFICATE=
-OTOBO_NGINX_SSL_CERTIFICATE_KEY=
+OTOBO_NGINX_SSL_CERTIFICATE=/etc/nginx/ssl/
+OTOBO_NGINX_SSL_CERTIFICATE_KEY=/etc/nginx/ssl/
 
 # Kerberos Options
 # Kerberos keytab
@@ -42,7 +42,16 @@ OTOBO_NGINX_KERBEROS_CONFIG=/opt/otobo-docker/nginx-conf/krb5.conf
 OTOBO_NGINX_KERBEROS_SERVICE_NAME=HTTP/portal.rother-oss.com
 
 # Kerberos REALM
-OTOBO_NGINX_KERBEROS_REALM=PORTAL.ROTHER-OSS.COM
+OTOBO_NGINX_KERBEROS_REALM=ROTHER-OSS.COM
+
+# Kerberos kdc / AD Controller
+OTOBO_NGINX_KERBEROS_KDC=rother-oss.com
+
+# Kerberos Admin Server
+OTOBO_NGINX_KERBEROS_ADMIN_SERVER=rother-oss.com
+
+# Kerberos Default Domain
+OTOBO_NGINX_KERBEROS_DEFAULT_DOMAIN=rother-oss.com
 
 # Elasticsearch options
 OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
