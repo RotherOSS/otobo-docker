@@ -1,7 +1,22 @@
 m4_divert(-1)
 
+This file, etc/templates/dot_env.m4, is a M4 template file. The script script/devel/generate_sample_env_files.sh takes this template
+and generates the following files from it:
+
+    .docker_compose_env_http
+    .docker_compose_env_http_selenium
+    .docker_compose_env_https
+    .docker_compose_env_https_custom_nginx
+    .docker_compose_env_https_kerberos
+    .docker_compose_env_https_selenium
+
+These generated files are not used for running OTOBO. They are sample files for .env. Users can choose their use case and
+use the appropriate sample file as a starting point form their own .env file.
+
+See ./scripts/devel/generate_sample_env_files.sh -h for how to regenerated the sample file when making changes here.
+
 # Collect which services should be started by collecting the relevant
-# Docker compose .yml files. The otobo-base.yml file is always needed.
+# Docker Compose .yml files. The otobo-base.yml file is always needed.
 m4_define(`otovar_COMPOSE_FILE',`docker-compose/otobo-base.yml')
 
 # add the .yml file for HTTP
@@ -43,6 +58,14 @@ m4_define(
     `otoflag_SELENIUM',
     `:docker-compose/otobo-selenium.yml',
     `'))
+
+# a macro that explains the usage of scripts/devel/generate_dot_env.sh
+m4_define(
+  `otovar_GENERATE_DOT_ENV_BLURB',
+# During development it is convenient to be able to switch between different Docker repositories and Docker image versions.
+# The switching can be done with scripts/devel/generate_dot_env.sh. In order to activate this feature,
+# create the file dot_env.m4 in your Docker Compose working dir, e.g. /opt/otobo-docker, and uncomment the line below.
+)
 
 m4_divert(0)m4_dnl
 # Settings that are needed by Docker Compose itself.
@@ -113,7 +136,7 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 # The default is rotheross/otobo:latest
 ################################################################################
 
-# For use with scripts/update.sh, otovar_XXX() will be replaced
+otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
 #OTOBO_IMAGE_OTOBO=otovar_REPOSITORY()otobo:otovar_TAG()
 
 # More examples
@@ -128,7 +151,7 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 # The default is rotheross/otobo-elasticsearch:latest
 ################################################################################
 
-# For use with scripts/update.sh, otovar_XXX() will be replaced
+otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otovar_REPOSITORY()otobo-elasticsearch:otovar_TAG()
 
 # More examples
@@ -158,18 +181,18 @@ m4_divert(0)m4_dnl
 m4_ifdef( `otoflag_HTTP', `m4_divert(-1)')m4_dnl
 ################################################################################
 # The Docker image for the service 'nginx' can be specified explicitly.
-`#' The default image is rotheross/otovar_NGINX_IMAGE:latest
+`#' The default image is rotheross/otovar_NGINX_IMAGE():latest
 ################################################################################
 
-# For use with scripts/update.sh, otovar_XXX() will be replaced
-`#'OTOBO_IMAGE_OTOBO_NGINX=otovar_REPOSITORY()otovar_NGINX_IMAGE:otovar_TAG()
+otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
+`#'OTOBO_IMAGE_OTOBO_NGINX=otovar_REPOSITORY()otovar_NGINX_IMAGE():otovar_TAG()
 
 # More examples
-`#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE:rel-10_0_13
-`#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE:devel-rel-10_0
-`#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE:devel-rel-10_1
-`#'OTOBO_IMAGE_OTOBO_NGINX=otovar_NGINX_IMAGE:local-10.0.x
-`#'OTOBO_IMAGE_OTOBO_NGINX=otovar_NGINX_IMAGE:local-10.1.x
+`#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():rel-10_0_13
+`#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():devel-rel-10_0
+`#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():devel-rel-10_1
+`#'OTOBO_IMAGE_OTOBO_NGINX=otovar_NGINX_IMAGE():local-10.0.x
+`#'OTOBO_IMAGE_OTOBO_NGINX=otovar_NGINX_IMAGE():local-10.1.x
 
 m4_ifdef( `otoflag_HTTP', `m4_divert(0)')m4_dnl
 m4_ifdef( `otoflag_CUSTOM_NGINX', `', `m4_divert(-1)')m4_dnl
@@ -183,7 +206,7 @@ m4_ifdef( `otoflag_SELENIUM', `', `m4_divert(-1)')m4_dnl
 `#' The default image is rotheross/otobo-selenium-chrome:latest
 ################################################################################
 
-# For use with scripts/update.sh, otovar_XXX() will be replaced
+otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
 `#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=otovar_REPOSITORY()otobo-selenium-chrome:otovar_TAG()
 
 # More examples
