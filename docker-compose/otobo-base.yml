@@ -112,7 +112,7 @@ services:
       test: redis-cli ping
 
 
-# no volumnes need to be exposed across services
+# no volumes need to be exposed across services
 volumes:
   mariadb_data: {}
   opt_otobo: {}
