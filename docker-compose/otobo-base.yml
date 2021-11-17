@@ -35,6 +35,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${OTOBO_DB_ROOT_PASSWORD:?err}
     command: --max-allowed-packet=68157440 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --innodb-log-file-size=268435456 --query-cache-size=${OTOBO_DB_QUERY_CACHE_SIZE:-33554432}
+    healthcheck:
+      test: mysqladmin -p${OTOBO_DB_ROOT_PASSWORD:?err} ping -h localhost
 
   # a container running a webserver
   web:
@@ -57,6 +59,8 @@ services:
     environment:
       OTOBO_SYNC_WITH_S3: ${OTOBO_SYNC_WITH_S3:-0}
     command: web
+    healthcheck:
+      test: curl -s -f http://localhost:5000/otobo/index.pl
 
   # a container running the OTOBO daemon
   daemon:
@@ -73,6 +77,8 @@ services:
     environment:
       OTOBO_SYNC_WITH_S3: ${OTOBO_SYNC_WITH_S3:-0}
     command: daemon
+    healthcheck:
+      test: ./bin/otobo.Daemon.pl status | grep 'Daemon running'
 
   # a container running Elasticsearch
   elastic:
@@ -89,6 +95,8 @@ services:
       ES_JAVA_OPTS: ${OTOBO_ELASTICSEARCH_ES_JAVA_OPTS:?err}
     volumes:
       - elasticsearch_data:/usr/share/elasticsearch/data
+    healthcheck:
+      test: curl -s -f http://localhost:9200/_cat/health
 
   # a container running Redis
   redis:
@@ -100,6 +108,8 @@ services:
     restart: always
     volumes:
       - redis_data:/data
+    healthcheck:
+      test: redis-cli ping
 
 
 # no volumnes need to be exposed across services
