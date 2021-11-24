@@ -42,6 +42,8 @@ services:
       OTOBO_NGINX_SSL_CERTIFICATE: ${OTOBO_NGINX_SSL_CERTIFICATE:?err}
       OTOBO_NGINX_SSL_CERTIFICATE_KEY: ${OTOBO_NGINX_SSL_CERTIFICATE_KEY:?err}
       NGINX_ENVSUBST_TEMPLATE_DIR: ${NGINX_ENVSUBST_TEMPLATE_DIR}
+    healthcheck:
+      test: service nginx status || exit 1
 
 volumes:
   otobo_nginx_ssl:
