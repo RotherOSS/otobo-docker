@@ -129,6 +129,9 @@ OTOBO_NGINX_KERBEROS_ADMIN_SERVER=rother-oss.com
 
 # Kerberos Default Domain
 OTOBO_NGINX_KERBEROS_DEFAULT_DOMAIN=rother-oss.com
+
+# Kerberos Substitute Template Directory
+NGINX_ENVSUBST_TEMPLATE_DIR=
 m4_ifdef( `otoflag_KERBEROS', `', `m4_divert(0)')m4_dnl
 
 # Elasticsearch options
