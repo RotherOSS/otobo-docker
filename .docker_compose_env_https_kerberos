@@ -53,6 +53,9 @@ OTOBO_NGINX_KERBEROS_ADMIN_SERVER=rother-oss.com
 # Kerberos Default Domain
 OTOBO_NGINX_KERBEROS_DEFAULT_DOMAIN=rother-oss.com
 
+# Kerberos Substitute Template Directory
+NGINX_ENVSUBST_TEMPLATE_DIR=
+
 # Elasticsearch options
 OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
