@@ -122,11 +122,12 @@ m4_ifdef( `otoflag_HTTP', `m4_divert(0)')m4_dnl
 m4_ifdef( `otoflag_KERBEROS', `', `m4_divert(-1)')m4_dnl
 
 # Kerberos Options
-# Kerberos keytab
-OTOBO_NGINX_KERBEROS_KEYTAB=/opt/otobo-docker/nginx-conf/krb5.keytab
 
-# Kerberos config
-OTOBO_NGINX_KERBEROS_CONFIG=/opt/otobo-docker/nginx-conf/krb5.conf
+# Kerberos keytab, default is /etc/krb5.keytab
+#OTOBO_NGINX_KERBEROS_KEYTAB=/opt/otobo-docker/nginx-conf/krb5.keytab
+
+# Kerberos config, default is /etc/krb5.conf as generated krb5.conf.template
+#OTOBO_NGINX_KERBEROS_CONFIG=/opt/otobo-docker/nginx-conf/krb5.conf
 
 # Kerberos Service Name
 OTOBO_NGINX_KERBEROS_SERVICE_NAME=HTTP/portal.rother-oss.com
