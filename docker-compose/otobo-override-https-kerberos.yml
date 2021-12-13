@@ -31,9 +31,9 @@ services:
     restart: always
     volumes:
       - otobo_nginx_ssl:/etc/nginx/ssl
-      - ${OTOBO_NGINX_KERBEROS_KEYTAB:?err}:/etc/krb5.keytab:ro
+      - ${OTOBO_NGINX_KERBEROS_KEYTAB:-/etc/krb5.keytab}:/etc/krb5.keytab:ro
       # uncomment when /etc/krb5.conf should be mounted from the Docker host
-      #- ${OTOBO_NGINX_KERBEROS_CONFIG:?err}:/etc/krb5.conf:ro
+      #- ${OTOBO_NGINX_KERBEROS_CONFIG:-/etc/krb5.conf}:/etc/krb5.conf:ro
     # The HTTP port is exposed, but only redirects to HTTPS
     ports:
       - "${OTOBO_WEB_HTTPS_IPADDR:-0.0.0.0}:${OTOBO_WEB_HTTPS_PORT:-443}:8443"
