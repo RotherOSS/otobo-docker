@@ -135,7 +135,8 @@ NGINX_ENVSUBST_TEMPLATE_DIR=
 m4_ifdef( `otoflag_KERBEROS', `', `m4_divert(0)')m4_dnl
 
 # Elasticsearch options
-OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
+# Mitigate CVE-2021-44228: -Dlog4j2.formatMsgNoLookups=true
+OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m -Dlog4j2.formatMsgNoLookups=true
 
 # Special configuration when running OTOBO in a cluster
 #OTOBO_SYNC_WITH_S3=1
