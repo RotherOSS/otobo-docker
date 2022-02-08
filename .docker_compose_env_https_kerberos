@@ -122,6 +122,7 @@ OTOBO_SYNC_WITH_S3=0
 #OTOBO_IMAGE_OTOBO_NGINX=otovar_REPOSITORY()otobo-nginx-kerberos-webproxy:otovar_TAG()
 
 # More examples
+#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-kerberos-webproxy:latest-10_1
 #OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-kerberos-webproxy:rel-10_1_1
 #OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-kerberos-webproxy:devel-rel-10_0
 #OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-kerberos-webproxy:devel-rel-10_1
