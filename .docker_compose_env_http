@@ -34,7 +34,7 @@ OTOBO_SYNC_WITH_S3=0
 
 ################################################################################
 # The Docker image for the services 'web' and 'daemon' can be specified explicitly.
-# The default is rotheross/otobo:latest-10_0
+# The default is rotheross/otobo:rel-10_1_beta1
 ################################################################################
 
 # During development it is convenient to be able to switch between different Docker repositories and Docker image versions.
@@ -43,7 +43,8 @@ OTOBO_SYNC_WITH_S3=0
 #OTOBO_IMAGE_OTOBO=otovar_REPOSITORY()otobo:otovar_TAG()
 
 # More examples
-#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-10_1_beta1
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:latest-10_1
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-10_1_1
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-10_0
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-10_1
 #OTOBO_IMAGE_OTOBO=otobo:local-10.0.x
@@ -51,7 +52,7 @@ OTOBO_SYNC_WITH_S3=0
 
 ################################################################################
 # The Docker image for the service 'eleastic' can be specified explicitly.
-# The default is rotheross/otobo-elasticsearch:latest-10_0
+# The default is rotheross/otobo-elasticsearch:rel-10_1_beta1
 ################################################################################
 
 # During development it is convenient to be able to switch between different Docker repositories and Docker image versions.
@@ -60,7 +61,8 @@ OTOBO_SYNC_WITH_S3=0
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otovar_REPOSITORY()otobo-elasticsearch:otovar_TAG()
 
 # More examples
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-10_1_beta1
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:latest-10_1
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-10_1_1
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-10_0
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-10_1
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-10.0.x
