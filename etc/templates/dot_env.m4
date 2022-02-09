@@ -149,7 +149,7 @@ OTOBO_SYNC_WITH_S3=0
 
 ################################################################################
 # The Docker image for the services 'web' and 'daemon' can be specified explicitly.
-# The default is rotheross/otobo:rel-10_1_beta1
+# The default is rotheross/otobo:rel-10_1_0-beta2
 ################################################################################
 
 otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
@@ -165,7 +165,7 @@ otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
 
 ################################################################################
 # The Docker image for the service 'eleastic' can be specified explicitly.
-# The default is rotheross/otobo-elasticsearch:rel-10_1_beta1
+# The default is rotheross/otobo-elasticsearch:rel-10_1_0-beta2
 ################################################################################
 
 otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
@@ -199,7 +199,7 @@ m4_divert(0)m4_dnl
 m4_ifdef( `otoflag_HTTP', `m4_divert(-1)')m4_dnl
 ################################################################################
 # The Docker image for the service 'nginx' can be specified explicitly.
-`#' The default image is rotheross/otovar_NGINX_IMAGE():rel-10_1_beta1
+`#' The default image is rotheross/otovar_NGINX_IMAGE():rel-10_1_0-beta2
 ################################################################################
 
 otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
@@ -222,7 +222,7 @@ m4_ifdef( `otoflag_CUSTOM_NGINX', `', `m4_divert(0)')m4_dnl
 m4_ifdef( `otoflag_SELENIUM', `', `m4_divert(-1)')m4_dnl
 ################################################################################
 # The Docker image for the service 'selenium' can be specified explicitly.
-`#' The default image is rotheross/otobo-selenium-chrome:rel-10_1_beta1
+`#' The default image is rotheross/otobo-selenium-chrome:rel-10_1_0-beta2
 ################################################################################
 
 otovar_GENERATE_DOT_ENV_BLURB()m4_dnl

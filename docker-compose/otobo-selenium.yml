@@ -9,7 +9,7 @@ version: '3.3'
 services:
 
   selenium-chrome:
-    image: ${OTOBO_IMAGE_OTOBO_SELENIUM_CHROME:-rotheross/otobo-selenium-chrome:rel-10_1_beta1}
+    image: ${OTOBO_IMAGE_OTOBO_SELENIUM_CHROME:-rotheross/otobo-selenium-chrome:rel-10_1_0-beta2}
     #cap_drop:
     #    - ALL
     #cap_add:
