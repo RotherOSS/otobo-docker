@@ -67,6 +67,9 @@ m4_define(
 # create the file dot_env.m4 in your Docker Compose working dir, e.g. /opt/otobo-docker, and uncomment the line below.
 )
 
+# a macro for setting the default release tag. This macro differs between the different branches.
+m4_define(`otovar_DEFAULT_TAG',`latest-10_0')
+
 m4_divert(0)m4_dnl
 # Settings that are needed by Docker Compose itself.
 
@@ -93,11 +96,21 @@ m4_ifdef(
 ')m4_dnl
 # Set OTOBO_WEB_HTTP_PORT when the HTTP port is not 80
 #OTOBO_WEB_HTTP_PORT=<your special port>
+
+# Set OTOBO_WEB_HTTP_IPADDR when only requests addressed to a specific IP should be served.
+# See https://docs.docker.com/compose/compose-file/compose-file-v3/#ports
+#OTOBO_WEB_HTTP_IPADDR=<your special ip address>
 m4_ifdef( `otoflag_HTTP', `m4_divert(-1)')m4_dnl
 
 # HTTPS options
+
 # set OTOBO_WEB_HTTPS_PORT when the HTTPS port is not 443
 #OTOBO_WEB_HTTPS_PORT=<your special port>
+
+# Set OTOBO_WEB_HTTPS_IPADDR when only requests addressed to a specific IP should be served.
+# See https://docs.docker.com/compose/compose-file/compose-file-v3/#ports
+#OTOBO_WEB_HTTPS_IPADDR=<your special ip address>
+
 # The settings OTOBO_NGINX_SSL_CERTIFICATE and OTOBO_NGINX_SSL_CERTIFICATE_KEY
 # are mandatory when HTTPS is used.
 # The configured pathes must be absolute pathes that are available in the container.
@@ -149,7 +162,7 @@ OTOBO_SYNC_WITH_S3=0
 
 ################################################################################
 # The Docker image for the services 'web' and 'daemon' can be specified explicitly.
-# The default is rotheross/otobo:latest-10_0
+`#' The default is rotheross/otobo:otovar_DEFAULT_TAG()
 ################################################################################
 
 otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
@@ -157,27 +170,31 @@ otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
 
 # More examples
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:latest-10_1
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:latest-10_0
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-10_1_1
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-10_0_15
-#OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-10_0
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-10_1
-#OTOBO_IMAGE_OTOBO=otobo:local-10.0.x
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-10_0
 #OTOBO_IMAGE_OTOBO=otobo:local-10.1.x
+#OTOBO_IMAGE_OTOBO=otobo:local-10.0.x
 
 ################################################################################
 # The Docker image for the service 'eleastic' can be specified explicitly.
-# The default is rotheross/otobo-elasticsearch:latest-10_0
+`#' The default is rotheross/otobo-elasticsearch:otovar_DEFAULT_TAG()
 ################################################################################
 
 otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otovar_REPOSITORY()otobo-elasticsearch:otovar_TAG()
 
 # More examples
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-latest-10_1
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:latest-10_1
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:latest-10_0
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-10_1_1
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-10_0_15
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-10_0
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-10_1
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-10.0.x
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-10_0
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-10.1.x
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-10.0.x
 
 ################################################################################
 # The Docker image for the service 'redis' can be specified explicitly.
@@ -199,7 +216,7 @@ m4_divert(0)m4_dnl
 m4_ifdef( `otoflag_HTTP', `m4_divert(-1)')m4_dnl
 ################################################################################
 # The Docker image for the service 'nginx' can be specified explicitly.
-`#' The default image is rotheross/otovar_NGINX_IMAGE():latest-10_0
+`#' The default image is rotheross/otovar_NGINX_IMAGE():otovar_DEFAULT_TAG()
 ################################################################################
 
 otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
@@ -207,11 +224,13 @@ otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
 
 # More examples
 `#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():latest-10_1
+`#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():latest-10_0
+`#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():rel-10_1_1
 `#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():rel-10_0_15
-`#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():devel-rel-10_0
 `#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():devel-rel-10_1
-`#'OTOBO_IMAGE_OTOBO_NGINX=otovar_NGINX_IMAGE():local-10.0.x
+`#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():devel-rel-10_0
 `#'OTOBO_IMAGE_OTOBO_NGINX=otovar_NGINX_IMAGE():local-10.1.x
+`#'OTOBO_IMAGE_OTOBO_NGINX=otovar_NGINX_IMAGE():local-10.0.x
 
 m4_ifdef( `otoflag_HTTP', `m4_divert(0)')m4_dnl
 m4_ifdef( `otoflag_CUSTOM_NGINX', `', `m4_divert(-1)')m4_dnl
@@ -222,7 +241,7 @@ m4_ifdef( `otoflag_CUSTOM_NGINX', `', `m4_divert(0)')m4_dnl
 m4_ifdef( `otoflag_SELENIUM', `', `m4_divert(-1)')m4_dnl
 ################################################################################
 # The Docker image for the service 'selenium' can be specified explicitly.
-`#' The default image is rotheross/otobo-selenium-chrome:latest-10_0
+`#' The default image is rotheross/otobo-selenium-chrome:otovar_DEFAULT_TAG()
 ################################################################################
 
 otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
@@ -230,10 +249,12 @@ otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
 
 # More examples
 `#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:latest-10_1
+`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:latest-10_0
+`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:rel-10_1_1
 `#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:rel-10_0_15
-`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:devel-rel-10_0
 `#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:devel-rel-10_1
-`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=otobo-selenium-chrome:local-10.0.x
+`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:devel-rel-10_0
 `#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=otobo-selenium-chrome:local-10.1.x
+`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=otobo-selenium-chrome:local-10.0.x
 
 m4_ifdef( `otoflag_SELENIUM', `', `m4_divert(0)')m4_dnl
