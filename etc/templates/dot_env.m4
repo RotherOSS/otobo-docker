@@ -160,11 +160,13 @@ otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
 
 # More examples
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:latest-10_1
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:latest-10_0
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-10_1_1
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-10_0_15
-#OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-10_0
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-10_1
-#OTOBO_IMAGE_OTOBO=otobo:local-10.0.x
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-10_0
 #OTOBO_IMAGE_OTOBO=otobo:local-10.1.x
+#OTOBO_IMAGE_OTOBO=otobo:local-10.0.x
 
 ################################################################################
 # The Docker image for the service 'eleastic' can be specified explicitly.
@@ -175,12 +177,14 @@ otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otovar_REPOSITORY()otobo-elasticsearch:otovar_TAG()
 
 # More examples
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-latest-10_1
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:latest-10_1
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:latest-10_0
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-10_1_1
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-10_0_15
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-10_0
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-10_1
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-10.0.x
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-10_0
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-10.1.x
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-10.0.x
 
 ################################################################################
 # The Docker image for the service 'redis' can be specified explicitly.
@@ -210,11 +214,13 @@ otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
 
 # More examples
 `#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():latest-10_1
+`#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():latest-10_0
+`#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():rel-10_1_1
 `#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():rel-10_0_15
-`#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():devel-rel-10_0
 `#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():devel-rel-10_1
-`#'OTOBO_IMAGE_OTOBO_NGINX=otovar_NGINX_IMAGE():local-10.0.x
+`#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():devel-rel-10_0
 `#'OTOBO_IMAGE_OTOBO_NGINX=otovar_NGINX_IMAGE():local-10.1.x
+`#'OTOBO_IMAGE_OTOBO_NGINX=otovar_NGINX_IMAGE():local-10.0.x
 
 m4_ifdef( `otoflag_HTTP', `m4_divert(0)')m4_dnl
 m4_ifdef( `otoflag_CUSTOM_NGINX', `', `m4_divert(-1)')m4_dnl
@@ -233,10 +239,12 @@ otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
 
 # More examples
 `#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:latest-10_1
+`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:latest-10_0
+`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:rel-10_1_1
 `#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:rel-10_0_15
-`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:devel-rel-10_0
 `#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:devel-rel-10_1
-`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=otobo-selenium-chrome:local-10.0.x
+`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:devel-rel-10_0
 `#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=otobo-selenium-chrome:local-10.1.x
+`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=otobo-selenium-chrome:local-10.0.x
 
 m4_ifdef( `otoflag_SELENIUM', `', `m4_divert(0)')m4_dnl
