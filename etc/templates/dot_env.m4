@@ -67,6 +67,9 @@ m4_define(
 # create the file dot_env.m4 in your Docker Compose working dir, e.g. /opt/otobo-docker, and uncomment the line below.
 )
 
+# a macro for setting the default release tag. This macro differs between the different branches.
+m4_define(`otovar_DEFAULT_TAG',`latest-10_0')
+
 m4_divert(0)m4_dnl
 # Settings that are needed by Docker Compose itself.
 
@@ -149,7 +152,7 @@ OTOBO_SYNC_WITH_S3=0
 
 ################################################################################
 # The Docker image for the services 'web' and 'daemon' can be specified explicitly.
-# The default is rotheross/otobo:latest-10_0
+`#' The default is rotheross/otobo:otovar_DEFAULT_TAG()
 ################################################################################
 
 otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
@@ -165,7 +168,7 @@ otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
 
 ################################################################################
 # The Docker image for the service 'eleastic' can be specified explicitly.
-# The default is rotheross/otobo-elasticsearch:latest-10_0
+`#' The default is rotheross/otobo-elasticsearch:otovar_DEFAULT_TAG()
 ################################################################################
 
 otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
@@ -199,7 +202,7 @@ m4_divert(0)m4_dnl
 m4_ifdef( `otoflag_HTTP', `m4_divert(-1)')m4_dnl
 ################################################################################
 # The Docker image for the service 'nginx' can be specified explicitly.
-`#' The default image is rotheross/otovar_NGINX_IMAGE():latest-10_0
+`#' The default image is rotheross/otovar_NGINX_IMAGE():otovar_DEFAULT_TAG()
 ################################################################################
 
 otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
@@ -222,7 +225,7 @@ m4_ifdef( `otoflag_CUSTOM_NGINX', `', `m4_divert(0)')m4_dnl
 m4_ifdef( `otoflag_SELENIUM', `', `m4_divert(-1)')m4_dnl
 ################################################################################
 # The Docker image for the service 'selenium' can be specified explicitly.
-`#' The default image is rotheross/otobo-selenium-chrome:latest-10_0
+`#' The default image is rotheross/otobo-selenium-chrome:otovar_DEFAULT_TAG()
 ################################################################################
 
 otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
