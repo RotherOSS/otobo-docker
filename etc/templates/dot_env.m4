@@ -96,11 +96,21 @@ m4_ifdef(
 ')m4_dnl
 # Set OTOBO_WEB_HTTP_PORT when the HTTP port is not 80
 #OTOBO_WEB_HTTP_PORT=<your special port>
+
+# Set OTOBO_WEB_HTTP_IPADDR when only requests addressed to a specific IP should be served.
+# See https://docs.docker.com/compose/compose-file/compose-file-v3/#ports
+#OTOBO_WEB_HTTP_IPADDR=<your special ip address>
 m4_ifdef( `otoflag_HTTP', `m4_divert(-1)')m4_dnl
 
 # HTTPS options
+
 # set OTOBO_WEB_HTTPS_PORT when the HTTPS port is not 443
 #OTOBO_WEB_HTTPS_PORT=<your special port>
+
+# Set OTOBO_WEB_HTTPS_IPADDR when only requests addressed to a specific IP should be served.
+# See https://docs.docker.com/compose/compose-file/compose-file-v3/#ports
+#OTOBO_WEB_HTTPS_IPADDR=<your special ip address>
+
 # The settings OTOBO_NGINX_SSL_CERTIFICATE and OTOBO_NGINX_SSL_CERTIFICATE_KEY
 # are mandatory when HTTPS is used.
 # The configured pathes must be absolute pathes that are available in the container.
