@@ -31,8 +31,9 @@ services:
     restart: always
     volumes:
       - otobo_nginx_ssl:/etc/nginx/ssl
-      - ${OTOBO_NGINX_KERBEROS_CONFIG:?err}:/etc/krb5.conf:rw
-      - ${OTOBO_NGINX_KERBEROS_KEYTAB:?err}:/etc/krb5.keytab:rw
+      - ${OTOBO_NGINX_KERBEROS_KEYTAB:-/etc/krb5.keytab}:/etc/krb5.keytab:ro
+      # uncomment when /etc/krb5.conf should be mounted from the Docker host
+      #- ${OTOBO_NGINX_KERBEROS_CONFIG:-/etc/krb5.conf}:/etc/krb5.conf:ro
     # The HTTP port is exposed, but only redirects to HTTPS
     ports:
       - "${OTOBO_WEB_HTTPS_IPADDR:-0.0.0.0}:${OTOBO_WEB_HTTPS_PORT:-443}:8443"
@@ -44,14 +45,14 @@ services:
       OTOBO_NGINX_SSL_CERTIFICATE: ${OTOBO_NGINX_SSL_CERTIFICATE:?err}
       OTOBO_NGINX_SSL_CERTIFICATE_KEY: ${OTOBO_NGINX_SSL_CERTIFICATE_KEY:?err}
       NGINX_ENVSUBST_TEMPLATE_DIR: ${NGINX_ENVSUBST_TEMPLATE_DIR}
-      OTOBO_NGINX_KERBEROS_SERVICE_NAME: ${OTOBO_NGINX_KERBEROS_SERVICE_NAME}
-      OTOBO_NGINX_KERBEROS_REALM: ${OTOBO_NGINX_KERBEROS_REALM}
-      OTOBO_NGINX_KERBEROS_KDC: ${OTOBO_NGINX_KERBEROS_KDC}
-      OTOBO_NGINX_KERBEROS_ADMIN_SERVER: ${OTOBO_NGINX_KERBEROS_ADMIN_SERVER}
-      OTOBO_NGINX_KERBEROS_DEFAULT_DOMAIN: ${OTOBO_NGINX_KERBEROS_DEFAULT_DOMAIN}
+      OTOBO_NGINX_KERBEROS_SERVICE_NAME: ${OTOBO_NGINX_KERBEROS_SERVICE_NAME:?err}
+      OTOBO_NGINX_KERBEROS_REALM: ${OTOBO_NGINX_KERBEROS_REALM:?err}
+      OTOBO_NGINX_KERBEROS_KDC: ${OTOBO_NGINX_KERBEROS_KDC:?err}
+      OTOBO_NGINX_KERBEROS_ADMIN_SERVER: ${OTOBO_NGINX_KERBEROS_ADMIN_SERVER:?err}
+      OTOBO_NGINX_KERBEROS_DEFAULT_DOMAIN: ${OTOBO_NGINX_KERBEROS_DEFAULT_DOMAIN:?err}
     healthcheck:
       test: service nginx status || exit 1
-      
+
 volumes:
   otobo_nginx_ssl:
     external: true
