@@ -68,7 +68,7 @@ m4_define(
 )
 
 # a macro for setting the default release tag. This macro differs between the different branches.
-m4_define(`otovar_DEFAULT_TAG',`rel-10_1_0-beta2')
+m4_define(`otovar_DEFAULT_TAG',`latest-10_1')
 
 m4_divert(0)m4_dnl
 # Settings that are needed by Docker Compose itself.

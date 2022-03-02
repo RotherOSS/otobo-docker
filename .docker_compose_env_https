@@ -56,7 +56,7 @@ OTOBO_SYNC_WITH_S3=0
 
 ################################################################################
 # The Docker image for the services 'web' and 'daemon' can be specified explicitly.
-# The default is rotheross/otobo:rel-10_1_0-beta2
+# The default is rotheross/otobo:latest-10_1
 ################################################################################
 
 # During development it is convenient to be able to switch between different Docker repositories and Docker image versions.
@@ -76,7 +76,7 @@ OTOBO_SYNC_WITH_S3=0
 
 ################################################################################
 # The Docker image for the service 'eleastic' can be specified explicitly.
-# The default is rotheross/otobo-elasticsearch:rel-10_1_0-beta2
+# The default is rotheross/otobo-elasticsearch:latest-10_1
 ################################################################################
 
 # During development it is convenient to be able to switch between different Docker repositories and Docker image versions.
@@ -102,7 +102,7 @@ OTOBO_SYNC_WITH_S3=0
 
 ################################################################################
 # The Docker image for the service 'nginx' can be specified explicitly.
-# The default image is rotheross/otobo-nginx-webproxy:rel-10_1_0-beta2
+# The default image is rotheross/otobo-nginx-webproxy:latest-10_1
 ################################################################################
 
 # During development it is convenient to be able to switch between different Docker repositories and Docker image versions.
