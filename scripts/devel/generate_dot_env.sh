@@ -98,17 +98,17 @@ function write_env_file() {
 # checking the m4 file
     if [[ ! -e "$template" ]]; then
         echo "The template file $template does not exist. Exiting";
-    exit 1;
+        exit 1;
     fi
 
-        if [[ ! -r "$template" ]]; then
-            echo "The template file $template is not readable. Exiting";
-    exit 2;
+    if [[ ! -r "$template" ]]; then
+        echo "The template file $template is not readable. Exiting";
+        exit 2;
     fi
 
 # For easier processing we require that the separator is already added to the repository.
 # But don't add the '/' for the local repository.
-        if [[ "$repository" == "" ]]; then
+    if [[ "$repository" == "" ]]; then
         :  # local repository, nothing to do
     elif [[ "$repository" == "/" ]]; then
         repository=""
@@ -119,12 +119,13 @@ function write_env_file() {
     # in case the repository was passed with a trailing /
     repository="${repository/\/\//\/}"
 
+    echo "template: '$template'"
     echo "repository: '$repository'"
     echo "tag: '$tag'"
 
     # update .env
     cp --backup=numbered .env .env.bak
-    m4 --prefix-builtins --define "otovar_REPOSITORY=$repository"  --define "otovar_TAG=$tag" dot_env.m4 > .env
+    m4 --prefix-builtins --define "otovar_REPOSITORY=$repository"  --define "otovar_TAG=$tag" $template > .env
 }
 
 # actually parse the command line
