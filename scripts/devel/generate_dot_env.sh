@@ -18,7 +18,7 @@ function args() {
     HELP_FLAG=0
     TEMPLATE="dot_env.m4"
     REPOSITORY="rotheross"
-    TAG="latest"
+    TAG="latest-10_0"
 
     eval set -- "$options"
     while true; do
