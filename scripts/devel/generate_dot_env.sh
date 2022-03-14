@@ -119,12 +119,13 @@ function write_env_file() {
     # in case the repository was passed with a trailing /
     repository="${repository/\/\//\/}"
 
+    echo "template: '$template'"
     echo "repository: '$repository'"
     echo "tag: '$tag'"
 
     # update .env
     cp --backup=numbered .env .env.bak
-    m4 --prefix-builtins --define "otovar_REPOSITORY=$repository"  --define "otovar_TAG=$tag" dot_env.m4 > .env
+    m4 --prefix-builtins --define "otovar_REPOSITORY=$repository"  --define "otovar_TAG=$tag" $template > .env
 }
 
 # actually parse the command line
