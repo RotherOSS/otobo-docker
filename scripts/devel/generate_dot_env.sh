@@ -18,7 +18,7 @@ function args() {
     HELP_FLAG=0
     TEMPLATE="dot_env.m4"
     REPOSITORY="rotheross"
-    TAG="latest-10_0"
+    TAG="latest-10_1"
 
     eval set -- "$options"
     while true; do
@@ -72,16 +72,16 @@ Usage:
 
     # passing repository and tag is only useful when an m4 template has been set up
     # this is useful mostly during development
-    $0 --template dot_env.m4 --repository rotheross --tag latest-10_0
-    $0 --template dot_env.m4 --repository rotheross --tag devel-rel-10_0
+    $0 --template dot_env.m4 --repository rotheross --tag latest-10_1
+    $0 --template dot_env.m4 --repository rotheross --tag devel-rel-10_1
 
     # specify the empty string for locally build images
-    $0 --template dot_env.m4 --repository "" --tag local-10.0.x
+    $0 --template dot_env.m4 --repository "" --tag local-10.1.x
 
     # the standard behavior is to create .env from the default settings
     # template:   dot_env.m4
     # repository: rotheross
-    # tag:        latest-10_0
+    # tag:        latest-10_1
     $0
 END_HELP
 
