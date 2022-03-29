@@ -64,7 +64,7 @@ services:
       OTOBO_SYNC_WITH_S3: ${OTOBO_SYNC_WITH_S3:-0}
     command: web
     healthcheck:
-      test: curl -s -f http://localhost:5000/otobo/index.pl
+      test: curl -s -f http://localhost:5000/robots.txt
 
   # a container running the OTOBO daemon
   daemon:
