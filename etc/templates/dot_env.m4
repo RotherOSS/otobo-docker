@@ -172,7 +172,7 @@ otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
 # More examples
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:latest-10_1
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:latest-10_0
-#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-10_1_1
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-10_1_2
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-10_0_15
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-10_1
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-10_0
@@ -190,7 +190,7 @@ otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
 # More examples
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:latest-10_1
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:latest-10_0
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-10_1_1
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-10_1_2
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-10_0_15
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-10_1
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-10_0
@@ -226,7 +226,7 @@ otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
 # More examples
 `#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():latest-10_1
 `#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():latest-10_0
-`#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():rel-10_1_1
+`#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():rel-10_1_2
 `#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():rel-10_0_15
 `#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():devel-rel-10_1
 `#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():devel-rel-10_0
@@ -251,7 +251,7 @@ otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
 # More examples
 `#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:latest-10_1
 `#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:latest-10_0
-`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:rel-10_1_1
+`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:rel-10_1_2
 `#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:rel-10_0_15
 `#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:devel-rel-10_1
 `#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:devel-rel-10_0
