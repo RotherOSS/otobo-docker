@@ -22,11 +22,15 @@ services:
     volumes:
       - mariadb_data:/var/lib/mysql
 
-    # do not expose the mysql default port to the docker host host
-    # use 'docker-compose exec -it db mysql ...' when access is needed
-    # because the the otobo DB user is allowed for the complete Docker network
+    # Within the container network the MariaDB server listens to its default port 3306.
+    # Per default this port is not exposed to the outside world.
+    # One can use 'docker-compose exec -it db mysql ...' when access to the database is needed.
+    # But for development it can be useful to expose the port 3306. E.g. when a graphical client
+    # like MySQL Workbench is used. Uncomment the following lines for making MariaDB available
+    # on port 3307 on the Docker host. A non-standard port is chosen here, because 3306 is
+    # often already used on the Docker host.
     # ports:
-      #- "5001:3306"
+    #   - "3307:3306"
 
     # Set the db root password which has to be entered when running otobo/installer.pl.
     # The passwort is secrect and can be stored in the file .env.
