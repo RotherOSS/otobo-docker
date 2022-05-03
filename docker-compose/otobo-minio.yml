@@ -1,0 +1,25 @@
+# Docker compose file for mocking AWS S3 with MinIO.
+# This is intended only for development and for testing.
+
+# Access via port 9000 which is exposed to the Docker host.
+
+# See also README.md .
+# See also https://hub.docker.com/r/localstack/localstack .
+# Ses also https://docs.min.io/docs/deploy-minio-on-docker-compose.html
+
+# same version as in otobo-base.yml
+version: '3.3'
+
+services:
+
+  minio:
+    image: minio/minio
+    # ports can be exposed to the Docker as only a single minio container is running
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - tmp_minio:/tmp/minio
+    command: server --console-address ":9001" /data
+volumes:
+  tmp_minio: {}
