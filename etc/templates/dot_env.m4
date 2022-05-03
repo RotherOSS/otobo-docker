@@ -78,6 +78,8 @@ COMPOSE_PROJECT_NAME=otobo
 
 # COMPOSE_FILE is a collection of files, separated by COMPOSE_PATH_SEPARATOR, that make up the final config.
 # The files usually reside in the subdirectory docker-compose.
+# Additional services can be added by concatenating more files to COMPOSE_FILE. An example would services
+# for S3 compatible storage. That is: :docker-compose/otobo-localstack.yml or :docker-compose/otobo-minio.yml
 COMPOSE_PATH_SEPARATOR=:
 COMPOSE_FILE=otovar_COMPOSE_FILE
 
@@ -152,8 +154,8 @@ m4_ifdef( `otoflag_KERBEROS', `', `m4_divert(0)')m4_dnl
 OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
 # Special configuration when running OTOBO in a cluster
-#OTOBO_SYNC_WITH_S3=1
 OTOBO_SYNC_WITH_S3=0
+#OTOBO_SYNC_WITH_S3=1
 
 ################################################################################
 # The Docker image for the service 'db' can be specified explicitly.
