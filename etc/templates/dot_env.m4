@@ -122,6 +122,7 @@ m4_ifdef( `otoflag_HTTP', `m4_divert(0)')m4_dnl
 m4_ifdef( `otoflag_KERBEROS', `', `m4_divert(-1)')m4_dnl
 
 # Kerberos Options
+
 # Kerberos keytab
 OTOBO_NGINX_KERBEROS_KEYTAB=/opt/otobo-docker/nginx-conf/krb5.keytab
 
@@ -151,8 +152,8 @@ m4_ifdef( `otoflag_KERBEROS', `', `m4_divert(0)')m4_dnl
 OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
 # Special configuration when running OTOBO in a cluster
-#OTOBO_SYNC_WITH_S3=1
 OTOBO_SYNC_WITH_S3=0
+#OTOBO_SYNC_WITH_S3=1
 
 ################################################################################
 # The Docker image for the service 'db' can be specified explicitly.
@@ -169,13 +170,9 @@ otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
 #OTOBO_IMAGE_OTOBO=otovar_REPOSITORY()otobo:otovar_TAG()
 
 # More examples
-#OTOBO_IMAGE_OTOBO=rotheross/otobo:latest-10_1
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:latest-10_0
-#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-10_1_3
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-10_0_16
-#OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-10_1
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-10_0
-#OTOBO_IMAGE_OTOBO=otobo:local-10.1.x
 #OTOBO_IMAGE_OTOBO=otobo:local-10.0.x
 
 ################################################################################
@@ -187,13 +184,9 @@ otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otovar_REPOSITORY()otobo-elasticsearch:otovar_TAG()
 
 # More examples
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:latest-10_1
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:latest-10_0
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-10_1_3
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-10_0_16
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-10_1
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-10_0
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-10.1.x
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-10.0.x
 
 ################################################################################
@@ -223,13 +216,9 @@ otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
 `#'OTOBO_IMAGE_OTOBO_NGINX=otovar_REPOSITORY()otovar_NGINX_IMAGE():otovar_TAG()
 
 # More examples
-`#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():latest-10_1
 `#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():latest-10_0
-`#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():rel-10_1_3
 `#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():rel-10_0_16
-`#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():devel-rel-10_1
 `#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():devel-rel-10_0
-`#'OTOBO_IMAGE_OTOBO_NGINX=otovar_NGINX_IMAGE():local-10.1.x
 `#'OTOBO_IMAGE_OTOBO_NGINX=otovar_NGINX_IMAGE():local-10.0.x
 
 m4_ifdef( `otoflag_HTTP', `m4_divert(0)')m4_dnl
@@ -248,13 +237,9 @@ otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
 `#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=otovar_REPOSITORY()otobo-selenium-chrome:otovar_TAG()
 
 # More examples
-`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:latest-10_1
 `#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:latest-10_0
-`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:rel-10_1_3
 `#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:rel-10_0_16
-`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:devel-rel-10_1
 `#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:devel-rel-10_0
-`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=otobo-selenium-chrome:local-10.1.x
 `#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=otobo-selenium-chrome:local-10.0.x
 
 m4_ifdef( `otoflag_SELENIUM', `', `m4_divert(0)')m4_dnl

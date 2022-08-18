@@ -42,6 +42,7 @@ OTOBO_NGINX_SSL_CERTIFICATE=
 OTOBO_NGINX_SSL_CERTIFICATE_KEY=
 
 # Kerberos Options
+
 # Kerberos keytab
 OTOBO_NGINX_KERBEROS_KEYTAB=/opt/otobo-docker/nginx-conf/krb5.keytab
 
@@ -70,8 +71,8 @@ NGINX_ENVSUBST_TEMPLATE_DIR=
 OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
 # Special configuration when running OTOBO in a cluster
-#OTOBO_SYNC_WITH_S3=1
 OTOBO_SYNC_WITH_S3=0
+#OTOBO_SYNC_WITH_S3=1
 
 ################################################################################
 # The Docker image for the service 'db' can be specified explicitly.
@@ -90,13 +91,9 @@ OTOBO_SYNC_WITH_S3=0
 #OTOBO_IMAGE_OTOBO=otovar_REPOSITORY()otobo:otovar_TAG()
 
 # More examples
-#OTOBO_IMAGE_OTOBO=rotheross/otobo:latest-10_1
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:latest-10_0
-#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-10_1_3
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-10_0_16
-#OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-10_1
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-10_0
-#OTOBO_IMAGE_OTOBO=otobo:local-10.1.x
 #OTOBO_IMAGE_OTOBO=otobo:local-10.0.x
 
 ################################################################################
@@ -110,13 +107,9 @@ OTOBO_SYNC_WITH_S3=0
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otovar_REPOSITORY()otobo-elasticsearch:otovar_TAG()
 
 # More examples
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:latest-10_1
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:latest-10_0
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-10_1_3
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-10_0_16
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-10_1
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-10_0
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-10.1.x
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-10.0.x
 
 ################################################################################
@@ -136,12 +129,8 @@ OTOBO_SYNC_WITH_S3=0
 #OTOBO_IMAGE_OTOBO_NGINX=otovar_REPOSITORY()otobo-nginx-kerberos-webproxy:otovar_TAG()
 
 # More examples
-#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-kerberos-webproxy:latest-10_1
 #OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-kerberos-webproxy:latest-10_0
-#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-kerberos-webproxy:rel-10_1_3
 #OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-kerberos-webproxy:rel-10_0_16
-#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-kerberos-webproxy:devel-rel-10_1
 #OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-kerberos-webproxy:devel-rel-10_0
-#OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-kerberos-webproxy:local-10.1.x
 #OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-kerberos-webproxy:local-10.0.x
 
