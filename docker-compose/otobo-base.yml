@@ -40,11 +40,14 @@ services:
       MYSQL_ROOT_PASSWORD: ${OTOBO_DB_ROOT_PASSWORD:?err}
     command: --max-allowed-packet=68157440 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --innodb-log-file-size=268435456 --query-cache-size=${OTOBO_DB_QUERY_CACHE_SIZE:-33554432}
 
-    # This will report that access is denied, but that is OK.
-    # The relevant thing is the exit code $? which will be 0 (success) when the server can be reached, not 0 (failure) otherwise.
+    # "mysqladmin ping" sets the exit code $?. The exit code will be 0 (success) when the server can be reached,
+    # not 0 (failure) otherwise.
     # The host is given as db, because localhost might not be resolved on some systems.
+    # The credentials are not really needed for pinging, but without them we would get "Access denied" log messages
+    # every time the health check is executed.
+    # Note: alternatively /usr/local/bin/healthcheck.sh could be used.
     healthcheck:
-      test: mysqladmin ping -h db ping
+      test: mysqladmin -h db --user=root --password=${OTOBO_DB_ROOT_PASSWORD} ping
 
   # a container running a webserver
   web:
