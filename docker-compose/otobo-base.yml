@@ -33,7 +33,7 @@ services:
     #   - "3307:3306"
 
     # Set the db root password which has to be entered when running otobo/installer.pl.
-    # The passwort is secrect and can be stored in the file .env.
+    # The passwort is secret and can be stored in the file .env.
     # The content of the .env file is something like:
     # OTOBO_DB_ROOT_PASSWORD=otobo_root
     environment:
