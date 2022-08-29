@@ -47,7 +47,7 @@ services:
     # every time the health check is executed.
     # Note: alternatively /usr/local/bin/healthcheck.sh could be used.
     healthcheck:
-      test: mysqladmin -h db --user=root --password=${OTOBO_DB_ROOT_PASSWORD} ping
+      test: mysqladmin -h db --user=root --password='${OTOBO_DB_ROOT_PASSWORD}' ping
 
   # a container running a webserver
   web:
