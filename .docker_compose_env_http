@@ -28,10 +28,6 @@ OTOBO_DB_ROOT_PASSWORD=
 # Elasticsearch options
 OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
-# Special configuration when running OTOBO in a cluster
-OTOBO_SYNC_WITH_S3=0
-#OTOBO_SYNC_WITH_S3=1
-
 ################################################################################
 # The Docker image for the service 'db' can be specified explicitly.
 # The default is mariadb:10.5
