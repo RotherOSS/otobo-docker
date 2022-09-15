@@ -2,6 +2,9 @@
 .env
 dot_env.m4
 
+# files that might be generated during development
+*.out
+
 # Editor swap files
 *.swn
 *.swp
