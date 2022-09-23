@@ -18,7 +18,6 @@ function args() {
     HELP_FLAG=0
     TEMPLATE="dot_env.m4"
     REPOSITORY="rotheross"
-    TAG="latest-10_0"
     TAG="latest-10_1"
     PROJECT="otobo"
 
