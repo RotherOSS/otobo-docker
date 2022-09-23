@@ -1,7 +1,10 @@
 # Settings that are needed by Docker Compose itself.
 
-# This determines the name of the Docker containers, e.g. 'otobo_web_1'.
+# COMPOSE_PROJECT_NAME declares the prefix of the name of the Docker containers, e.g. 'otobo_web_1'.
+# It also declares the prefix of the name of named volumes.
+# Thus changing the project name allows to switch between different instances of the containers.
 COMPOSE_PROJECT_NAME=otobo
+#COMPOSE_PROJECT_NAME=otovar_PROJECT
 
 # COMPOSE_FILE is a collection of files, separated by COMPOSE_PATH_SEPARATOR, that make up the final config.
 # The files usually reside in the subdirectory docker-compose.
