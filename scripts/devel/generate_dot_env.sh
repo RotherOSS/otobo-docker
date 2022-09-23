@@ -18,6 +18,7 @@ function args() {
     HELP_FLAG=0
     TEMPLATE="dot_env.m4"
     REPOSITORY="rotheross"
+    TAG="latest-10_0"
     TAG="latest-10_1"
     PROJECT="otobo"
 
@@ -83,6 +84,9 @@ Usage:
 
     # specify the empty string for locally build images
     $0 --template dot_env.m4 --repository "" --tag local-10.1.x
+
+    # specify a project when having to switch between different projects
+    $0 --template dot_env.m4 --repository "" --tag local-10.1.x --project otobo-ACME
 
     # specify a project when having to switch between different projects
     $0 --template dot_env.m4 --repository "" --tag local-10.1.x --project otobo-ACME
