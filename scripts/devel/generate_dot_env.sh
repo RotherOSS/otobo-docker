@@ -7,7 +7,7 @@
 function args() {
     # -h and --help take no parameters
     # --repository and --tag have mandatory parameters, as indicated by ':'
-    options=$(getopt -o h --long help --long template: --long repository: --long tag: -- "$@")
+    options=$(getopt -o h --long help --long template: --long repository: --long tag: --long project: -- "$@")
 
     # print help message in case of invalid optiond
     [ $? -eq 0 ] || {
@@ -19,6 +19,7 @@ function args() {
     TEMPLATE="dot_env.m4"
     REPOSITORY="rotheross"
     TAG="latest-10_1"
+    PROJECT="otobo"
 
     eval set -- "$options"
     while true; do
@@ -46,6 +47,11 @@ function args() {
             TAG=$1
             ;;
 
+        --project)
+            shift; # The arg is next in position args
+            PROJECT=$1
+            ;;
+
         --)
             shift
             break
@@ -59,10 +65,10 @@ function args() {
 # print help
 function print_help_and_exit() {
     cat <<END_HELP
-This script is a helper for easily switching Docker repositories and Docker image versions.
+This script is a helper for easily switching Docker repositories, Docker image versions, and projects.
 For using the script one needs a M4 template file from which the file .env can be generated.
 The template file is usually called 'dot_env.m4'. In that file,
-the macros otovar_REPOSITORY() and otovar_TAG() are expanded to the values passed on the command line.
+the macros otovar_REPOSITORY(), otovar_TAG(), and otovar_PROJECT are expanded to the values passed on the command line.
 
 Usage:
 
@@ -78,10 +84,14 @@ Usage:
     # specify the empty string for locally build images
     $0 --template dot_env.m4 --repository "" --tag local-10.1.x
 
+    # specify a project when having to switch between different projects
+    $0 --template dot_env.m4 --repository "" --tag local-10.1.x --project otobo-ACME
+
     # the standard behavior is to create .env from the default settings
     # template:   dot_env.m4
     # repository: rotheross
     # tag:        latest-10_1
+    # project:    otobo
     $0
 END_HELP
 
@@ -94,6 +104,7 @@ function write_env_file() {
     local template=$1
     local repository=$2
     local tag=$3
+    local project=$4
 
 # checking the m4 file
     if [[ ! -e "$template" ]]; then
@@ -122,10 +133,11 @@ function write_env_file() {
     echo "template: '$template'"
     echo "repository: '$repository'"
     echo "tag: '$tag'"
+    echo "project: '$project'"
 
     # update .env
     cp --backup=numbered .env .env.bak
-    m4 --prefix-builtins --define "otovar_REPOSITORY=$repository"  --define "otovar_TAG=$tag" $template > .env
+    m4 --prefix-builtins --define "otovar_REPOSITORY=$repository"  --define "otovar_TAG=$tag" --define "otovar_PROJECT=$project" $template > .env
 }
 
 # actually parse the command line
@@ -136,4 +148,4 @@ then
     print_help_and_exit "0"
 fi
 
-write_env_file "$TEMPLATE" "$REPOSITORY" "$TAG"
+write_env_file "$TEMPLATE" "$REPOSITORY" "$TAG" "$PROJECT"
