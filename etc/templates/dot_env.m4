@@ -1,7 +1,7 @@
 m4_divert(-1)
 
-This file, etc/templates/dot_env.m4, is a M4 template file. The script script/devel/generate_sample_env_files.sh takes this template
-and generates the following files from it:
+This file, etc/templates/dot_env.m4, is a M4 template file. The script script/devel/generate_sample_env_files.sh
+takes this template and generates the following files from it:
 
     .docker_compose_env_http
     .docker_compose_env_http_selenium
@@ -10,8 +10,8 @@ and generates the following files from it:
     .docker_compose_env_https_kerberos
     .docker_compose_env_https_selenium
 
-These generated files are not used for running OTOBO. They are sample files for .env. Users can choose their use case and
-use the appropriate sample file as a starting point form their own .env file.
+These generated files are not used for running OTOBO. They are only sample files for the actual config file .env.
+Users can choose their use case and use the appropriate sample file as a starting point form their own .env file.
 
 See ./scripts/devel/generate_sample_env_files.sh -h for how to regenerated the sample file when making changes here.
 
@@ -71,11 +71,13 @@ m4_define(
 m4_define(`otovar_DEFAULT_TAG',`latest-10_1')
 
 m4_divert(0)m4_dnl
-# Settings that are needed by Docker Compose itself.
+# This file contains default values for environment values that are needed either by Docker Compose itself
+# or by the docker compose files.
 
 # COMPOSE_PROJECT_NAME declares the prefix of the name of the Docker containers, e.g. 'otobo_web_1'.
-# It also declares the prefix of the name of named volumes.
-# Thus changing the project name allows to switch between different instances of the containers.
+# It also declares the prefix of the name of named volumes. Thus changing the project name allows
+# to switch easily between different incarnations of the containers. Note that when COMPOSE_PROJECT_NAME
+# is set in the shell environment, then that setting has higher precedence.
 COMPOSE_PROJECT_NAME=otobo
 #COMPOSE_PROJECT_NAME=otovar_PROJECT
 
