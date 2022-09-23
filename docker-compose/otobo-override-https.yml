@@ -16,7 +16,7 @@ services:
   #    - "${OTOBO_WEB_HTTP_IPADDR:-0.0.0.0}:${OTOBO_WEB_HTTP_PORT:-80}:5000"
 
   nginx:
-    image: ${OTOBO_IMAGE_OTOBO_NGINX:-rotheross/otobo-nginx-webproxy:latest-10_1}
+    image: ${OTOBO_IMAGE_OTOBO_NGINX:-rotheross/otobo-nginx-webproxy:latest-10_0}
     # according to https://stackoverflow.com/questions/43467670/which-capabilities-can-i-drop-in-a-docker-nginx-container
     cap_drop:
         - ALL
@@ -39,7 +39,6 @@ services:
     environment:
       OTOBO_NGINX_WEB_HOST: web
       OTOBO_NGINX_WEB_PORT: 5000
-      OTOBO_WEB_HTTPS_PORT: ${OTOBO_WEB_HTTPS_PORT}
       OTOBO_NGINX_SSL_CERTIFICATE: ${OTOBO_NGINX_SSL_CERTIFICATE:?err}
       OTOBO_NGINX_SSL_CERTIFICATE_KEY: ${OTOBO_NGINX_SSL_CERTIFICATE_KEY:?err}
       NGINX_ENVSUBST_TEMPLATE_DIR: ${NGINX_ENVSUBST_TEMPLATE_DIR}
