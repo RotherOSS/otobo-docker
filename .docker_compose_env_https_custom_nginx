@@ -1,8 +1,10 @@
-# Settings that are needed by Docker Compose itself.
+# This file contains default values for environment values that are needed either by Docker Compose itself
+# or by the docker compose files.
 
 # COMPOSE_PROJECT_NAME declares the prefix of the name of the Docker containers, e.g. 'otobo_web_1'.
-# It also declares the prefix of the name of named volumes.
-# Thus changing the project name allows to switch between different instances of the containers.
+# It also declares the prefix of the name of named volumes. Thus changing the project name allows
+# to switch easily between different incarnations of the containers. Note that when COMPOSE_PROJECT_NAME
+# is set in the shell environment, then that setting has higher precedence.
 COMPOSE_PROJECT_NAME=otobo
 #COMPOSE_PROJECT_NAME=otovar_PROJECT
 
