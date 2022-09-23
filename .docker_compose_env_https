@@ -8,6 +8,8 @@ COMPOSE_PROJECT_NAME=otobo
 
 # COMPOSE_FILE is a collection of files, separated by COMPOSE_PATH_SEPARATOR, that make up the final config.
 # The files usually reside in the subdirectory docker-compose.
+# Additional services can be added by concatenating more files to COMPOSE_FILE. An example would services
+# for S3 compatible storage. That is: :docker-compose/otobo-localstack.yml or :docker-compose/otobo-minio.yml
 COMPOSE_PATH_SEPARATOR=:
 COMPOSE_FILE=docker-compose/otobo-base.yml:docker-compose/otobo-override-https.yml
 
@@ -55,7 +57,7 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
 ################################################################################
 # The Docker image for the services 'web' and 'daemon' can be specified explicitly.
-# The default is rotheross/otobo:latest-10_0
+# The default is rotheross/otobo:latest-10_1
 ################################################################################
 
 # During development it is convenient to be able to switch between different Docker repositories and Docker image versions.
@@ -64,14 +66,14 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 #OTOBO_IMAGE_OTOBO=otovar_REPOSITORY()otobo:otovar_TAG()
 
 # More examples
-#OTOBO_IMAGE_OTOBO=rotheross/otobo:latest-10_0
-#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-10_0_16
-#OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-10_0
-#OTOBO_IMAGE_OTOBO=otobo:local-10.0.x
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:latest-10_1
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-10_1_5
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-10_1
+#OTOBO_IMAGE_OTOBO=otobo:local-10.1.x
 
 ################################################################################
 # The Docker image for the service 'eleastic' can be specified explicitly.
-# The default is rotheross/otobo-elasticsearch:latest-10_0
+# The default is rotheross/otobo-elasticsearch:latest-10_1
 ################################################################################
 
 # During development it is convenient to be able to switch between different Docker repositories and Docker image versions.
@@ -80,10 +82,10 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otovar_REPOSITORY()otobo-elasticsearch:otovar_TAG()
 
 # More examples
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:latest-10_0
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-10_0_16
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-10_0
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-10.0.x
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:latest-10_1
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-10_1_5
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-10_1
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-10.1.x
 
 ################################################################################
 # The Docker image for the service 'redis' can be specified explicitly.
@@ -93,7 +95,7 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
 ################################################################################
 # The Docker image for the service 'nginx' can be specified explicitly.
-# The default image is rotheross/otobo-nginx-webproxy:latest-10_0
+# The default image is rotheross/otobo-nginx-webproxy:latest-10_1
 ################################################################################
 
 # During development it is convenient to be able to switch between different Docker repositories and Docker image versions.
@@ -102,8 +104,8 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 #OTOBO_IMAGE_OTOBO_NGINX=otovar_REPOSITORY()otobo-nginx-webproxy:otovar_TAG()
 
 # More examples
-#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:latest-10_0
-#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:rel-10_0_16
-#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:devel-rel-10_0
-#OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-webproxy:local-10.0.x
+#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:latest-10_1
+#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:rel-10_1_5
+#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:devel-rel-10_1
+#OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-webproxy:local-10.1.x
 
