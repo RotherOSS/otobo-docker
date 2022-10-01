@@ -20,9 +20,9 @@ services:
       - "9001:9001"
     restart: always
     volumes:
-      - tmp_minio:/tmp/minio
+      - minio_data:/data
     command: server --console-address ":9001" /data
 
 # no volumes need to be exposed across services
 volumes:
-  tmp_minio: {}
+  minio_data: {}
