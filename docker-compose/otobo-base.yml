@@ -26,7 +26,7 @@ services:
     # Per default this port is not exposed to the outside world.
     # One can use 'docker-compose exec -it db mysql ...' when access to the database is needed.
     # But for development it can be useful to expose the port 3306. E.g. when a graphical client
-    # like MySQL Workbench is used. Uncomment the following lines for making MariaDB available
+    # like MySQL Workbench or DBeaver is used. Uncomment the following lines for making MariaDB available
     # on port 3307 on the Docker host. A non-standard port is chosen here, because 3306 is
     # often already used on the Docker host.
     # ports:
