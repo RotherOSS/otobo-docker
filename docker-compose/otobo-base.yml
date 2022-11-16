@@ -19,6 +19,11 @@ services:
     cap_add:
         - CAP_SYS_CHROOT
     restart: always
+    logging:
+        driver: "local"
+        options:
+            max-file: "5"
+            max-size: "10m"
     volumes:
       - mariadb_data:/var/lib/mysql
 
@@ -61,6 +66,11 @@ services:
       - elastic
       - redis
     restart: always
+    logging:
+        driver: "local"
+        options:
+            max-file: "5"
+            max-size: "10m"
     # The HTTP port might be specified in a docker-compose extension file, e.g. docker-compose/otobo-override-http.yml.
     # For HTTPS no HTTP port is exposed.
     #ports:
@@ -81,6 +91,11 @@ services:
     depends_on:
       - web
     restart: always
+    logging:
+        driver: "local"
+        options:
+            max-file: "5"
+            max-size: "10m"
     volumes:
       - opt_otobo:/opt/otobo
     command: daemon
@@ -96,7 +111,12 @@ services:
         - CAP_SYS_CHROOT
         - CAP_SETUID
         - CAP_SETGID
-    restart: always
+    restart: always    
+    logging:
+        driver: "local"
+        options:
+            max-file: "5"
+            max-size: "10m"
     environment:
       discovery.type: single-node
       ES_JAVA_OPTS: ${OTOBO_ELASTICSEARCH_ES_JAVA_OPTS:?err}
@@ -113,6 +133,11 @@ services:
         - ALL
     #cap_add:
     restart: always
+    logging:
+        driver: "local"
+        options:
+            max-file: "5"
+            max-size: "10m"
     volumes:
       - redis_data:/data
     healthcheck:
