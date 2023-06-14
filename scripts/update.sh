@@ -5,14 +5,14 @@
 # Pass -h for usage info.
 
 # Initial Values
-DONT_WARN=false
+# DONT_WARN=false - Disabled - https://github.com/RotherOSS/otobo-docker/pull/124#issuecomment-1590879464
 
 # Help Message
 function display_help() {
     echo "Usage: update.sh [OPTIONS]"
     echo "Options:"
     echo "  -h, --help     Display this help screen"
-    echo "      --dontwarn Don't warn about Docker Compose warnings."
+#    echo "      --dontwarn Don't warn about Docker Compose warnings."
     echo "   "
     echo "The standard behavior is to use the setup from .env."
     echo "In .env one may set up a specific repositories and specific tags."
@@ -20,26 +20,26 @@ function display_help() {
 }
 
 # Docker Compose Warning
-function docker_warning() {
-    if [ "$DONT_WARN" = false ]; then
-        # assuming the change would be made automatically? 
-        # haven't migrated v1 compose to v2 before
-        echo "Due to changes with docker, your container names may appear differently after the upgrade, [docker-compose] used to be the command used, but with compose v2, [docker compose] is now used."
-        echo "This may change some container names, such as changing [otobo_web_1] to [otobo-web-1]."
-        echo "Please see https://github.com/RotherOSS/otobo-docker/issues/122 for more information."
-        echo "   "
-        read -p "Do you understand? (y/n) " yon
-        case "$yon" in
-            [Yy]*)
-                echo "Continuing."
-                ;;
-            *)
-                echo "Please read the issue mentioned above for more information. Exiting."
-                exit $1
-                ;;
-        esac
-    fi
-}
+#function docker_warning() {
+#    if [ "$DONT_WARN" = false ]; then
+#        # assuming the change would be made automatically? 
+#       # haven't migrated v1 compose to v2 before
+#        echo "Due to changes with docker, your container names may appear differently after the upgrade, [docker-compose] used to be the command used, but with compose v2, [docker compose] is now used."
+#        echo "This may change some container names, such as changing [otobo_web_1] to [otobo-web-1]."
+#        echo "Please see https://github.com/RotherOSS/otobo-docker/issues/122 for more information."
+#        echo "   "
+#        read -p "Do you understand? (y/n) " yon
+#        case "$yon" in
+#            [Yy]*)
+#                echo "Continuing."
+#                ;;
+#            *)
+#                echo "Please read the issue mentioned above for more information. Exiting."
+#                exit $1
+#                ;;
+#        esac
+#    fi
+#}
 
 # Parse cli args
 while [[ $# -gt 0 ]]; do
@@ -48,10 +48,10 @@ while [[ $# -gt 0 ]]; do
             display_help
             exit 0
             ;;
-        --dontwarn)
-            DONT_WARN=true
-            shift
-            ;;
+#        --dontwarn)
+#            DONT_WARN=true
+#            shift
+#            ;;
         *)
             echo "Invalid option: $1"
             echo "Use -h or --help for usage instructions."
@@ -60,7 +60,8 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-docker_warning
+### Disable for the time being - https://github.com/RotherOSS/otobo-docker/pull/124#issuecomment-1590879464
+# docker_warning
 
 # if docker-compose exists, use that, otherwise, use `docker compose`
 if ! command -v docker-compose &> /dev/null
