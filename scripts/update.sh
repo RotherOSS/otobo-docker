@@ -4,66 +4,64 @@
 # https://doc.otobo.org/manual/installation/stable/de/content/updating-docker.html .
 # Pass -h for usage info.
 
-# parse command line argument
-function args() {
-    # -h and --help take no parameters
-    # --repository and --tag have mandatory parameters, as indicated by ':'
-    options=$(getopt -o h --long help -- "$@")
+# Initial Values
+# DONT_WARN=false - Disabled - https://github.com/RotherOSS/otobo-docker/pull/124#issuecomment-1590879464
 
-    # print help message in case of invalid optiond
-    [ $? -eq 0 ] || {
-        print_help_and_exit "1"
-    }
-
-    # set default values
-    HELP_FLAG=0
-
-    eval set -- "$options"
-    while true; do
-        case "$1" in
-        -h)
-            HELP_FLAG=1
-            ;;
-
-        --help)
-            HELP_FLAG=1
-            ;;
-
-        --)
-            shift
-            break
-            ;;
-
-        esac
-        shift
-    done
+# Help Message
+function display_help() {
+    echo "Usage: update.sh [OPTIONS]"
+    echo "Options:"
+    echo "  -h, --help     Display this help screen"
+#    echo "      --dontwarn Don't warn about Docker Compose warnings."
+    echo "   "
+    echo "The standard behavior is to use the setup from .env."
+    echo "In .env one may set up a specific repositories and specific tags."
+    echo "   "
 }
 
-# print help
-function print_help_and_exit() {
-    cat <<END_HELP
-Usage:
+# Docker Compose Warning
+#function docker_warning() {
+#    if [ "$DONT_WARN" = false ]; then
+#        # assuming the change would be made automatically? 
+#       # haven't migrated v1 compose to v2 before
+#        echo "Due to changes with docker, your container names may appear differently after the upgrade, [docker-compose] used to be the command used, but with compose v2, [docker compose] is now used."
+#        echo "This may change some container names, such as changing [otobo_web_1] to [otobo-web-1]."
+#        echo "Please see https://github.com/RotherOSS/otobo-docker/issues/122 for more information."
+#        echo "   "
+#        read -p "Do you understand? (y/n) " yon
+#        case "$yon" in
+#            [Yy]*)
+#                echo "Continuing."
+#                ;;
+#            *)
+#                echo "Please read the issue mentioned above for more information. Exiting."
+#                exit $1
+#                ;;
+#        esac
+#    fi
+#}
 
-    # print this help message
-    $0 -h
-    $0 --help
+# Parse cli args
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -h|--help)
+            display_help
+            exit 0
+            ;;
+#        --dontwarn)
+#            DONT_WARN=true
+#            shift
+#            ;;
+        *)
+            echo "Invalid option: $1"
+            echo "Use -h or --help for usage instructions."
+            exit 1
+            ;;
+    esac
+done
 
-    # The standard behavior is to use the setup from .env.
-    # In .env one may set up a specific repositories and specific tags.
-    $0
-
-END_HELP
-
-    exit $1
-}
-
-# actually parse the command line
-args "$0" "$@"
-
-if [[ $HELP_FLAG -eq 1 ]]
-then
-    print_help_and_exit "0"
-fi
+### Disable for the time being - https://github.com/RotherOSS/otobo-docker/pull/124#issuecomment-1590879464
+# docker_warning
 
 # if docker-compose exists, use that, otherwise, use `docker compose`
 if ! command -v docker-compose &> /dev/null
