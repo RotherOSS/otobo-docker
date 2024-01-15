@@ -43,7 +43,7 @@ services:
     # OTOBO_DB_ROOT_PASSWORD=otobo_root
     environment:
       MYSQL_ROOT_PASSWORD: ${OTOBO_DB_ROOT_PASSWORD:?err}
-    command: --max-allowed-packet=68157440 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --innodb-log-file-size=268435456 --query-cache-size=${OTOBO_DB_QUERY_CACHE_SIZE:-33554432}
+    command: --max-allowed-packet=136314880 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --innodb-log-file-size=268435456 --query-cache-size=${OTOBO_DB_QUERY_CACHE_SIZE:-33554432}
 
     # "mysqladmin ping" sets the exit code $?. The exit code will be 0 (success) when the server can be reached,
     # not 0 (failure) otherwise.
