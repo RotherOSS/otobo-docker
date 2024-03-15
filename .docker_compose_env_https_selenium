@@ -59,7 +59,7 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
 ################################################################################
 # The Docker image for the services 'web' and 'daemon' can be specified explicitly.
-# The default is rotheross/otobo:latest-10_1
+# The default is rotheross/otobo:rel-11_0_0-beta1
 ################################################################################
 
 # During development it is convenient to be able to switch between different Docker repositories and Docker image versions.
@@ -68,14 +68,13 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 #OTOBO_IMAGE_OTOBO=otovar_REPOSITORY()otobo:otovar_TAG()
 
 # More examples
-#OTOBO_IMAGE_OTOBO=rotheross/otobo:latest-10_1
-#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-10_1_8
-#OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-10_1
-#OTOBO_IMAGE_OTOBO=otobo:local-10.1.x
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-11_0_0-beta1
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-11_0
+#OTOBO_IMAGE_OTOBO=otobo:local-11.0.x
 
 ################################################################################
 # The Docker image for the service 'eleastic' can be specified explicitly.
-# The default is rotheross/otobo-elasticsearch:latest-10_1
+# The default is rotheross/otobo-elasticsearch:rel-11_0_0-beta1
 ################################################################################
 
 # During development it is convenient to be able to switch between different Docker repositories and Docker image versions.
@@ -84,10 +83,9 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otovar_REPOSITORY()otobo-elasticsearch:otovar_TAG()
 
 # More examples
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:latest-10_1
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-10_1_8
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-10_1
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-10.1.x
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-11_0_0-beta1
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-11_0
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-11.0.x
 
 ################################################################################
 # The Docker image for the service 'redis' can be specified explicitly.
@@ -97,7 +95,7 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
 ################################################################################
 # The Docker image for the service 'nginx' can be specified explicitly.
-# The default image is rotheross/otobo-nginx-webproxy:latest-10_1
+# The default image is rotheross/otobo-nginx-webproxy:rel-11_0_0-beta1
 ################################################################################
 
 # During development it is convenient to be able to switch between different Docker repositories and Docker image versions.
@@ -106,14 +104,13 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 #OTOBO_IMAGE_OTOBO_NGINX=otovar_REPOSITORY()otobo-nginx-webproxy:otovar_TAG()
 
 # More examples
-#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:latest-10_1
-#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:rel-10_1_8
-#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:devel-rel-10_1
-#OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-webproxy:local-10.1.x
+#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:rel-11_0_0-beta1
+#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:devel-rel-11_0
+#OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-webproxy:local-11.0.x
 
 ################################################################################
 # The Docker image for the service 'selenium' can be specified explicitly.
-# The default image is rotheross/otobo-selenium-chrome:latest-10_1
+# The default image is rotheross/otobo-selenium-chrome:rel-11_0_0-beta1
 ################################################################################
 
 # During development it is convenient to be able to switch between different Docker repositories and Docker image versions.
@@ -122,8 +119,7 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 #OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=otovar_REPOSITORY()otobo-selenium-chrome:otovar_TAG()
 
 # More examples
-#OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:latest-10_1
-#OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:rel-10_1_8
-#OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:devel-rel-10_1
-#OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=otobo-selenium-chrome:local-10.1.x
+#OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:rel-11_0_0-beta1
+#OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:devel-rel-11_0
+#OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=otobo-selenium-chrome:local-11.0.x
 
