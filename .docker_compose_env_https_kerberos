@@ -85,7 +85,7 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
 ################################################################################
 # The Docker image for the services 'web' and 'daemon' can be specified explicitly.
-# The default is rotheross/otobo:rel-11_0_0-beta1
+# The default is rotheross/otobo:latest-11_0
 ################################################################################
 
 # During development it is convenient to be able to switch between different Docker repositories and Docker image versions.
@@ -94,13 +94,13 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 #OTOBO_IMAGE_OTOBO=otovar_REPOSITORY()otobo:otovar_TAG()
 
 # More examples
-#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-11_0_0-beta1
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-11_0_0-beta2
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-11_0
 #OTOBO_IMAGE_OTOBO=otobo:local-11.0.x
 
 ################################################################################
 # The Docker image for the service 'eleastic' can be specified explicitly.
-# The default is rotheross/otobo-elasticsearch:rel-11_0_0-beta1
+# The default is rotheross/otobo-elasticsearch:latest-11_0
 ################################################################################
 
 # During development it is convenient to be able to switch between different Docker repositories and Docker image versions.
@@ -109,7 +109,7 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otovar_REPOSITORY()otobo-elasticsearch:otovar_TAG()
 
 # More examples
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-11_0_0-beta1
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-11_0_0-beta2
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-11_0
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-11.0.x
 
@@ -121,7 +121,7 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
 ################################################################################
 # The Docker image for the service 'nginx' can be specified explicitly.
-# The default image is rotheross/otobo-nginx-kerberos-webproxy:rel-11_0_0-beta1
+# The default image is rotheross/otobo-nginx-kerberos-webproxy:latest-11_0
 ################################################################################
 
 # During development it is convenient to be able to switch between different Docker repositories and Docker image versions.
@@ -130,7 +130,7 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 #OTOBO_IMAGE_OTOBO_NGINX=otovar_REPOSITORY()otobo-nginx-kerberos-webproxy:otovar_TAG()
 
 # More examples
-#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-kerberos-webproxy:rel-11_0_0-beta1
+#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-kerberos-webproxy:rel-11_0_0-beta2
 #OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-kerberos-webproxy:devel-rel-11_0
 #OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-kerberos-webproxy:local-11.0.x
 
