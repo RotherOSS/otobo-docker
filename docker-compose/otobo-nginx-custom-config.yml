@@ -2,8 +2,6 @@
 
 # See also README.md.
 
-version: '3.3'
-
 services:
   nginx:
     volumes:

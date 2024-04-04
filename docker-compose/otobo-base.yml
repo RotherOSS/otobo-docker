@@ -5,9 +5,6 @@
 
 # See also README.md.
 
-# most current docker-compose file version, as of 2020-05-21
-version: '3.3'
-
 services:
 
   # the database
@@ -111,7 +108,7 @@ services:
         - CAP_SYS_CHROOT
         - CAP_SETUID
         - CAP_SETGID
-    restart: always    
+    restart: always
     logging:
         driver: "local"
         options:
