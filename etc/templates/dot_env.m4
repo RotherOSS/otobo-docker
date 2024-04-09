@@ -173,7 +173,7 @@ otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
 #OTOBO_IMAGE_OTOBO=otovar_REPOSITORY()otobo:otovar_TAG()
 
 # More examples
-#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-11_0_0-beta2
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-11_0_0-beta3
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-11_0
 #OTOBO_IMAGE_OTOBO=otobo:local-11.0.x
 
@@ -186,7 +186,7 @@ otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otovar_REPOSITORY()otobo-elasticsearch:otovar_TAG()
 
 # More examples
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-11_0_0-beta2
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-11_0_0-beta3
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-11_0
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-11.0.x
 
@@ -217,7 +217,7 @@ otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
 `#'OTOBO_IMAGE_OTOBO_NGINX=otovar_REPOSITORY()otovar_NGINX_IMAGE():otovar_TAG()
 
 # More examples
-`#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():rel-11_0_0-beta2
+`#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():rel-11_0_0-beta3
 `#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():devel-rel-11_0
 `#'OTOBO_IMAGE_OTOBO_NGINX=otovar_NGINX_IMAGE():local-11.0.x
 
@@ -237,7 +237,7 @@ otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
 `#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=otovar_REPOSITORY()otobo-selenium-chrome:otovar_TAG()
 
 # More examples
-`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:rel-11_0_0-beta2
+`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:rel-11_0_0-beta3
 `#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:devel-rel-11_0
 `#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=otobo-selenium-chrome:local-11.0.x
 
