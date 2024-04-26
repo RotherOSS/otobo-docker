@@ -4,6 +4,9 @@
 
 # See also README.md.
 
+# most current docker-compose file version, as of 2020-05-21
+version: '3.3'
+
 services:
 
   # There is no HTTP port is specified, as the otobo webserver should only be reachable via HTTPS.
