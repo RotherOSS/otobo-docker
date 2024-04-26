@@ -3,6 +3,9 @@
 
 # See also README.md.
 
+# most current docker-compose file version, as of 2020-05-21
+version: '3.3'
+
 services:
 
   selenium-chrome:
