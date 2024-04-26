@@ -92,4 +92,3 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 #OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:rel-10_1_10
 #OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:devel-rel-10_1
 #OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=otobo-selenium-chrome:local-10.1.x
-
