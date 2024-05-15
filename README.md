@@ -2,7 +2,7 @@ OTOBO comes with official support for Docker.
 
 The chapter "Installing using Docker and Docker Compose" in the "Installation and Update" manual
 has more information on how the get started.
-See https://doc.otobo.org/manual/installation/10.1/en/content/installation-docker.html.
+See https://doc.otobo.org/manual/installation/11.0/en/content/installation-docker.html.
 
 Here is quick overview over the files in this distribution. Note that some of the files are hidden
 and are only listed with ls -a.
