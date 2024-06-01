@@ -66,12 +66,16 @@ m4_divert(0)m4_dnl
 # This file contains default values for environment values that are needed either by Docker Compose itself
 # or by the docker compose files.
 
-# COMPOSE_PROJECT_NAME declares the prefix of the name of the Docker containers, e.g. 'otobo_web_1'.
-# It also declares the prefix of the name of named volumes. Thus changing the project name allows
-# to switch easily between different incarnations of the containers. Note that when COMPOSE_PROJECT_NAME
-# is set in the shell environment, then that setting has higher precedence.
+# COMPOSE_PROJECT_NAME declares the prefix of the name of the Docker containers. So if the
+# project name is 'acme_support' then the web container is named either 'acme_support_web_1' for
+# Compose V1 or 'acme_support-web-1 for Compose V2. The project name also declares
+# the prefix of named volumes. Thus changing the project name allows to have
+# seperate containers and volumes for separate installations of OTOBO.
+#
+# Note that when COMPOSE_PROJECT_NAME is set in the shell environment,
+# then that setting has higher precedence.
 COMPOSE_PROJECT_NAME=otobo
-#COMPOSE_PROJECT_NAME=otovar_PROJECT
+#COMPOSE_PROJECT_NAME=acme_support
 
 # COMPOSE_FILE is a collection of files, separated by COMPOSE_PATH_SEPARATOR, that make up the final config.
 # The files usually reside in the subdirectory docker-compose.
