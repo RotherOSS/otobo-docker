@@ -13,7 +13,16 @@ takes this template and generates the following files from it:
 These generated files are not used for running OTOBO. They are only sample files for the actual config file .env.
 Users can choose their use case and use the appropriate sample file as a starting point for their own .env file.
 
-See ./scripts/devel/generate_sample_env_files.sh -h for how to regenerate the sample file when making changes here.
+Please adapt the macros otovar_MINOR_RELEASE_TAG, otovar_PATCH_LEVEL_TAG, otovar_DEVEL_TAG, and otovar_LOCAL_BUILD_TAG
+when creating new releases or development branches.
+See ./scripts/devel/generate_sample_env_files.sh -h for how to regenerate the sample file after making changes here.
+
+# These are the macros that should be adapted for new releases and new development branches.
+# All of these macros affect only comment lines in the generated sample .env files.
+m4_define(`otovar_MINOR_RELEASE_TAG',`latest-11_0')
+m4_define(`otovar_PATCH_LEVEL_TAG',`rel-11_0_2')
+m4_define(`otovar_DEVEL_TAG',`devel-rel-11_0')
+m4_define(`otovar_LOCAL_BUILD_TAG',`local-11.0.x')
 
 # Collect which services should be started by collecting the relevant
 # Docker Compose .yml files. The otobo-base.yml file is always needed.
@@ -58,9 +67,6 @@ m4_define(
     `otoflag_SELENIUM',
     `:docker-compose/otobo-selenium.yml',
     `'))
-
-# a macro for setting the default release tag. This macro differs between the different branches.
-m4_define(`otovar_DEFAULT_TAG',`latest-11_0')
 
 m4_divert(0)m4_dnl
 # This file contains default values for environment values that are needed either by Docker Compose itself
@@ -162,23 +168,23 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
 ################################################################################
 # The Docker image for the services 'web' and 'daemon' can be specified explicitly.
-`#' The default is rotheross/otobo:otovar_DEFAULT_TAG()
+`#' The default is rotheross/otobo:otovar_MINOR_RELEASE_TAG()
 ################################################################################
 
 # Examples:
-#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-11_0_2
-#OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-11_0
-#OTOBO_IMAGE_OTOBO=otobo:local-11.0.x
+`#'OTOBO_IMAGE_OTOBO=rotheross/otobo:otovar_PATCH_LEVEL_TAG()
+`#'OTOBO_IMAGE_OTOBO=rotheross/otobo:otovar_DEVEL_TAG()
+`#'OTOBO_IMAGE_OTOBO=otobo:otovar_LOCAL_BUILD_TAG()
 
 ################################################################################
 # The Docker image for the service 'eleastic' can be specified explicitly.
-`#' The default is rotheross/otobo-elasticsearch:otovar_DEFAULT_TAG()
+`#' The default is rotheross/otobo-elasticsearch:otovar_MINOR_RELEASE_TAG()
 ################################################################################
 
 # Examples:
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-11_0_2
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-11_0
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-11.0.x
+`#'OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:otovar_PATCH_LEVEL_TAG()
+`#'OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:otovar_DEVEL_TAG()
+`#'OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:otovar_LOCAL_BUILD_TAG()
 
 ################################################################################
 # The Docker image for the service 'redis' can be specified explicitly.
@@ -200,13 +206,13 @@ m4_divert(0)m4_dnl
 m4_ifdef( `otoflag_HTTP', `m4_divert(-1)')m4_dnl
 ################################################################################
 # The Docker image for the service 'nginx' can be specified explicitly.
-`#' The default image is rotheross/otovar_NGINX_IMAGE():otovar_DEFAULT_TAG()
+`#' The default image is rotheross/otovar_NGINX_IMAGE():otovar_MINOR_RELEASE_TAG()
 ################################################################################
 
 # Examples:
-`#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():rel-11_0_2
-`#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():devel-rel-11_0
-`#'OTOBO_IMAGE_OTOBO_NGINX=otovar_NGINX_IMAGE():local-11.0.x
+`#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():otovar_PATCH_LEVEL_TAG()
+`#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():otovar_DEVEL_TAG()
+`#'OTOBO_IMAGE_OTOBO_NGINX=otovar_NGINX_IMAGE():otovar_LOCAL_BUILD_TAG()
 
 m4_ifdef( `otoflag_HTTP', `m4_divert(0)')m4_dnl
 m4_ifdef( `otoflag_CUSTOM_NGINX', `', `m4_divert(-1)')m4_dnl
@@ -217,12 +223,12 @@ m4_ifdef( `otoflag_CUSTOM_NGINX', `', `m4_divert(0)')m4_dnl
 m4_ifdef( `otoflag_SELENIUM', `', `m4_divert(-1)')m4_dnl
 ################################################################################
 # The Docker image for the service 'selenium' can be specified explicitly.
-`#' The default image is rotheross/otobo-selenium-chrome:otovar_DEFAULT_TAG()
+`#' The default image is rotheross/otobo-selenium-chrome:otovar_MINOR_RELEASE_TAG()
 ################################################################################
 
 # Examples:
-`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:rel-11_0_2
-`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:devel-rel-11_0
-`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=otobo-selenium-chrome:local-11.0.x
+`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:otovar_PATCH_LEVEL_TAG()
+`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:otovar_DEVEL_TAG()
+`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=otobo-selenium-chrome:otovar_LOCAL_BUILD_TAG()
 
 m4_ifdef( `otoflag_SELENIUM', `', `m4_divert(0)')m4_dnl
