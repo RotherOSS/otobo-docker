@@ -20,7 +20,7 @@ See ./scripts/devel/generate_sample_env_files.sh -h for how to regenerate the sa
 # These are the macros that should be adapted for new releases and new development branches.
 # All of these macros affect only comment lines in the generated sample .env files.
 m4_define(`otovar_MINOR_RELEASE_TAG',`latest-11_0')
-m4_define(`otovar_PATCH_LEVEL_TAG',`rel-11_0_3')
+m4_define(`otovar_PATCH_LEVEL_TAG',`rel-11_0_4')
 m4_define(`otovar_DEVEL_TAG',`devel-rel-11_0')
 m4_define(`otovar_LOCAL_BUILD_TAG',`local-11.0.x')
 
