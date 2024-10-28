@@ -49,7 +49,7 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 ################################################################################
 
 # Examples:
-#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-11_0_6
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-11_0_7
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-11_0
 #OTOBO_IMAGE_OTOBO=otobo:local-11.0.x
 
@@ -59,7 +59,7 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 ################################################################################
 
 # Examples:
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-11_0_6
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-11_0_7
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-11_0
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-11.0.x
 
