@@ -17,7 +17,7 @@ COMPOSE_PROJECT_NAME=otobo
 # Additional services can be added by concatenating more files to COMPOSE_FILE. An example would services
 # for S3 compatible storage. That is: :docker-compose/otobo-localstack.yml or :docker-compose/otobo-minio.yml
 COMPOSE_PATH_SEPARATOR=:
-COMPOSE_FILE=docker-compose/otobo-base.yml:docker-compose/otobo-override-https-kerberos.yml
+COMPOSE_FILE=docker-compose/otobo-base.yml:docker-compose/otobo-nginx-custom-config.yml:docker-compose/otobo-override-https-kerberos.yml
 
 # Database configuration
 # OTOBO_DB_ROOT_PASSWORD must be set
@@ -76,7 +76,7 @@ OTOBO_NGINX_KERBEROS_ADMIN_SERVER=rother-oss.com
 OTOBO_NGINX_KERBEROS_DEFAULT_DOMAIN=rother-oss.com
 
 # Kerberos Substitute Template Directory
-NGINX_ENVSUBST_TEMPLATE_DIR=
+NGINX_ENVSUBST_TEMPLATE_DIR=/etc/nginx/config/template-custom
 
 # Elasticsearch options
 OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
