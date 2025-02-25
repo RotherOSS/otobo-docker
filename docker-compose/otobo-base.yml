@@ -143,6 +143,13 @@ services:
     healthcheck:
       test: redis-cli ping
 
+  # a logrotate container
+  logrotate:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - opt_otobo:/opt/otobo
 
 # no volumes need to be exposed across services
 volumes:
