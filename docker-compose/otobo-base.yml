@@ -79,7 +79,7 @@ services:
       - opt_otobo:/opt/otobo
     command: web
     security_opt:
-      - seccomp:seccomp_profile.json
+      - seccomp:otobo_seccomp_profile.json
     healthcheck:
       test: curl -s -f http://localhost:5000/robots.txt
 
