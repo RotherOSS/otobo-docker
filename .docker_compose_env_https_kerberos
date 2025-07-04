@@ -14,7 +14,7 @@ COMPOSE_PROJECT_NAME=otobo
 
 # COMPOSE_FILE is a collection of files, separated by COMPOSE_PATH_SEPARATOR, that make up the final config.
 # The files usually reside in the subdirectory docker-compose.
-# Additional services can be added by concatenating more files to COMPOSE_FILE. An example would services
+# Additional services can be added by concatenating more files to COMPOSE_FILE. An example would be services
 # for S3 compatible storage. That is: :docker-compose/otobo-localstack.yml or :docker-compose/otobo-minio.yml
 COMPOSE_PATH_SEPARATOR=:
 COMPOSE_FILE=docker-compose/otobo-base.yml:docker-compose/otobo-override-https-kerberos.yml
@@ -25,6 +25,13 @@ OTOBO_DB_ROOT_PASSWORD=
 
 # Set this to a value in bytes to overwrite the default query size set for OTOBO
 #OTOBO_DB_QUERY_CACHE_SIZE=
+
+# If you expose the database port, then you can set the port here.
+# The default is 3306, which is the standard port for MySQL and MariaDB
+# OTOBO_DB_EXPOSED_PORT is used in the otobo-override-db-exposed.yml file.
+# If you do not expose the database port, then you can leave this empty.
+# OTOBO_DB_EXPOSED_PORT=
+
 
 # HTTP options
 # In the HTTPS case http:// redirects to https://

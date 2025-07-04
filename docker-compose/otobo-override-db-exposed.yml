@@ -1,0 +1,14 @@
+# This exposes the database port and adds SSL certificates used by nginx.
+# Hence, requires a working HTTPS setup with otobo-override-https*.yml.
+# The db user has UID 999. Make sure the cert and key are readable for this user.
+#
+# WARNING: Currently the db users root and otobo are allowed to login
+# from every host. We strongly suggest to limit this option.
+
+services:
+  db:
+    volumes:
+      - otobo_nginx_ssl:/etc/nginx/ssl
+    ports:
+      - ${OTOBO_DB_EXPOSED_PORT:-3306}:3306
+    command: --max-allowed-packet=136314880 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --innodb-log-file-size=268435456 --query-cache-size=${OTOBO_DB_QUERY_CACHE_SIZE:-33554432} --ssl-key=${OTOBO_NGINX_SSL_CERTIFICATE_KEY:?err} --ssl_cert=${OTOBO_NGINX_SSL_CERTIFICATE:?err} --max-password-errors=50
