@@ -34,6 +34,9 @@ services:
     # like MySQL Workbench or DBeaver is used. Uncomment the following lines for making MariaDB available
     # on port 3307 on the Docker host. A non-standard port is chosen here, because 3306 is
     # often already used on the Docker host.
+    #
+    # Instead of changing the port here one can also use
+    # the the compose file docker-compose/otobo-override-db-exposed.yml
     # ports:
     #   - "3307:3306"
 
