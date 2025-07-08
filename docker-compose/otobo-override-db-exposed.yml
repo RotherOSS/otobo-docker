@@ -10,5 +10,5 @@ services:
     volumes:
       - otobo_nginx_ssl:/etc/nginx/ssl
     ports:
-      - ${OTOBO_DB_EXPOSED_PORT:-3306}:3306
+      - "${OTOBO_DB_EXPOSED_PORT:-3306}:3306"
     command: --max-allowed-packet=136314880 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --innodb-log-file-size=268435456 --query-cache-size=${OTOBO_DB_QUERY_CACHE_SIZE:-33554432} --ssl-key=${OTOBO_NGINX_SSL_CERTIFICATE_KEY:?err} --ssl_cert=${OTOBO_NGINX_SSL_CERTIFICATE:?err} --max-password-errors=50
