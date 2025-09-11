@@ -77,7 +77,7 @@ services:
     #    - "80:5000"
     volumes:
       - opt_otobo:/opt/otobo
-    command: web
+    command: web ${OTOBO_WEB_OPTION:-}
     healthcheck:
       test: curl -s -f http://localhost:5000/otobo/index.pl
 
