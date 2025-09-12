@@ -107,6 +107,12 @@ m4_ifdef(
 # Set OTOBO_WEB_HTTP_IPADDR when only requests addressed to a specific IP should be served.
 # See https://docs.docker.com/compose/compose-file/compose-file-v3/#ports
 #OTOBO_WEB_HTTP_IPADDR=<your special ip address>
+
+# The option OTOBO_WEB_OPTION influences which webserver is used with which options.
+# The default value is 'deployment'
+#OTOBO_WEB_OPTION=deployment              # the default, should be used in production and most times during development
+#OTOBO_WEB_OPTION=development             # can be useful during development, sets PLACK_ENV to 'development'
+#OTOBO_WEB_OPTION=shotgun                 # use the shotgun, start a new process for every request
 m4_ifdef( `otoflag_HTTP', `m4_divert(-1)')m4_dnl
 
 # HTTPS options
