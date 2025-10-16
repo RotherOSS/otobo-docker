@@ -36,6 +36,12 @@ OTOBO_DB_ROOT_PASSWORD=
 # See https://docs.docker.com/compose/compose-file/compose-file-v3/#ports
 #OTOBO_WEB_HTTP_IPADDR=<your special ip address>
 
+# The option OTOBO_WEB_OPTION influences which webserver is used with which options.
+# The default value is 'deployment'
+#OTOBO_WEB_OPTION=deployment              # the default, should be used in production and most times during development
+#OTOBO_WEB_OPTION=development             # can be useful during development, sets PLACK_ENV to 'development'
+#OTOBO_WEB_OPTION=shotgun                 # use the shotgun, start a new process for every request
+
 # Elasticsearch options
 OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
