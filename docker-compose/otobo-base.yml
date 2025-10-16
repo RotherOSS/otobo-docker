@@ -127,7 +127,7 @@ services:
 
   # a container running Redis
   redis:
-    image: ${OTOBO_IMAGE_REDIS:-redis:8-alpine}
+    image: ${OTOBO_IMAGE_REDIS:-redis:8-bookworm}
     user: redis:redis
     cap_drop:
         - ALL
