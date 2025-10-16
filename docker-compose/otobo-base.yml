@@ -12,7 +12,7 @@ services:
 
   # the database
   db:
-    image: ${OTOBO_IMAGE_DB:-mariadb:10.5}
+    image: ${OTOBO_IMAGE_DB:-mariadb:lts-noble}
     user: mysql:mysql
     cap_drop:
         - ALL
@@ -127,7 +127,7 @@ services:
 
   # a container running Redis
   redis:
-    image: ${OTOBO_IMAGE_REDIS:-redis:6.0-alpine}
+    image: ${OTOBO_IMAGE_REDIS:-redis:8-bookworm}
     user: redis:redis
     cap_drop:
         - ALL
@@ -139,9 +139,10 @@ services:
             max-file: "5"
             max-size: "10m"
     volumes:
-      - redis_data:/data
+      - ../etc/redis:/data
     healthcheck:
       test: redis-cli ping
+    command: [ "redis-server", "/data/redis.conf" ]
 
 
 # no volumes need to be exposed across services
@@ -149,4 +150,3 @@ volumes:
   mariadb_data: {}
   opt_otobo: {}
   elasticsearch_data: {}
-  redis_data: {}
