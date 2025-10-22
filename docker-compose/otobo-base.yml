@@ -148,7 +148,7 @@ services:
             max-size: "10m"
     healthcheck:
       test: redis-cli ping
-    command: ["redis-server", "--save", ""]
+    command: [ "redis-server", "--save", "" ]
 
 
 # no volumes need to be exposed across services
