@@ -138,11 +138,9 @@ services:
         options:
             max-file: "5"
             max-size: "10m"
-    volumes:
-      - ../etc/redis:/data
     healthcheck:
       test: redis-cli ping
-    command: [ "redis-server", "/data/redis.conf" ]
+    command: ["redis-server", "--save", ""]
 
 
 # no volumes need to be exposed across services
