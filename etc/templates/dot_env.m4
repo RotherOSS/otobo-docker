@@ -200,7 +200,7 @@ otovar_GENERATE_DOT_ENV_BLURB()m4_dnl
 
 ################################################################################
 # The Docker image for the service 'redis' can be specified explicitly.
-# The default is redis:6.0-alpine
+# The default is redis:8-bookworm
 ################################################################################
 #OTOBO_IMAGE_REDIS=
 
