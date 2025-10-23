@@ -20,7 +20,7 @@ See ./scripts/devel/generate_sample_env_files.sh -h for how to regenerate the sa
 # These are the macros that should be adapted for new releases and new development branches.
 # All of these macros affect only comment lines in the generated sample .env files.
 m4_define(`otovar_MINOR_RELEASE_TAG',`latest-11_0')
-m4_define(`otovar_PATCH_LEVEL_TAG',`rel-11_0_12')
+m4_define(`otovar_PATCH_LEVEL_TAG',`rel-11_0_13')
 m4_define(`otovar_DEVEL_TAG',`devel-rel-11_0')
 m4_define(`otovar_LOCAL_BUILD_TAG',`local-11.0.x')
 
@@ -170,7 +170,7 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
 ################################################################################
 # The Docker image for the service 'db' can be specified explicitly.
-# The default is mariadb:10.5
+# The default is mariadb:lts-noble
 ################################################################################
 #OTOBO_IMAGE_DB=
 
@@ -196,7 +196,7 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
 ################################################################################
 # The Docker image for the service 'redis' can be specified explicitly.
-# The default is redis:6.0-alpine
+# The default is redis:8-bookworm
 ################################################################################
 #OTOBO_IMAGE_REDIS=
 

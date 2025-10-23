@@ -65,7 +65,7 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
 ################################################################################
 # The Docker image for the service 'db' can be specified explicitly.
-# The default is mariadb:10.5
+# The default is mariadb:lts-noble
 ################################################################################
 #OTOBO_IMAGE_DB=
 
@@ -75,7 +75,7 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 ################################################################################
 
 # Examples:
-#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-11_0_11
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-11_0_13
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-11_0
 #OTOBO_IMAGE_OTOBO=otobo:local-11.0.x
 
@@ -85,13 +85,13 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 ################################################################################
 
 # Examples:
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-11_0_11
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-11_0_13
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-11_0
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-11.0.x
 
 ################################################################################
 # The Docker image for the service 'redis' can be specified explicitly.
-# The default is redis:6.0-alpine
+# The default is redis:8-bookworm
 ################################################################################
 #OTOBO_IMAGE_REDIS=
 
@@ -101,7 +101,7 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 ################################################################################
 
 # Examples:
-#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:rel-11_0_11
+#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:rel-11_0_13
 #OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:devel-rel-11_0
 #OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-webproxy:local-11.0.x
 
