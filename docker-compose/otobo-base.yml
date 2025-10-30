@@ -48,6 +48,7 @@ services:
     # OTOBO_DB_ROOT_PASSWORD=otobo_root
     environment:
       MYSQL_ROOT_PASSWORD: ${OTOBO_DB_ROOT_PASSWORD:?err}
+      MARIADB_AUTO_UPGRADE: "1"
 
     # The entrypoint script adds the name daemon exectutable.
     # Up to MariaDB 10.5 the server executable was 'mysqld'. Later versions use 'mariadbd'.
