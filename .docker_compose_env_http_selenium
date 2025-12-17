@@ -57,7 +57,7 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 ################################################################################
 
 # Examples:
-#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-11_0_13
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-11_0_14
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-11_0
 #OTOBO_IMAGE_OTOBO=otobo:local-11.0.x
 
@@ -67,7 +67,7 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 ################################################################################
 
 # Examples:
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-11_0_13
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-11_0_14
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-11_0
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-11.0.x
 
@@ -83,7 +83,7 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 ################################################################################
 
 # Examples:
-#OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:rel-11_0_13
+#OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:rel-11_0_14
 #OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:devel-rel-11_0
 #OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=otobo-selenium-chrome:local-11.0.x
 
