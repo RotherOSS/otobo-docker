@@ -90,7 +90,12 @@ $DOCKERCOMPOSE down
 # The containers are still stopped.
 # Copy the OTOBO software from the potentially changed image into the volume mounted at /opt/otobo.
 # The required config is taken from the .env file.
+TZ=UTC printf -v now "%(%F_%H%M%S)T" -1
+echo $now
+dir_otobo_update="/opt/otobo_update/$now"
+$DOCKERCOMPOSE run --no-deps --rm web clean_slate $dir_otobo_update
 $DOCKERCOMPOSE run --no-deps --rm web copy_otobo_next
+$DOCKERCOMPOSE run --no-deps --rm web copy_otobo_update $dir_otobo_update
 
 # start containers again, using the new version
 $DOCKERCOMPOSE up --detach
@@ -105,6 +110,19 @@ sleep 10
 echo "finished with sleeping"
 
 # complete the update, with running database
+
+# find out the major.minor version of the provious installation, e.g. 11.0 or 11.1
+prev_release_file="$dir_otobo_update/RELEASE"
+prev_major_version=$($DOCKERCOMPOSE exec web perl -n -e 'm/^VERSION\s*=\s*(\d+)\.\d+/ && print $1' $prev_release_file )
+prev_minor_version=$($DOCKERCOMPOSE exec web perl -n -e 'm/^VERSION\s*=\s*\d+\.(\d+)/ && print $1' $prev_release_file )
+
+# run the database update script only for major or minor version upgrades
+if (( $prev_major_version < 11 || ($prev_major_version == 11 && $prev_minor_version < 1) )); then
+    echo 'yes'
+    $DOCKERCOMPOSE exec web ./scripts/DBUpdate-to-11.1.pl
+fi
+
+# reinstall packages in any case
 $DOCKERCOMPOSE exec web /opt/otobo_install/entrypoint.sh do_update_tasks
 
 # inspect the update log
