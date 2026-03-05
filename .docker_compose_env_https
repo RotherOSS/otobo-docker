@@ -71,23 +71,23 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
 ################################################################################
 # The Docker image for the services 'web' and 'daemon' can be specified explicitly.
-# The default is rotheross/otobo:latest-11_0
+# The default is rotheross/otobo:latest-11_1
 ################################################################################
 
 # Examples:
-#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-11_0_15
-#OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-11_0
-#OTOBO_IMAGE_OTOBO=otobo:local-11.0.x
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-11_1_1
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-11_1
+#OTOBO_IMAGE_OTOBO=otobo:local-11.1.x
 
 ################################################################################
 # The Docker image for the service 'eleastic' can be specified explicitly.
-# The default is rotheross/otobo-elasticsearch:latest-11_0
+# The default is rotheross/otobo-elasticsearch:latest-11_1
 ################################################################################
 
 # Examples:
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-11_0_15
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-11_0
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-11.0.x
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-11_1_1
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-11_1
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-11.1.x
 
 ################################################################################
 # The Docker image for the service 'redis' can be specified explicitly.
@@ -97,11 +97,11 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
 ################################################################################
 # The Docker image for the service 'nginx' can be specified explicitly.
-# The default image is rotheross/otobo-nginx-webproxy:latest-11_0
+# The default image is rotheross/otobo-nginx-webproxy:latest-11_1
 ################################################################################
 
 # Examples:
-#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:rel-11_0_15
-#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:devel-rel-11_0
-#OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-webproxy:local-11.0.x
+#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:rel-11_1_1
+#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:devel-rel-11_1
+#OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-webproxy:local-11.1.x
 
