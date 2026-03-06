@@ -91,9 +91,34 @@ $DOCKERCOMPOSE down
 # Copy the OTOBO software from the potentially changed image into the volume mounted at /opt/otobo.
 # The required config is taken from the .env file.
 TZ=UTC printf -v now "%(%F_%H%M%S)T" -1
-echo $now
 dir_otobo_update="/opt/otobo_update/$now"
-$DOCKERCOMPOSE run --no-deps --rm web clean_slate $dir_otobo_update
+echo
+echo "using $dir_otobo_update as backup directory for this update"
+
+# Move files /opt/otobo to $dir_otobo_update. The copying is done using the command 'docker' only, not Docker compose.
+# This allows to control which volumes are considered. The Docker compose declaration might have
+# have additional volumes which should stay untouched by the upgrade.
+
+# The named volume used for the update should already exist, but it is better to make sure
+# Note that Docker compose prepends the project name to the volume names.
+echo
+echo "Creating the volume '$update_volume' if it does not exist yet"
+compose_project_name=$($DOCKERCOMPOSE config --environment | perl -n -e 'm/^COMPOSE_PROJECT_NAME=(.*)/ && print $1')
+update_volume="${compose_project_name}_opt_otobo_update"
+docker volume create ${compose_project_name}_opt_otobo_update
+
+# The only requirement for the used Docker image is that a shell is available.
+# Having 'tree' is useful for debugging, so let's use busybox.
+docker_run_cmd="docker run --rm --volume ${compose_project_name}_opt_otobo:/opt/otobo --volume ${compose_project_name}_opt_otobo_update:/opt/otobo_update busybox:stable ash -c"
+echo
+echo "docker_run_cmd: $docker_run_cmd"
+
+# Move the directory tree with the exception of var/article.
+$docker_run_cmd "cd /opt/otobo     && mkdir -p $dir_otobo_update     && mv \$(ls -A | grep -v var) $dir_otobo_update"
+$docker_run_cmd "cd /opt/otobo/var && mkdir -p $dir_otobo_update/var && mv \$(ls -A | grep -v article) $dir_otobo_update/var"
+$docker_run_cmd "echo HHHH && tree /opt/otobo"
+
+# the next commands can be run with the potential additional volumes
 $DOCKERCOMPOSE run --no-deps --rm web copy_otobo_next
 $DOCKERCOMPOSE run --no-deps --rm web copy_otobo_update $dir_otobo_update
 
