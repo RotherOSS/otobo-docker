@@ -101,10 +101,10 @@ echo "using $dir_otobo_update as backup directory for this update"
 
 # The named volume used for the update should already exist, but it is better to make sure
 # Note that Docker compose prepends the project name to the volume names.
-echo
-echo "Creating the volume '$update_volume' if it does not exist yet"
 compose_project_name=$($DOCKERCOMPOSE config --environment | perl -n -e 'm/^COMPOSE_PROJECT_NAME=(.*)/ && print $1')
 update_volume="${compose_project_name}_opt_otobo_update"
+echo
+echo "Creating the volume '$update_volume' if it does not exist yet"
 docker volume create ${compose_project_name}_opt_otobo_update
 
 # The only requirement for the used Docker image is that a shell is available.
@@ -116,11 +116,36 @@ echo "docker_run_cmd: $docker_run_cmd"
 # Move the directory tree with the exception of var/article.
 $docker_run_cmd "cd /opt/otobo     && mkdir -p $dir_otobo_update     && mv \$(ls -A | grep -v var) $dir_otobo_update"
 $docker_run_cmd "cd /opt/otobo/var && mkdir -p $dir_otobo_update/var && mv \$(ls -A | grep -v article) $dir_otobo_update/var"
-$docker_run_cmd "echo HHHH && tree /opt/otobo"
 
-# the next commands can be run with the potential additional volumes
+# the copy_otobo_next() is the same as used on initial startup
 $DOCKERCOMPOSE run --no-deps --rm web copy_otobo_next
-$DOCKERCOMPOSE run --no-deps --rm web copy_otobo_update $dir_otobo_update
+
+# rescue some files from the previous installation
+$docker_run_cmd "
+
+    echo 'coping files from $dir_otobo_update'
+
+    # Kernel/Config.pm contains installation specific configuration
+    mkdir -p /opt/otobo/Kernel
+    cp -a $dir_otobo_update/Kernel/Config.pm /opt/otobo/Kernel
+
+    # Articles and attachments might be stored in var/article. This directory
+    # might be large. Therefor that directory is not part of the
+    # backup, is kept in /opt/otobo/var/article
+
+    # locally installed Perl modules may be installed in local
+    mkdir -p /opt/otobo/local
+    cp -a -t /opt/otobo/local $dir_otobo_update/local/*
+
+    # copy the hidden file .bash_history purely for the convenience of having the history available
+    cp -a $dir_otobo_update/.bash_history /opt/otobo
+
+    # copy installed stats
+    mkdir -p /opt/otobo/var/stats
+    cp -a -t /opt/otobo/var/stats $dir_otobo_update/var/stats/*.installed
+
+    echo 'finished coping files from $dir_otobo_update'
+"
 
 # start containers again, using the new version
 $DOCKERCOMPOSE up --detach
