@@ -75,6 +75,14 @@ else
     DOCKERCOMPOSE="docker-compose"
 fi
 
+# stop and remove the containers, but keep the named volumes
+$DOCKERCOMPOSE down
+
+# The article dir gets special treatment. So we need to gather the name from the service web.
+# The console command Admin::Config::Read is not used here as it depends on the database.
+article_dir=$( $DOCKERCOMPOSE run --rm --no-deps --entrypoint perl web -I . -I Kernel/cpan-lib -MKernel::Config -E 'say Kernel::Config->new->Get(q{Ticket::Article::Backend::MIMEBase::ArticleDataDir})' )
+echo $article_dir
+exit
 
 # get, or update, the non-local images
 # There will be error messages for local images,
@@ -83,9 +91,6 @@ echo "Updating Docker images from their repositories."
 echo "See the file .env for which repositories and tags are used."
 echo "Error messages for local images can be ignored."
 $DOCKERCOMPOSE pull
-
-# stop and remove the containers, but keep the named volumes
-$DOCKERCOMPOSE down
 
 # The containers are still stopped.
 # Copy the OTOBO software from the potentially changed image into the volume mounted at /opt/otobo.
