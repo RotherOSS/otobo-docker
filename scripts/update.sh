@@ -102,17 +102,10 @@ docker pull $otobo_image
 # Running commands with different entrypoints in the otobo image.
 tmpl_docker_run_cmd="docker run --rm --volume ${otobo_volume}:/opt/otobo --volume ${update_volume}:/opt/otobo_update --entrypoint ENTRYPOINT $otobo_image"
 docker_run_rsync=${tmpl_docker_run_cmd/ENTRYPOINT/rsync}
-docker_run_bash=${tmpl_docker_run_cmd/ENTRYPOINT/bash}
 docker_run_perl=${tmpl_docker_run_cmd/ENTRYPOINT/perl}
-#echo
-#echo "tmpl_docker_run_cmd: $tmpl_docker_run_cmd"
-#echo "docker_run_rsync: $docker_run_rsync"
-#echo "docker_run_bash: $docker_run_bash"
-#echo "docker_run_perl: $docker_run_perl"
 
 # The named volume used for the update should already exist, but it is better to make sure
 # Note that Docker compose prepends the project name to the volume names.
-echo
 echo "Creating the volume '$update_volume' if it does not exist yet"
 docker volume create ${update_volume}
 
@@ -120,7 +113,6 @@ docker volume create ${update_volume}
 # the name from the service web.
 # The console command Admin::Config::Read is not used here as it depends on the database.
 article_dir=$( $docker_run_perl -I . -I Kernel/cpan-lib -MKernel::Config -E 'say Kernel::Config->new->Get(q{Ticket::Article::Backend::MIMEBase::ArticleDataDir})' )
-echo 
 echo "[$script_name] The article data is in $article_dir"
 
 # get, or update, the non-local images
@@ -137,7 +129,6 @@ $DOCKERCOMPOSE pull
 # The required config is taken from the .env file.
 TZ=UTC printf -v now "%(%F_%H%M%S)T" -1
 dir_otobo_update="/opt/otobo_update/$now"
-echo
 echo "[$script_name] using $dir_otobo_update as backup directory for this update"
 
 # Move files /opt/otobo to $dir_otobo_update. The copying is done using the command 'docker' only, not Docker compose.
@@ -145,47 +136,48 @@ echo "[$script_name] using $dir_otobo_update as backup directory for this update
 # have additional volumes which should stay untouched by the upgrade.
 
 # Move the directory tree with the exception of article data dir.
-# The excluded dir is given relative to the source dir.
+# The excluded dir is given relative to the source dir and is passed with a trailing slash.
 # Note the empty directories are not removed.
 relative_article_dir=${article_dir/#\/opt\/otobo\//}
-$docker_run_rsync -av \
-  --remove-source-files \
-  --exclude "$relative_article_dir" \
-  /opt/otobo/ "$dir_otobo_update/"
+$docker_run_rsync \
+  --archive \
+  $rsync_verbose \
+ --remove-source-files \
+ --exclude "${relative_article_dir%/}/" \
+ /opt/otobo/ "$dir_otobo_update/"
 
 # Restore the hidden files, but some of them will be overwritten by copy_otobo_next
+# with files from /opt/otobo_install/otobo_next.
 # The --include and --exclude option are a bit daunting. The rule is that each directory
 # or file is matched against the option and the first match wins.
+echo "[$script_name] restoring hidden files"
 $docker_run_rsync -av \
   --exclude "/.copy_otobo_next_finished" \
   --include "/.*" \
   --exclude "*" \
   "$dir_otobo_update/" /opt/otobo/
 
-# the copy_otobo_next() is the same as used on initial startup
+# The copy_otobo_next task is the same as used in the initial startup.
+echo "[$script_name] copying the new files for /opt/otobo"
 $DOCKERCOMPOSE run --no-deps --rm web copy_otobo_next
 
-# rescue some files from the previous installation
-$docker_run_bash -c "
-
-    echo 'coping files from $dir_otobo_update'
-
-    # Kernel/Config.pm contains installation specific configuration
-    mkdir -p /opt/otobo/Kernel
-    cp -a $dir_otobo_update/Kernel/Config.pm /opt/otobo/Kernel
-
-    # locally installed Perl modules may be installed in local
-    mkdir -p /opt/otobo/local
-    cp -a -t /opt/otobo/local $dir_otobo_update/local/*
-
-    # copy installed stats
-    mkdir -p /opt/otobo/var/stats
-    cp -a -t /opt/otobo/var/stats $dir_otobo_update/var/stats/*.installed
-
-    echo 'finished coping files from $dir_otobo_update'
-"
+# Rescue some files from the previous installation. These may overwrite
+# from /opt/otobo_install/otobo_next.
+# Kernel/Config.pm contains installation specific configuration
+# locally installed Perl modules may be installed in local
+# copy installed stats into var/stats
+echo "[$script_name] restore more runtime files"
+$docker_run_rsync \
+  --archive \
+  $rsync_verbose \
+  --include "/Kernel/" --include "/Kernel/Config.pm" \
+  --include "/local/" --include "/local/**" \
+  --include "/var/" --include "/var/stats/" --include "/var/stats/*.installed" \
+  --exclude "*" \
+  "$dir_otobo_update/" /opt/otobo/
 
 # start containers again, using the new version
+echo "[$script_name] starting up the services again"
 $DOCKERCOMPOSE up --detach
 
 echo "[$script_name] running '$DOCKERCOMPOSE ps' only as a quick sanity check"
