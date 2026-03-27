@@ -148,7 +148,19 @@ echo "[$script_name] using $dir_otobo_update as backup directory for this update
 # The excluded dir is given relative to the source dir.
 # Note the empty directories are not removed.
 relative_article_dir=${article_dir/#\/opt\/otobo\//}
-$docker_run_rsync -av --remove-source-files --exclude $relative_article_dir /opt/otobo/ $dir_otobo_update
+$docker_run_rsync -av \
+  --remove-source-files \
+  --exclude "$relative_article_dir" \
+  /opt/otobo/ "$dir_otobo_update/"
+
+# Restore the hidden files, but some of them will be overwritten by copy_otobo_next
+# The --include and --exclude option are a bit daunting. The rule is that each directory
+# or file is matched against the option and the first match wins.
+$docker_run_rsync -av \
+  --exclude "/.copy_otobo_next_finished" \
+  --include "/.*" \
+  --exclude "*" \
+  "$dir_otobo_update/" /opt/otobo/
 
 # the copy_otobo_next() is the same as used on initial startup
 $DOCKERCOMPOSE run --no-deps --rm web copy_otobo_next
@@ -162,16 +174,9 @@ $docker_run_bash -c "
     mkdir -p /opt/otobo/Kernel
     cp -a $dir_otobo_update/Kernel/Config.pm /opt/otobo/Kernel
 
-    # Articles and attachments might be stored in var/article or another directory.
-    # This article data directory might be large. Therefore it is not part of the backup,
-    # insteed it is kept in place.
-
     # locally installed Perl modules may be installed in local
     mkdir -p /opt/otobo/local
     cp -a -t /opt/otobo/local $dir_otobo_update/local/*
-
-    # copy the hidden file .bash_history purely for the convenience of having the history available
-    cp -a $dir_otobo_update/.bash_history /opt/otobo
 
     # copy installed stats
     mkdir -p /opt/otobo/var/stats
