@@ -63,15 +63,18 @@ done
 # Disable the Docker warning for the time being - https://github.com/RotherOSS/otobo-docker/pull/124#issuecomment-1590879464
 #docker_warning
 
+# get the name of the running script in order to mark the messages printed by the script itself
+script_name=${BASH_SOURCE[0]##*/}
+
 # if docker-compose exists, use that, otherwise, use `docker compose`
 if ! command -v docker-compose &> /dev/null
 then
-    echo "[Note] docker-compose was not found, using docker compose"
-    echo "[Note] See https://github.com/RotherOSS/otobo-docker/issues/122 for more into on this."
+    echo "[$script_name] docker-compose was not found, using docker compose"
+    echo "[$script_name] See https://github.com/RotherOSS/otobo-docker/issues/122 for more into on this."
     DOCKERCOMPOSE="docker compose"
 else
-    echo "[Note] docker-compose found, will continue to use that."
-    echo "[Note] See https://github.com/RotherOSS/otobo-docker/issues/122 for more info on this."
+    echo "[$script_name] docker-compose found, will continue to use that."
+    echo "[$script_name] See https://github.com/RotherOSS/otobo-docker/issues/122 for more info on this."
     DOCKERCOMPOSE="docker-compose"
 fi
 
@@ -90,10 +93,10 @@ update_volume="${compose_project_name}_opt_otobo_update"
 # Getting that relevant name is not really simple. Usually it is be extracted with jq
 # from `docker compose config --format json`. But we can't rely on jq being present.
 otobo_image=$($DOCKERCOMPOSE config --images | grep 'otobo:' | head -n 1)
-echo "[Note] Running the upgrade with the image image: '$otobo_image'"
+echo "[$script_name] Running the upgrade with the image image: '$otobo_image'"
 
 # Make sure that the image is available
-echo "[Note] Pulling $otobo_image, please ignore error about local images"
+echo "[$script_name] Pulling $otobo_image, please ignore error about local images"
 docker pull $otobo_image
 
 # Running commands with different entrypoints in the otobo image.
@@ -118,15 +121,15 @@ docker volume create ${update_volume}
 # The console command Admin::Config::Read is not used here as it depends on the database.
 article_dir=$( $docker_run_perl -I . -I Kernel/cpan-lib -MKernel::Config -E 'say Kernel::Config->new->Get(q{Ticket::Article::Backend::MIMEBase::ArticleDataDir})' )
 echo 
-echo "[Note] The article data is in $article_dir"
+echo "[$script_name] The article data is in $article_dir"
 
 # get, or update, the non-local images
 # There will be error messages for local images,
 # but this is acceptable as developers are responsible for the local images.
 echo
-echo "[Note] Updating Docker images from their repositories."
-echo "[Note] See the file .env for which repositories and tags are used."
-echo "[Note] Error messages for local images can be ignored."
+echo "[$script_name] Updating Docker images from their repositories."
+echo "[$script_name] See the file .env for which repositories and tags are used."
+echo "[$script_name] Error messages for local images can be ignored."
 $DOCKERCOMPOSE pull
 
 # The containers are still stopped.
@@ -135,7 +138,7 @@ $DOCKERCOMPOSE pull
 TZ=UTC printf -v now "%(%F_%H%M%S)T" -1
 dir_otobo_update="/opt/otobo_update/$now"
 echo
-echo "[Note] using $dir_otobo_update as backup directory for this update"
+echo "[$script_name] using $dir_otobo_update as backup directory for this update"
 
 # Move files /opt/otobo to $dir_otobo_update. The copying is done using the command 'docker' only, not Docker compose.
 # This allows to control which volumes are considered. The Docker compose declaration might have
@@ -180,14 +183,14 @@ $docker_run_bash -c "
 # start containers again, using the new version
 $DOCKERCOMPOSE up --detach
 
-echo "[Note] running '$DOCKERCOMPOSE ps' only as a quick sanity check"
+echo "[$script_name] running '$DOCKERCOMPOSE ps' only as a quick sanity check"
 $DOCKERCOMPOSE ps
 
 # There isn't yet a good check that the database is already running when the webserver starts up.
 # So let's sleep for a while and hope the best for later.
-echo "[Note] sleeping for 10 seconds while the database is starting up"
+echo "[$script_name] sleeping for 10 seconds while the database is starting up"
 sleep 10
-echo "[Note] finished with sleeping"
+echo "[$script_name] finished with sleeping"
 
 # complete the update, with running database
 
@@ -198,16 +201,16 @@ prev_minor_version=$($DOCKERCOMPOSE exec web perl -n -e 'm/^VERSION\s*=\s*\d+\.(
 
 # run the database update script only for major or minor version upgrades
 if (( $prev_major_version < 11 || ($prev_major_version == 11 && $prev_minor_version < 1) )); then
-    echo "[Note] running DBUpdate-to-11.1.pl"
+    echo "[$script_name] running DBUpdate-to-11.1.pl"
     $DOCKERCOMPOSE exec web ./scripts/DBUpdate-to-11.1.pl
 fi
 
 # reinstall packages in any case
-echo "[Note] running do_update_tasks"
+echo "[$script_name] running do_update_tasks"
 $DOCKERCOMPOSE exec web /opt/otobo_install/entrypoint.sh do_update_tasks
 
 # inspect the update log
-echo "[Note] printing out the update log"
+echo "[$script_name] printing out the update log"
 $DOCKERCOMPOSE exec web cat /opt/otobo/var/log/update.log
 
-echo "[Note] finished"
+echo "[$script_name] finished"
