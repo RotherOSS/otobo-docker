@@ -104,6 +104,11 @@ tmpl_docker_run_cmd="docker run --rm --volume ${otobo_volume}:/opt/otobo --volum
 docker_run_rsync=${tmpl_docker_run_cmd/ENTRYPOINT/rsync}
 docker_run_perl=${tmpl_docker_run_cmd/ENTRYPOINT/perl}
 
+# for digging into rsync
+#rsync_verbose=""    # not verbose
+rsync_verbose="-v"  # print the file list
+#rsync_verbose="-vv" # print the file list and explain the decision making
+
 # The named volume used for the update should already exist, but it is better to make sure
 # Note that Docker compose prepends the project name to the volume names.
 echo "Creating the volume '$update_volume' if it does not exist yet"
@@ -151,7 +156,9 @@ $docker_run_rsync \
 # The --include and --exclude option are a bit daunting. The rule is that each directory
 # or file is matched against the option and the first match wins.
 echo "[$script_name] restoring hidden files"
-$docker_run_rsync -av \
+$docker_run_rsync \
+  --archive \
+  $rsync_verbose \
   --exclude "/.copy_otobo_next_finished" \
   --include "/.*" \
   --exclude "*" \
