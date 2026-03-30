@@ -117,8 +117,10 @@ docker volume create ${update_volume}
 # The directory with the article data gets special treatment. For that we first need to gather
 # the name from the service web.
 # The console command Admin::Config::Read is not used here as it depends on the database.
+# Canonicalize the article dir relative to /opt/otobo so that we are on safe grounds.
 article_dir=$( $docker_run_perl -I . -I Kernel/cpan-lib -MKernel::Config -E 'say Kernel::Config->new->Get(q{Ticket::Article::Backend::MIMEBase::ArticleDataDir})' )
-echo "[$script_name] The article data is in $article_dir"
+relative_article_dir=$(realpath --canonicalize-missing --relative-base /opt/otobo "$article_dir")
+echo "[$script_name] The article data is in $relative_article_dir"
 
 # get, or update, the non-local images
 # There will be error messages for local images,
@@ -140,15 +142,15 @@ echo "[$script_name] using $dir_otobo_update as backup directory for this update
 # This allows to control which volumes are considered. The Docker compose declaration might have
 # have additional volumes which should stay untouched by the upgrade.
 
-# Move the directory tree with the exception of article data dir.
-# The excluded dir is given relative to the source dir and is passed with a trailing slash.
+# Move the directory tree with the exception of the article data dir.
+# The excluded dir is given relative to the source dir and has no trailing slash.
+# This covers the case where the article data dir is actually a symlink to another dir.
 # Note the empty directories are not removed.
-relative_article_dir=${article_dir/#\/opt\/otobo\//}
 $docker_run_rsync \
   --archive \
   $rsync_verbose \
  --remove-source-files \
- --exclude "${relative_article_dir%/}/" \
+ --exclude "$relative_article_dir" \
  /opt/otobo/ "$dir_otobo_update/"
 
 # Restore the hidden files, but some of them will be overwritten by copy_otobo_next
