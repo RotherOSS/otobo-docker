@@ -1,0 +1,13 @@
+# This Docker compose file should be used only for development.
+#
+# It is a testground for volume related questions.
+# For activation add docker-compose/testing/volumes.yml to COMPOSE_FILE in .env
+services:
+  web:
+    volumes:
+
+      # used for testing the article dir being a named volume
+      - articles_outside_opt_otobo:/opt/named_volumes/articles
+
+volumes:
+  articles_outside_opt_otobo: {}
