@@ -114,14 +114,27 @@ rsync_verbose="-v"  # print the file list
 echo "Creating the volume '$update_volume' if it does not exist yet"
 docker volume create ${update_volume}
 
-# The directory with the article data gets special treatment. For that we first need to gather
-# the name from the service web.
+# There are some directories which require special treatment. They should not be moved
+# to the update directory, they must be left where they currently are. For that we first
+# need to ask the service 'web' for the relevant SysConfig settings.
 # The console command Admin::Config::Read is not used here as it depends on the database.
-# Canonicalize the article dir relative to /opt/otobo so that we are on safe grounds.
+# The directory names are normalized relative to /opt/otobo so that we are on safe grounds.
+
 article_dir=$( $docker_run_perl -I . -I Kernel/cpan-lib -MKernel::Config -E 'say Kernel::Config->new->Get(q{Ticket::Article::Backend::MIMEBase::ArticleDataDir})' )
 relative_article_dir=$(realpath --canonicalize-missing --relative-base /opt/otobo "$article_dir")
 echo "[$script_name] The article data is in $relative_article_dir"
 
+smime_cert_dir=$( $docker_run_perl -I . -I Kernel/cpan-lib -MKernel::Config -E 'say Kernel::Config->new->Get(q{SMIME::CertPath})' )
+relative_smime_cert_dir=$(realpath --canonicalize-missing --relative-base /opt/otobo "$smime_cert_dir")
+echo "[$script_name] The S/MIME certificates are in $relative_smime_cert_dir"
+
+smime_private_dir=$( $docker_run_perl -I . -I Kernel/cpan-lib -MKernel::Config -E 'say Kernel::Config->new->Get(q{SMIME::PrivatePath})' )
+relative_smime_private_dir=$(realpath --canonicalize-missing --relative-base /opt/otobo "$smime_private_dir")
+echo "[$script_name] The S/MIME private keys are in $relative_smime_private_dir"
+
+relative_gpg_dir=.gnupg
+
+# get, or update, the non-local images
 # get, or update, the non-local images
 # There will be error messages for local images,
 # but this is acceptable as developers are responsible for the local images.
@@ -151,6 +164,9 @@ $docker_run_rsync \
   $rsync_verbose \
  --remove-source-files \
  --exclude "$relative_article_dir" \
+ --exclude "$relative_smime_cert_dir" \
+ --exclude "$relative_smime_private_dir" \
+ --exclude "$relative_gpg_dir" \
  /opt/otobo/ "$dir_otobo_update/"
 
 # Restore the hidden files, but some of them will be overwritten by copy_otobo_next
