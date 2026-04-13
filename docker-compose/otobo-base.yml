@@ -129,6 +129,8 @@ services:
             max-size: "10m"
     environment:
       discovery.type: single-node
+      # allow access via HTTP and without login
+      xpack.security.enabled: false
       ES_JAVA_OPTS: ${OTOBO_ELASTICSEARCH_ES_JAVA_OPTS:?err}
     volumes:
       - elasticsearch_data:/usr/share/elasticsearch/data
