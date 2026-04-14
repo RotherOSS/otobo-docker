@@ -155,12 +155,18 @@ echo "[$script_name] using $dir_otobo_update as backup directory for this update
 # This allows to control which volumes are considered. The Docker compose declaration might have
 # have additional volumes which should stay untouched by the upgrade.
 
-# Move the directory tree with the exception of the article data dir.
-# The excluded dir is given relative to the source dir and has no trailing slash.
-# This covers the case where the article data dir is actually a symlink to another dir.
+# Move the directory tree with the exception of some specific directories.
+# The excluded directories are given relative to the source dir and have no trailing slash.
+# This covers the case where the e.g. article data dir is actually a symlink to another dir.
+#
 # Note the empty directories are not removed.
+#
+# The option --archive implies that symlinks should be copied as symlinks. Because of
+# the option --remove-source-files the symlinks would be removed in /opt/otobo. This is
+# not wanted for this script, thus the option --no-links.
 $docker_run_rsync \
   --archive \
+  --no-links \
   $rsync_verbose \
  --remove-source-files \
  --exclude "$relative_article_dir" \
