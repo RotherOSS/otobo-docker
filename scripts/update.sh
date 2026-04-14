@@ -132,7 +132,11 @@ smime_private_dir=$( $docker_run_perl -I . -I Kernel/cpan-lib -MKernel::Config -
 relative_smime_private_dir=$(realpath --canonicalize-missing --relative-base /opt/otobo "$smime_private_dir")
 echo "[$script_name] The S/MIME private keys are in $relative_smime_private_dir"
 
+# PGP keeps the keyring in a hidden directory in /opt/otobo
 relative_gpg_dir=.gnupg
+
+# The files in the directory for static HTML should survibe the upgrade
+relative_static_dir=var/httpd/htdocs/static
 
 # get, or update, the non-local images
 # get, or update, the non-local images
@@ -173,6 +177,7 @@ $docker_run_rsync \
  --exclude "$relative_smime_cert_dir" \
  --exclude "$relative_smime_private_dir" \
  --exclude "$relative_gpg_dir" \
+ --exclude "$relative_static_dir" \
  /opt/otobo/ "$dir_otobo_update/"
 
 # Restore the hidden files, but some of them will be overwritten by copy_otobo_next
