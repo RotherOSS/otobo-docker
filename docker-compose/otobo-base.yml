@@ -129,7 +129,7 @@ services:
     environment:
       discovery.type: single-node
       # allow access via HTTP and without login
-      xpack.security.enabled: false
+      xpack.security.enabled: "0"
       ES_JAVA_OPTS: ${OTOBO_ELASTICSEARCH_ES_JAVA_OPTS:?err}
     volumes:
       - elasticsearch_data:/usr/share/elasticsearch/data
