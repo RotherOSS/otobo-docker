@@ -89,16 +89,31 @@ docker volume create ${update_volume}
 # The directory names are normalized relative to /opt/otobo so that we are on safe grounds.
 
 article_dir=$( $docker_run_perl -I . -I Kernel/cpan-lib -MKernel::Config -E 'say Kernel::Config->new->Get(q{Ticket::Article::Backend::MIMEBase::ArticleDataDir})' )
-relative_article_dir=$(realpath --canonicalize-missing --relative-base /opt/otobo "$article_dir")
-echo "[$script_name] The article data is in $relative_article_dir"
+if [[ -n $article_dir ]]; then
+    relative_article_dir=$(realpath --canonicalize-missing --relative-base /opt/otobo "$article_dir")
+    echo "[$script_name] The article data is in $relative_article_dir"
+else
+    echo "[$script_name] There is no article dir"
+    relative_article_dir=""
+fi
 
 smime_cert_dir=$( $docker_run_perl -I . -I Kernel/cpan-lib -MKernel::Config -E 'say Kernel::Config->new->Get(q{SMIME::CertPath})' )
-relative_smime_cert_dir=$(realpath --canonicalize-missing --relative-base /opt/otobo "$smime_cert_dir")
-echo "[$script_name] The S/MIME certificates are in $relative_smime_cert_dir"
+if [[ -n $smime_cert_dir ]]; then
+    relative_smime_cert_dir=$(realpath --canonicalize-missing --relative-base /opt/otobo "$smime_cert_dir")
+    echo "[$script_name] The S/MIME certificates are in $relative_smime_cert_dir"
+else
+    echo "[$script_name] There is no directory for the S/MIME certificates"
+    relative_smime_cert_dir=""
+fi
 
 smime_private_dir=$( $docker_run_perl -I . -I Kernel/cpan-lib -MKernel::Config -E 'say Kernel::Config->new->Get(q{SMIME::PrivatePath})' )
-relative_smime_private_dir=$(realpath --canonicalize-missing --relative-base /opt/otobo "$smime_private_dir")
-echo "[$script_name] The S/MIME private keys are in $relative_smime_private_dir"
+if [[ -n $smime_private_dir ]]; then
+    relative_smime_private_dir=$(realpath --canonicalize-missing --relative-base /opt/otobo "$smime_private_dir")
+    echo "[$script_name] The S/MIME private keys are in $relative_smime_private_dir"
+else
+    echo "[$script_name] There is no directory for the S/MIME private keys"
+    relative_smime_cert_dir=""
+fi
 
 # PGP keeps the keyring in a hidden directory in /opt/otobo
 relative_gpg_dir=.gnupg
