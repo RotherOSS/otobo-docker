@@ -73,8 +73,8 @@ rsync_verbose="-v"  # print the file list
 echo "Creating the volume '$update_volume' if it does not exist yet"
 docker volume create ${update_volume}
 
-# There are some directories which require special treatment. They should not be moved
-# to the update directory, they must be left where they currently are. For that we first
+# There are some directories which require special treatment. These directories should not be moved
+# to the update directory. They must be left where they currently are. For that we first
 # need to ask the service 'web' for the relevant SysConfig settings.
 # The console command Admin::Config::Read is not used here as it depends on the database.
 # The directory names are normalized relative to /opt/otobo so that we are on safe grounds.
@@ -96,6 +96,10 @@ relative_gpg_dir=.gnupg
 
 # The files in the directory for static HTML should survibe the upgrade
 relative_static_dir=var/httpd/htdocs/static
+
+# The directory used by the virtual file system is hard coded in Kernel/System/VirtualFS/FS.pm
+relative_virtual_fs_dir=var/virtualfs
+echo "[$script_name] The virtual fs has files in $relative_virtual_fs_dir"
 
 # get, or update, the non-local images
 # get, or update, the non-local images
@@ -137,6 +141,7 @@ $docker_run_rsync \
  --exclude "$relative_smime_private_dir" \
  --exclude "$relative_gpg_dir" \
  --exclude "$relative_static_dir" \
+ --exclude "$relative_virtual_fs_dir" \
  /opt/otobo/ "$dir_otobo_update/"
 
 # Restore the hidden files, but some of them will be overwritten by copy_otobo_next
