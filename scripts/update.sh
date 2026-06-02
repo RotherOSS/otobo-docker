@@ -9,10 +9,12 @@ function display_help() {
     echo "Usage: update.sh [OPTIONS]"
     echo "Options:"
     echo "  -h, --help     Display this help screen"
-    echo "   "
+    echo ""
+    echo "This script temporarily changes to the parent directory of this script. This is the directory"
+    echo "that contains the setup for OTOBO running with Docker compose v2."
     echo "The standard behavior is to use the setup from .env."
     echo "In .env one may set up a specific repositories and specific tags."
-    echo "   "
+    echo ""
 }
 
 # Parse cli args
@@ -32,6 +34,13 @@ done
 
 # get the name of the running script in order to mark the messages printed by the script itself
 script_name=${BASH_SOURCE[0]##*/}
+
+# Change into the compose directory while this script is running. The compose directory
+# is the sandbox directory that is checked from Git, that is the directory containing the
+# hidden file '.env' and the subdirectory 'docker-compose'.
+full_script_file=$(realpath -- "${BASH_SOURCE[0]}")
+compose_dir=$(dirname $(dirname -- "$full_script_file"))
+cd $compose_dir
 
 # Only Docker compose v2 is supported.
 # Docker compose v2 is actually a plugin of the the docker command.
