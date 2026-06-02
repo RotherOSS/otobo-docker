@@ -33,17 +33,9 @@ done
 # get the name of the running script in order to mark the messages printed by the script itself
 script_name=${BASH_SOURCE[0]##*/}
 
-# if docker-compose exists, use that, otherwise, use `docker compose`
-if ! command -v docker-compose &> /dev/null
-then
-    echo "[$script_name] docker-compose was not found, using docker compose"
-    echo "[$script_name] See https://github.com/RotherOSS/otobo-docker/issues/122 for more into on this."
-    DOCKERCOMPOSE="docker compose"
-else
-    echo "[$script_name] docker-compose found, will continue to use that."
-    echo "[$script_name] See https://github.com/RotherOSS/otobo-docker/issues/122 for more info on this."
-    DOCKERCOMPOSE="docker-compose"
-fi
+# Only Docker compose v2 is supported.
+# Docker compose v2 is actually a plugin of the the docker command.
+DOCKERCOMPOSE="docker compose"
 
 # During the update there should be no interference from the outside.
 # Stop and remove the containers, but keep the named volumes intact
