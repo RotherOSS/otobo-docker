@@ -12,7 +12,7 @@ version: '3.3'
 
 services:
 
-  # the database
+  # the database server
   db:
     image: ${OTOBO_IMAGE_DB:-mariadb:lts-noble}
     user: mysql:mysql
@@ -50,9 +50,15 @@ services:
       MYSQL_ROOT_PASSWORD: ${OTOBO_DB_ROOT_PASSWORD:?err}
       MARIADB_AUTO_UPGRADE: "1"
 
-    # The entrypoint script adds the name daemon exectutable.
-    # Up to MariaDB 10.5 the server executable was 'mysqld'. Later versions use 'mariadbd'.
-    command: --max-allowed-packet=136314880 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --innodb-log-file-size=268435456 --query-cache-size=${OTOBO_DB_QUERY_CACHE_SIZE:-33554432}
+    # The actual name of the database server executable is provided
+    # in the entrypoint of the Docker image.  Up to MariaDB 10.5 the server executable had been called 'mysqld'.
+    # Later versions use the executable 'mariadbd'.
+    command:
+      - --max-allowed-packet=136314880
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --innodb-log-file-size=268435456
+      - --query-cache-size=${OTOBO_DB_QUERY_CACHE_SIZE:-33554432}
 
     # "mariadb-admin ping" sets the exit code $?. The exit code will be 0 (success) when the server can be reached,
     # not 0 (failure) otherwise.
