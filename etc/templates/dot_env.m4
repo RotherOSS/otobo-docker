@@ -1,6 +1,6 @@
 m4_divert(-1)
 
-This file, etc/templates/dot_env.m4, is a M4 template file. The script script/devel/generate_sample_env_files.sh
+This file, etc/templates/dot_env.m4, is a M4 template file. The script scripts/devel/generate_sample_env_files.sh
 takes this template and generates the following files from it:
 
     .docker_compose_env_http
@@ -86,9 +86,11 @@ COMPOSE_PROJECT_NAME=otobo
 # COMPOSE_FILE is a collection of files, separated by COMPOSE_PATH_SEPARATOR, that make up the final config.
 # These files usually reside in the subdirectory docker-compose.
 #
-# Additional services can be added by concatenating more files to COMPOSE_FILE. An example would services
-# for S3 compatible storage. That is: :docker-compose/otobo-localstack.yml or :docker-compose/otobo-minio.yml.
-# An OpenLDAP server for use by the unit tests can be activated by appending :docker-compose/testing/openldap.yml.
+# Additional services can be added by concatenating more files to COMPOSE_FILE.
+# - add services for S3 compatible storage:             :docker-compose/otobo-localstack.yml or
+#                                                       :docker-compose/otobo-minio.yml
+# - activate the MariaDB ed25519 authentication plugin: :docker-compose/mariadb/ed25519.yml
+# - add OpenLDAP server for use by the unit tests:      :docker-compose/testing/openldap.yml
 COMPOSE_PATH_SEPARATOR=:
 COMPOSE_FILE=otovar_COMPOSE_FILE
 
