@@ -2,10 +2,10 @@
 # or by the docker compose files.
 
 # COMPOSE_PROJECT_NAME declares the prefix of the name of the Docker containers. So if the
-# project name is 'acme_support' then the web container is named either 'acme_support_web_1' for
-# Compose V1 or 'acme_support-web-1 for Compose V2. The project name also declares
-# the prefix of named volumes. Thus changing the project name allows to have
-# seperate containers and volumes for separate installations of OTOBO.
+# project name is 'acme_support' then the web container is named 'acme_support-web-1'
+# in accordance with the Docker Compose v2 naming convention.
+# The project name also declares the prefix of named volumes. Thus changing the project name
+# allows to have separate containers and volumes for separate installations of OTOBO.
 #
 # Note that when COMPOSE_PROJECT_NAME is set in the shell environment,
 # then that setting has higher precedence.
