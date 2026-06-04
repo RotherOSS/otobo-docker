@@ -77,9 +77,9 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 ################################################################################
 
 # Examples:
-#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-11_1_1
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-11_1_<patch>  # where <patch> is the numeric patch level
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-11_1
-#OTOBO_IMAGE_OTOBO=otobo:local-11.1.x
+#OTOBO_IMAGE_OTOBO=otobo:local-11.1.x                # where x is the verbatim letter 'x'
 
 ################################################################################
 # The Docker image for the service 'eleastic' can be specified explicitly.
@@ -87,9 +87,9 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 ################################################################################
 
 # Examples:
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-11_1_1
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-11_1_<patch>  # where <patch> is the numeric patch level
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-11_1
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-11.1.x
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-11.1.x                # where x is the verbatim letter 'x'
 
 ################################################################################
 # The Docker image for the service 'redis' can be specified explicitly.
@@ -103,9 +103,9 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 ################################################################################
 
 # Examples:
-#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:rel-11_1_1
+#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:rel-11_1_<patch>  # where <patch> is the numeric patch level
 #OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:devel-rel-11_1
-#OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-webproxy:local-11.1.x
+#OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-webproxy:local-11.1.x                # where x is the verbatim letter 'x'
 
 
 # provide a custom Nginx config template dir

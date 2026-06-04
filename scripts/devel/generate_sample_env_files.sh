@@ -53,7 +53,7 @@ Usage:
     $0 --help
 
     # the standard behavior is to recreate the sample .env files from the template etc/templates/dot_env.m4.
-    # Please adapt the macros otovar_MINOR_RELEASE_TAG, otovar_PATCH_LEVEL_TAG, otovar_DEVEL_TAG, and otovar_LOCAL_BUILD_TAG
+    # Please adapt the macros otovar_MAJOR and otovar_MINOR
     # in the template for creating new releases or development branches.
     # The affected sample .env files are:
     #    .docker_compose_env_http
