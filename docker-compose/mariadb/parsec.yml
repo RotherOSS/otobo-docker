@@ -1,0 +1,17 @@
+services:
+  db:
+    # The attribute 'command' overrides completely the previous setting. Therefore
+    # the complete list of options must be set in the override file.
+    # See https://docs.docker.com/reference/compose-file/merge/#exceptions
+    command:
+      - --max-allowed-packet=136314880
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --innodb-log-file-size=268435456
+      - --query-cache-size=${OTOBO_DB_QUERY_CACHE_SIZE:-33554432}
+      - --plugin-load-add=parsec=auth_parsec
+
+      # These TLS options are only for reference as PARSEC does require an encryted connection.
+      #- --ssl-ca=/var/lib/mysql/tls/ca-cert.pem
+      #- --ssl-cert=/var/lib/mysql/tls/server-cert.pem
+      #- --ssl-key=/var/lib/mysql/tls/server-key.pem
