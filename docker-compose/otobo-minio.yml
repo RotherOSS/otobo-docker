@@ -7,9 +7,6 @@
 # See also https://hub.docker.com/r/localstack/localstack .
 # Ses also https://docs.min.io/docs/deploy-minio-on-docker-compose.html
 
-# same version as in otobo-base.yml
-version: '3.3'
-
 services:
 
   minio:
