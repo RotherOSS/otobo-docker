@@ -6,9 +6,6 @@
 # See also README.md .
 # See also https://hub.docker.com/r/localstack/localstack .
 
-# same version as in otobo-base.yml
-version: '3.3'
-
 services:
 
   localstack:
