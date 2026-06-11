@@ -11,6 +11,9 @@ services:
       - --query-cache-size=${OTOBO_DB_QUERY_CACHE_SIZE:-33554432}
       - --plugin-load-add=parsec=auth_parsec
 
+      # loading more than a single plugin is also possible
+      #- --plugin-load-add=ed25519=auth_ed25519;parsec=auth_parsec
+
       # These TLS options are only for reference as PARSEC does require an encryted connection.
       #- --ssl-ca=/var/lib/mysql/tls/ca-cert.pem
       #- --ssl-cert=/var/lib/mysql/tls/server-cert.pem
