@@ -90,7 +90,7 @@ COMPOSE_PROJECT_NAME=otobo
 # - add services for S3 compatible storage:             :docker-compose/otobo-localstack.yml or
 #                                                       :docker-compose/otobo-minio.yml
 # - activate the MariaDB ed25519 authentication plugin: :docker-compose/database/mariadb/ed25519.yml
-# - activate the MariaDB PARSEC authentication plugin:  :docker-compose/mariadb/parsec.yml
+# - activate the MariaDB PARSEC authentication plugin:  :docker-compose/database/mariadb/parsec.yml
 # - add OpenLDAP server for use by the unit tests:      :docker-compose/testing/openldap.yml
 COMPOSE_PATH_SEPARATOR=:
 COMPOSE_FILE=otovar_COMPOSE_FILE
