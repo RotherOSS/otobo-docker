@@ -5,11 +5,6 @@
 
 # See also README.md.
 
-# The toplevel attribute 'version' is obsolet and not used by current versions of docker compose.
-# The attribute is still provided here because there were problems with standalone Docker Compose 1.25
-# after removing the attribute.
-version: '3.3'
-
 services:
 
   # the database server
