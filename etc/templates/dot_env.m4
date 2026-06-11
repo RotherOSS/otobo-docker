@@ -91,7 +91,10 @@ COMPOSE_PROJECT_NAME=otobo
 #                                                       :docker-compose/otobo-minio.yml
 # - activate the MariaDB ed25519 authentication plugin: :docker-compose/database/mariadb/ed25519.yml
 # - activate the MariaDB PARSEC authentication plugin:  :docker-compose/database/mariadb/parsec.yml
+#
+# Developers may use experimental override files.
 # - add OpenLDAP server for use by the unit tests:      :docker-compose/testing/openldap.yml
+# - replace MariaDB with PostgreSQL:                    :docker-compose/testing/postgresql.yml
 COMPOSE_PATH_SEPARATOR=:
 COMPOSE_FILE=otovar_COMPOSE_FILE
 
