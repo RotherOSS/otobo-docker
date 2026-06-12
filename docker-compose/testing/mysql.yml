@@ -1,0 +1,43 @@
+# Experimental Docker compose override file the database PostgreSQL.
+
+services:
+
+  # the database server
+  db:
+    image: ${OTOBO_IMAGE_DB:-mysql:8.4}
+    #image: ${OTOBO_IMAGE_DB:-mysql:9.3}
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+    # Within the container network the MySQL server listens to its default port 3306.
+    # Per default this port is not exposed to the outside world.
+    # One can use 'docker-compose exec -it db mysql ...' when access to the database is needed.
+    # But for development it can be useful to expose the port 3306. E.g. when a graphical client
+    # like MySQL Workbench or DBeaver is used. Uncomment the following lines for making MariaDB available
+    # on port 3307 on the Docker host. A non-standard port is chosen here, because 3306 is
+    # often already used on the Docker host.
+    #
+    # Instead of changing the port here one can also use
+    # the the compose file docker-compose/otobo-override-db-exposed.yml
+    # ports:
+    #   - "3307:3306"
+
+    # The actual name of the database server executable is provided
+    # in the entrypoint of the Docker image.  Up to MariaDB 10.5 the server executable had been called 'mysqld'.
+    # Later versions use the executable 'mariadbd'.
+    command:
+      - --max-allowed-packet=136314880
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --innodb-log-file-size=268435456
+      # - --query-cache-size=${OTOBO_DB_QUERY_CACHE_SIZE:-33554432}   # MariaDB specific
+      - --mysql_native_password=on
+      #- --require-secure-transport
+      #- --auto-generate-certs
+
+    # The health check for MySQL is still to be determined.
+    healthcheck:
+      test: 'true'
+
+volumes:
+  mysql_data: {}
