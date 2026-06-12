@@ -24,6 +24,7 @@ COMPOSE_PROJECT_NAME=otobo
 # Developers may use experimental override files.
 # - add OpenLDAP server for use by the unit tests:      :docker-compose/testing/openldap.yml
 # - replace MariaDB with PostgreSQL:                    :docker-compose/testing/postgresql.yml
+# - replace MariaDB with MySQL:                         :docker-compose/testing/mysql.yml
 COMPOSE_PATH_SEPARATOR=:
 COMPOSE_FILE=docker-compose/otobo-base.yml:docker-compose/otobo-override-https.yml:docker-compose/otobo-selenium.yml
 
