@@ -48,6 +48,7 @@ DOCKERCOMPOSE="docker compose"
 
 # During the update there should be no interference from the outside.
 # Stop and remove the containers, but keep the named volumes intact
+echo "[$script_name] stopping the services before starting to update"
 $DOCKERCOMPOSE down
 
 # set up some variables
@@ -79,8 +80,16 @@ rsync_verbose=""    # not verbose
 
 # The named volume used for the update should already exist, but it is better to make sure
 # Note that Docker compose prepends the project name to the volume names.
-echo "Creating the volume '$update_volume' if it does not exist yet"
+echo "[$script_name] Creating the volume '$update_volume' if it does not exist yet"
 docker volume create ${update_volume}
+
+# get, or update, the non-local images
+# There will be error messages for local images,
+# but this is acceptable as developers are responsible for the local images.
+echo "[$script_name] Pulling Docker images from their repositories."
+echo "[$script_name] See the file .env for which repositories and tags are used."
+echo "[$script_name] Error messages for local images can be ignored."
+$DOCKERCOMPOSE pull
 
 # There are some directories which require special treatment. These directories should not be moved
 # to the update directory. They must be left where they currently are. For that we first
@@ -125,22 +134,11 @@ relative_static_dir=var/httpd/htdocs/static
 relative_virtual_fs_dir=var/virtualfs
 echo "[$script_name] The virtual fs has files in $relative_virtual_fs_dir"
 
-# get, or update, the non-local images
-# get, or update, the non-local images
-# There will be error messages for local images,
-# but this is acceptable as developers are responsible for the local images.
-echo
-echo "[$script_name] Updating Docker images from their repositories."
-echo "[$script_name] See the file .env for which repositories and tags are used."
-echo "[$script_name] Error messages for local images can be ignored."
-$DOCKERCOMPOSE pull
-
 # The containers are still stopped.
 # Copy the OTOBO software from the potentially changed image into the volume mounted at /opt/otobo.
 # The required config is taken from the .env file.
 TZ=UTC printf -v now "%(%F_%H%M%S)T" -1
 dir_otobo_update="/opt/otobo_update/$now"
-echo "[$script_name] using $dir_otobo_update as backup directory for this update"
 
 # Move files /opt/otobo to $dir_otobo_update. The copying is done using the command 'docker' only, not Docker compose.
 # This allows to control which volumes are considered. The Docker compose declaration might have
@@ -155,6 +153,7 @@ echo "[$script_name] using $dir_otobo_update as backup directory for this update
 # The option --archive implies that symlinks should be copied as symlinks. Because of
 # the option --remove-source-files the symlinks would be removed in /opt/otobo. This is
 # not wanted for this script, thus the option --no-links.
+echo "[$script_name] moving the old installation to $dir_otobo_update. Note thas some directories are kept in place."
 $docker_run_rsync \
   --archive \
   --no-links \
@@ -190,7 +189,7 @@ $DOCKERCOMPOSE run --no-deps --rm web copy_otobo_next
 # Kernel/Config.pm contains installation specific configuration
 # locally installed Perl modules may be installed in local
 # copy installed stats into var/stats
-echo "[$script_name] restore more runtime files"
+echo "[$script_name] restore more runtime files from the backup"
 $docker_run_rsync \
   --archive \
   $rsync_verbose \
@@ -231,7 +230,7 @@ echo "[$script_name] running do_update_tasks"
 $DOCKERCOMPOSE exec web /opt/otobo_install/entrypoint.sh do_update_tasks
 
 # inspect the update log
-echo "[$script_name] printing out the update log"
+echo "[$script_name] printing out the log from do_update_tasks"
 $DOCKERCOMPOSE exec web cat /opt/otobo/var/log/update.log
 
 echo "[$script_name] finished"
