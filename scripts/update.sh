@@ -73,8 +73,8 @@ docker_run_rsync=${tmpl_docker_run_cmd/ENTRYPOINT/rsync}
 docker_run_perl=${tmpl_docker_run_cmd/ENTRYPOINT/perl}
 
 # for digging into rsync
-#rsync_verbose=""    # not verbose
-rsync_verbose="-v"  # print the file list
+rsync_verbose=""    # not verbose
+#rsync_verbose="-v"  # print the file list
 #rsync_verbose="-vv" # print the file list and explain the decision making
 
 # The named volume used for the update should already exist, but it is better to make sure
