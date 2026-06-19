@@ -230,7 +230,8 @@ echo "[$script_name] running do_update_tasks"
 $DOCKERCOMPOSE exec web /opt/otobo_install/entrypoint.sh do_update_tasks
 
 # inspect the update log
+# it is expected that there are messages about missing autoload files. These can be disregarded.
 echo "[$script_name] printing out the log from do_update_tasks"
-$DOCKERCOMPOSE exec web cat /opt/otobo/var/log/update.log
+$DOCKERCOMPOSE exec web grep -v 'ERROR: Can.t locate Kernel/Autoload/' /opt/otobo/var/log/update.log
 
 echo "[$script_name] finished"
