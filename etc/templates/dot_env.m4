@@ -89,6 +89,7 @@ COMPOSE_PROJECT_NAME=otobo
 # Additional services can be added by concatenating more files to COMPOSE_FILE.
 # - add services for S3 compatible storage:             :docker-compose/otobo-localstack.yml or
 #                                                       :docker-compose/otobo-minio.yml
+# - add caching using Redis DB                          :docker-compose/caching/redis.yml
 # - activate the MariaDB ed25519 authentication plugin: :docker-compose/database/mariadb/ed25519.yml
 # - activate the MariaDB PARSEC authentication plugin:  :docker-compose/database/mariadb/parsec.yml
 #
@@ -202,7 +203,7 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 `#'OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-otovar_MAJOR().otovar_MINOR().x                # where x is the verbatim letter 'x'
 
 ################################################################################
-# The Docker image for the service 'redis' can be specified explicitly.
+# The Docker image for the service 'redis' can be specified explicitly if activated as override.
 # The default is redis:8-bookworm
 ################################################################################
 #OTOBO_IMAGE_REDIS=
