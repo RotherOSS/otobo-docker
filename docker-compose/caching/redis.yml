@@ -1,0 +1,25 @@
+# Additional configuration to enable redis for caching
+
+services:
+
+  # a container running Redis
+  redis:
+    image: ${OTOBO_IMAGE_REDIS:-redis:8-bookworm}
+    user: redis:redis
+    cap_drop:
+        - ALL
+    #cap_add:
+    restart: always
+    logging:
+        driver: "local"
+        options:
+            max-file: "5"
+            max-size: "10m"
+    healthcheck:
+      test: redis-cli ping
+    command: [ "redis-server", "--save", "" ]
+
+  # dependency for OTOBO Web
+  web:
+    depends_on:
+      - redis
