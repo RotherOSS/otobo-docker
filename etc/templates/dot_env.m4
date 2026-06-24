@@ -15,14 +15,15 @@ Do not change the generated files, only change this template file.
 These generated files are not used for running OTOBO. They are only sample files for the actual config file .env.
 Users can choose their use case and use the appropriate sample file as a starting point for their own .env file.
 
-Please adapt the macros otovar_MAJOR and otovar_MINOR when creating a new release series
-with a new major or minor version.
+Please adapt the macros otovar_MAJOR, otovar_MINOR, and otovar_PATCH when creating a new release series
+with a new major, minor, or patch version.
 See ./scripts/devel/generate_sample_env_files.sh -h for how to regenerate the sample file after making changes here.
 
 # These are the macros that should be adapted for new releases series.
 # These two macros affect only comment lines in the generated sample .env files.
 m4_define(`otovar_MAJOR',`11')
 m4_define(`otovar_MINOR',`1')
+m4_define(`otovar_PATCH',`0')
 
 # Collect which services should be started by collecting the relevant
 # Docker Compose .yml files. The otobo-base.yml file is always needed.
@@ -183,22 +184,26 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 #OTOBO_IMAGE_DB=
 
 ################################################################################
-# The Docker image for the services 'web' and 'daemon' can be specified explicitly.
-`#' The default is rotheross/otobo:latest-otovar_MAJOR()_`'otovar_MINOR()
+# The Docker image tag is fixed to a specific release.
+`#' You may also choose to always stay on the latest release with: latest-otovar_MAJOR()_`'otovar_MINOR()
+`#' The default is rotheross/otobo:rel-otovar_MAJOR()_`'otovar_MINOR()_`'otovar_PATCH()
 ################################################################################
 
 # Examples:
-`#'OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-otovar_MAJOR()_`'otovar_MINOR()_<patch>  # where <patch> is the numeric patch level
+`#'OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-otovar_MAJOR()_`'otovar_MINOR()_`'otovar_PATCH()
+`#'OTOBO_IMAGE_OTOBO=rotheross/otobo:latest-otovar_MAJOR()_`'otovar_MINOR()
 `#'OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-otovar_MAJOR()_`'otovar_MINOR()
 `#'OTOBO_IMAGE_OTOBO=otobo:local-otovar_MAJOR().otovar_MINOR().x                # where x is the verbatim letter 'x'
 
 ################################################################################
-# The Docker image for the service 'eleastic' can be specified explicitly.
-`#' The default is rotheross/otobo-elasticsearch:latest-otovar_MAJOR()_`'otovar_MINOR()
+# The Docker image tag is fixed to a specific release.
+`#' You may also choose to always stay on the latest release with: latest-otovar_MAJOR()_`'otovar_MINOR()
+`#' The default is rotheross/otobo-elasticsearch:rel-otovar_MAJOR()_`'otovar_MINOR()_`'otovar_PATCH()
 ################################################################################
 
 # Examples:
-`#'OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-otovar_MAJOR()_`'otovar_MINOR()_<patch>  # where <patch> is the numeric patch level
+`#'OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-otovar_MAJOR()_`'otovar_MINOR()_`'otovar_PATCH()
+`#'OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:latest-otovar_MAJOR()_`'otovar_MINOR()
 `#'OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-otovar_MAJOR()_`'otovar_MINOR()
 `#'OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-otovar_MAJOR().otovar_MINOR().x                # where x is the verbatim letter 'x'
 
@@ -221,12 +226,14 @@ m4_define(
 m4_divert(0)m4_dnl
 m4_ifdef( `otoflag_HTTP', `m4_divert(-1)')m4_dnl
 ################################################################################
-# The Docker image for the service 'nginx' can be specified explicitly.
-`#' The default image is rotheross/otovar_NGINX_IMAGE():latest-otovar_MAJOR()_`'otovar_MINOR()
+# The Docker image tag is fixed to a specific release.
+`#' You may also choose to always stay on the latest release with: latest-otovar_MAJOR()_`'otovar_MINOR()
+`#' The default image is rotheross/otovar_NGINX_IMAGE():rel-otovar_MAJOR()_`'otovar_MINOR()_`otovar_PATCH()
 ################################################################################
 
 # Examples:
-`#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():rel-otovar_MAJOR()_`'otovar_MINOR()_<patch>  # where <patch> is the numeric patch level
+`#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():rel-otovar_MAJOR()_`'otovar_MINOR()_`'otovar_PATCH()
+`#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():latest-otovar_MAJOR()_`'otovar_MINOR()
 `#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():devel-rel-otovar_MAJOR()_`'otovar_MINOR()
 `#'OTOBO_IMAGE_OTOBO_NGINX=otovar_NGINX_IMAGE():local-otovar_MAJOR().otovar_MINOR().x                # where x is the verbatim letter 'x'
 
@@ -238,12 +245,14 @@ NGINX_ENVSUBST_TEMPLATE_DIR=/etc/nginx/config/template-custom
 m4_ifdef( `otoflag_CUSTOM_NGINX', `', `m4_divert(0)')m4_dnl
 m4_ifdef( `otoflag_SELENIUM', `', `m4_divert(-1)')m4_dnl
 ################################################################################
-# The Docker image for the service 'selenium' can be specified explicitly.
-`#' The default image is rotheross/otobo-selenium-chrome:latest-otovar_MAJOR()_`'otovar_MINOR()
+# The Docker image tag is fixed to a specific release.
+`#' You may also choose to always stay on the latest release with: latest-otovar_MAJOR()_`'otovar_MINOR()
+`#' The default image is rotheross/otobo-selenium-chrome:rel-otovar_MAJOR()_`'otovar_MINOR()_`'otovar_PATCH()
 ################################################################################
 
 # Examples:
-`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:rel-otovar_MAJOR()_`'otovar_MINOR()_<patch>  # where <patch> is the numeric patch level
+`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:rel-otovar_MAJOR()_`'otovar_MINOR()_`'otovar_PATCH()
+`#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:latest-otovar_MAJOR()_`'otovar_MINOR()
 `#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:devel-rel-otovar_MAJOR()_`'otovar_MINOR()
 `#'OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=otobo-selenium-chrome:local-otovar_MAJOR().otovar_MINOR().x                # where x is the verbatim letter 'x'
 

@@ -6,7 +6,7 @@
 services:
 
   selenium-chrome:
-    image: ${OTOBO_IMAGE_OTOBO_SELENIUM_CHROME:-rotheross/otobo-selenium-chrome:latest-11_1}
+    image: ${OTOBO_IMAGE_OTOBO_SELENIUM_CHROME:-rotheross/otobo-selenium-chrome:rel-11_1_0}
     #cap_drop:
     #    - ALL
     #cap_add:
