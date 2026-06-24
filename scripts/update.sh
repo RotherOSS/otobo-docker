@@ -6,15 +6,15 @@
 
 # Help Message
 function display_help() {
-    echo "Usage: update.sh [OPTIONS]"
-    echo "Options:"
-    echo "  -h, --help     Display this help screen"
-    echo ""
-    echo "This script temporarily changes to the parent directory of this script. This is the directory"
-    echo "that contains the setup for OTOBO running with Docker compose v2."
-    echo "The standard behavior is to use the setup from .env."
-    echo "In .env one may set up a specific repositories and specific tags."
-    echo ""
+    echo -e "Usage: update.sh [OPTIONS]"
+    echo -e "Options:"
+    echo -e "  -h, --help     Display this help screen"
+    echo -e ""
+    echo -e "This script temporarily changes to the parent directory of this script. This is the directory"
+    echo -e "that contains the setup for OTOBO running with Docker compose v2."
+    echo -e "The standard behavior is to use the setup from .env."
+    echo -e "In .env one may set up a specific repositories and specific tags."
+    echo -e ""
 }
 
 # Parse cli args
@@ -25,15 +25,27 @@ while [[ $# -gt 0 ]]; do
             exit 0
             ;;
         *)
-            echo "Invalid option: $1"
-            echo "Use -h or --help for usage instructions."
+            echo -e "Invalid option: $1"
+            echo -e "Use -h or --help for usage instructions."
             exit 1
             ;;
     esac
 done
 
-# get the name of the running script in order to mark the messages printed by the script itself
+# Get the name of the running script in order to mark the messages printed by the script itself
 script_name=${BASH_SOURCE[0]##*/}
+
+# Define colors for the output, usage: 
+# ${GREEN}✓ Everything is fine.${NC}
+# ${YELLOW}⚠ Warning: Something might need attention${NC}
+# ${RED}✗ Error: Something went wrong${NC}
+# ${CYAN}ℹ Information: Here's something useful${NC}
+
+GREEN='\033[0;32m'       # Green for success
+CYAN='\033[0;36m'        # Blue for informations
+YELLOW='\033[0;33m'      # Orange/yellow for warnings
+RED='\033[0;31m'         # Red for errors
+NC='\033[0m'             # No Color (Reset)
 
 # Change into the compose directory while this script is running. The compose directory
 # is the sandbox directory that is checked from Git, that is the directory containing the
@@ -48,12 +60,12 @@ DOCKERCOMPOSE="docker compose"
 
 # During the update there should be no interference from the outside.
 # Stop and remove the containers, but keep the named volumes intact
-echo "[$script_name] stopping the services before starting to update"
+echo -e "[$script_name] ${CYAN}ℹ Stopping the services before starting to update.${NC}"
 $DOCKERCOMPOSE down
 
-# set up some variables
+# Set up some variables
 
-# the names of the volumes depend on the project name
+# The names of the volumes depend on the project name
 compose_project_name=$($DOCKERCOMPOSE config --environment | perl -n -e 'm/^COMPOSE_PROJECT_NAME=(.*)/ && print $1')
 otobo_volume="${compose_project_name}_opt_otobo"
 update_volume="${compose_project_name}_opt_otobo_update"
@@ -62,10 +74,10 @@ update_volume="${compose_project_name}_opt_otobo_update"
 # Getting that relevant name is not really simple. Usually it is be extracted with jq
 # from `docker compose config --format json`. But we can't rely on jq being present.
 otobo_image=$($DOCKERCOMPOSE config --images | grep 'otobo:' | head -n 1)
-echo "[$script_name] Running the upgrade with the image image: '$otobo_image'"
+echo -e "[$script_name] ${CYAN}ℹ Running the upgrade with the image image: '$otobo_image'.${NC}"
 
 # Make sure that the image is available
-echo "[$script_name] Pulling $otobo_image, please ignore error about local images"
+echo -e "[$script_name] ${CYAN}ℹ Pulling $otobo_image, please ignore error about local images.${NC}"
 docker pull $otobo_image
 
 # Running commands with different entrypoints in the otobo image.
@@ -73,22 +85,22 @@ tmpl_docker_run_cmd="docker run --rm --volume ${otobo_volume}:/opt/otobo --volum
 docker_run_rsync=${tmpl_docker_run_cmd/ENTRYPOINT/rsync}
 docker_run_perl=${tmpl_docker_run_cmd/ENTRYPOINT/perl}
 
-# for digging into rsync
+# For digging into rsync
 rsync_verbose=""    # not verbose
 #rsync_verbose="-v"  # print the file list
 #rsync_verbose="-vv" # print the file list and explain the decision making
 
 # The named volume used for the update should already exist, but it is better to make sure
 # Note that Docker compose prepends the project name to the volume names.
-echo "[$script_name] Creating the volume '$update_volume' if it does not exist yet"
+echo -e "[$script_name] ${CYAN}ℹ Creating the volume '$update_volume' if it does not exist yet.${NC}"
 docker volume create ${update_volume}
 
-# get, or update, the non-local images
+# Get, or update, the non-local images.
 # There will be error messages for local images,
 # but this is acceptable as developers are responsible for the local images.
-echo "[$script_name] Pulling Docker images from their repositories."
-echo "[$script_name] See the file .env for which repositories and tags are used."
-echo "[$script_name] Error messages for local images can be ignored."
+echo -e "[$script_name] ${CYAN}ℹ Pulling Docker images from their repositories.${NC}"
+echo -e "[$script_name] ${CYAN} See the file .env for which repositories and tags are used.${NC}"
+echo -e "[$script_name] ${CYAN} Error messages for local images can be ignored.${NC}"
 $DOCKERCOMPOSE pull
 
 # There are some directories which require special treatment. These directories should not be moved
@@ -100,27 +112,27 @@ $DOCKERCOMPOSE pull
 article_dir=$( $docker_run_perl -I . -I Kernel/cpan-lib -MKernel::Config -E 'say Kernel::Config->new->Get(q{Ticket::Article::Backend::MIMEBase::ArticleDataDir})' )
 if [[ -n $article_dir ]]; then
     relative_article_dir=$(realpath --canonicalize-missing --relative-base /opt/otobo "$article_dir")
-    echo "[$script_name] The article data is in $relative_article_dir"
+    echo -e "[$script_name] ${GREEN}✓ The article data is in $relative_article_dir.${NC}"
 else
-    echo "[$script_name] There is no article dir"
+    echo -e "[$script_name] ${CYAN}ℹ There is no article dir, I think you use not the file system for article storage.${NC}"
     relative_article_dir=""
 fi
 
 smime_cert_dir=$( $docker_run_perl -I . -I Kernel/cpan-lib -MKernel::Config -E 'say Kernel::Config->new->Get(q{SMIME::CertPath})' )
 if [[ -n $smime_cert_dir ]]; then
     relative_smime_cert_dir=$(realpath --canonicalize-missing --relative-base /opt/otobo "$smime_cert_dir")
-    echo "[$script_name] The S/MIME certificates are in $relative_smime_cert_dir"
+    echo -e "[$script_name] ${GREEN}✓ The S/MIME certificates are in $relative_smime_cert_dir.${NC}"
 else
-    echo "[$script_name] There is no directory for the S/MIME certificates"
+    echo -e "[$script_name] ${CYAN}ℹ There is no directory for the S/MIME certificates.${NC}"
     relative_smime_cert_dir=""
 fi
 
 smime_private_dir=$( $docker_run_perl -I . -I Kernel/cpan-lib -MKernel::Config -E 'say Kernel::Config->new->Get(q{SMIME::PrivatePath})' )
 if [[ -n $smime_private_dir ]]; then
     relative_smime_private_dir=$(realpath --canonicalize-missing --relative-base /opt/otobo "$smime_private_dir")
-    echo "[$script_name] The S/MIME private keys are in $relative_smime_private_dir"
+    echo -e "[$script_name] ${GREEN}✓ The S/MIME private keys are in $relative_smime_private_dir.${NC}"
 else
-    echo "[$script_name] There is no directory for the S/MIME private keys"
+    echo -e "[$script_name] ${CYAN}ℹ There is no directory for the S/MIME private keys.${NC}"
     relative_smime_cert_dir=""
 fi
 
@@ -132,7 +144,7 @@ relative_static_dir=var/httpd/htdocs/static
 
 # The directory used by the virtual file system is hard coded in Kernel/System/VirtualFS/FS.pm
 relative_virtual_fs_dir=var/virtualfs
-echo "[$script_name] The virtual fs has files in $relative_virtual_fs_dir"
+echo -e "[$script_name] ${CYAN}ℹ The virtual fs has files in $relative_virtual_fs_dir${NC}"
 
 # The containers are still stopped.
 # Copy the OTOBO software from the potentially changed image into the volume mounted at /opt/otobo.
@@ -153,7 +165,7 @@ dir_otobo_update="/opt/otobo_update/$now"
 # The option --archive implies that symlinks should be copied as symlinks. Because of
 # the option --remove-source-files the symlinks would be removed in /opt/otobo. This is
 # not wanted for this script, thus the option --no-links.
-echo "[$script_name] moving the old installation to $dir_otobo_update. Note thas some directories are kept in place."
+echo -e "[$script_name] ${CYAN}ℹ Moving the old installation to $dir_otobo_update. Note thas some directories are kept in place.${NC}"
 $docker_run_rsync \
   --archive \
   --no-links \
@@ -171,7 +183,7 @@ $docker_run_rsync \
 # with files from /opt/otobo_install/otobo_next.
 # The --include and --exclude option are a bit daunting. The rule is that each directory
 # or file is matched against the option and the first match wins.
-echo "[$script_name] restoring hidden files"
+echo -e "[$script_name]${CYAN}ℹ Restoring hidden files.${NC}"
 $docker_run_rsync \
   --archive \
   $rsync_verbose \
@@ -181,7 +193,7 @@ $docker_run_rsync \
   "$dir_otobo_update/" /opt/otobo/
 
 # The copy_otobo_next task is the same as used in the initial startup.
-echo "[$script_name] copying the new files for /opt/otobo"
+echo -e "[$script_name]${CYAN}ℹ Copying the new files for /opt/otobo.${NC}"
 $DOCKERCOMPOSE run --no-deps --rm web copy_otobo_next
 
 # Rescue some files from the previous installation. These may overwrite
@@ -189,7 +201,7 @@ $DOCKERCOMPOSE run --no-deps --rm web copy_otobo_next
 # Kernel/Config.pm contains installation specific configuration
 # locally installed Perl modules may be installed in local
 # copy installed stats into var/stats
-echo "[$script_name] restore more runtime files from the backup"
+echo -e "[$script_name]${CYAN}ℹ Restore more runtime files from the backup.${NC}"
 $docker_run_rsync \
   --archive \
   $rsync_verbose \
@@ -200,17 +212,17 @@ $docker_run_rsync \
   "$dir_otobo_update/" /opt/otobo/
 
 # start containers again, using the new version
-echo "[$script_name] starting up the services again"
+echo -e "[$script_name]${CYAN}ℹ Starting up the services again.${NC}"
 $DOCKERCOMPOSE up --detach
 
-echo "[$script_name] running '$DOCKERCOMPOSE ps' only as a quick sanity check"
+echo -e "[$script_name]${CYAN}ℹ Running '$DOCKERCOMPOSE ps' only as a quick sanity check.${NC}"
 $DOCKERCOMPOSE ps
 
 # There isn't yet a good check that the database is already running when the webserver starts up.
 # So let's sleep for a while and hope the best for later.
-echo "[$script_name] sleeping for 10 seconds while the database is starting up"
+echo -e "[$script_name]${CYAN}ℹ Sleeping for 10 seconds while the database is starting up.${NC}"
 sleep 10
-echo "[$script_name] finished with sleeping"
+echo -e "[$script_name]${CYAN}ℹ Finished with sleeping.${NC}"
 
 # complete the update, with running database
 
@@ -221,17 +233,25 @@ prev_minor_version=$($DOCKERCOMPOSE exec web perl -n -e 'm/^VERSION\s*=\s*\d+\.(
 
 # run the database update script only for major or minor version upgrades
 if (( $prev_major_version < 11 || ($prev_major_version == 11 && $prev_minor_version < 1) )); then
-    echo "[$script_name] running DBUpdate-to-11.1.pl"
+    echo -e "[$script_name]${CYAN}ℹ Running DBUpdate-to-11.1.pl.${NC}"
     $DOCKERCOMPOSE exec web ./scripts/DBUpdate-to-11.1.pl
 fi
 
 # reinstall packages in any case
-echo "[$script_name] running do_update_tasks"
+echo -e "[$script_name]${CYAN}ℹ Running do_update_tasks.${NC}"
 $DOCKERCOMPOSE exec web /opt/otobo_install/entrypoint.sh do_update_tasks
 
 # inspect the update log
 # it is expected that there are messages about missing autoload files. These can be disregarded.
-echo "[$script_name] printing out the log from do_update_tasks"
+echo -e "[$script_name]${CYAN}ℹ Printing out the log from do_update_tasks.${NC}"
 $DOCKERCOMPOSE exec web grep -v 'ERROR: Can.t locate Kernel/Autoload/' /opt/otobo/var/log/update.log
 
-echo "[$script_name] finished"
+echo -e ""
+echo -e ""
+echo -e "[$script_name]${GREEN}✓ Update complete. Ready to go!${NC}"
+echo -e ""
+echo -e "${GREEN}Need help?${NC}"
+echo -e "  → Get expert support at https://otobo.io/support"
+echo -e "  → Join the Community at https://forum.otobo.io"
+echo -e ""
+echo -e ""
