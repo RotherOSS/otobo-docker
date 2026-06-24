@@ -23,7 +23,7 @@ See ./scripts/devel/generate_sample_env_files.sh -h for how to regenerate the sa
 # These two macros affect only comment lines in the generated sample .env files.
 m4_define(`otovar_MAJOR',`11')
 m4_define(`otovar_MINOR',`1')
-m4_define(`otovar_PATCH',`0')
+m4_define(`otovar_PATCH',`0-beta1')
 
 # Collect which services should be started by collecting the relevant
 # Docker Compose .yml files. The otobo-base.yml file is always needed.

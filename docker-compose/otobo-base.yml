@@ -67,7 +67,7 @@ services:
   # a container running a webserver
   web:
     # The services 'web' and 'daemon' use the same image.
-    image: ${OTOBO_IMAGE_OTOBO:-rotheross/otobo:rel-11_1_0}
+    image: ${OTOBO_IMAGE_OTOBO:-rotheross/otobo:rel-11_1_0-beta1}
     cap_drop:
         - ALL
     #cap_add:
@@ -94,7 +94,7 @@ services:
   # a container running the OTOBO daemon
   daemon:
     # The services 'web' and 'daemon' use the same image.
-    image: ${OTOBO_IMAGE_OTOBO:-rotheross/otobo:rel-11_1_0}
+    image: ${OTOBO_IMAGE_OTOBO:-rotheross/otobo:rel-11_1_0-beta1}
     cap_drop:
         - ALL
     #cap_add:
@@ -114,7 +114,7 @@ services:
 
   # a container running Elasticsearch
   elastic:
-    image: ${OTOBO_IMAGE_OTOBO_ELASTICSEARCH:-rotheross/otobo-elasticsearch:rel-11_1_0}
+    image: ${OTOBO_IMAGE_OTOBO_ELASTICSEARCH:-rotheross/otobo-elasticsearch:rel-11_1_0-beta1}
     cap_drop:
         - ALL
     cap_add:
