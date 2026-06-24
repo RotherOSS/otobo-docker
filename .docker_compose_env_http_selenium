@@ -1,0 +1,103 @@
+# This file contains default values for environment values that are needed either by Docker Compose itself
+# or by the docker compose files.
+
+# COMPOSE_PROJECT_NAME declares the prefix of the name of the Docker containers. So if the
+# project name is 'acme_support' then the web container is named 'acme_support-web-1'
+# in accordance with the Docker Compose v2 naming convention.
+# The project name also declares the prefix of named volumes. Thus changing the project name
+# allows to have separate containers and volumes for separate installations of OTOBO.
+#
+# Note that when COMPOSE_PROJECT_NAME is set in the shell environment,
+# then that setting has higher precedence.
+COMPOSE_PROJECT_NAME=otobo
+#COMPOSE_PROJECT_NAME=acme_support
+
+# COMPOSE_FILE is a collection of files, separated by COMPOSE_PATH_SEPARATOR, that make up the final config.
+# These files usually reside in the subdirectory docker-compose.
+#
+# Additional services can be added by concatenating more files to COMPOSE_FILE.
+# - add services for S3 compatible storage:             :docker-compose/otobo-localstack.yml or
+#                                                       :docker-compose/otobo-minio.yml
+# - add caching using Redis DB                          :docker-compose/caching/redis.yml
+# - activate the MariaDB ed25519 authentication plugin: :docker-compose/database/mariadb/ed25519.yml
+# - activate the MariaDB PARSEC authentication plugin:  :docker-compose/database/mariadb/parsec.yml
+#
+# Developers may use experimental override files.
+# - add OpenLDAP server for use by the unit tests:      :docker-compose/testing/openldap.yml
+# - replace MariaDB with PostgreSQL:                    :docker-compose/testing/postgresql.yml
+# - replace MariaDB with MySQL:                         :docker-compose/testing/mysql.yml
+COMPOSE_PATH_SEPARATOR=:
+COMPOSE_FILE=docker-compose/otobo-base.yml:docker-compose/otobo-override-http.yml:docker-compose/otobo-selenium.yml
+
+# Database configuration
+# OTOBO_DB_ROOT_PASSWORD must be set
+OTOBO_DB_ROOT_PASSWORD=
+
+# Set this to a value in bytes to overwrite the default query size set for OTOBO
+#OTOBO_DB_QUERY_CACHE_SIZE=
+
+# HTTP options
+# Set OTOBO_WEB_HTTP_PORT when the HTTP port is not 80
+#OTOBO_WEB_HTTP_PORT=<your special port>
+
+# Set OTOBO_WEB_HTTP_IPADDR when only requests addressed to a specific IP should be served.
+# See https://docs.docker.com/compose/compose-file/compose-file-v3/#ports
+#OTOBO_WEB_HTTP_IPADDR=<your special ip address>
+
+# The option OTOBO_WEB_OPTION influences which webserver is used with which options.
+# The default value is 'deployment'
+#OTOBO_WEB_OPTION=deployment              # the default, should be used in production and most times during development
+#OTOBO_WEB_OPTION=development             # can be useful during development, sets PLACK_ENV to 'development'
+#OTOBO_WEB_OPTION=shotgun                 # use the shotgun, start a new process for every request
+
+# Elasticsearch options
+OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
+
+################################################################################
+# The Docker image for the service 'db' can be specified explicitly.
+# The default is mariadb:lts-noble
+################################################################################
+#OTOBO_IMAGE_DB=
+
+################################################################################
+# The Docker image tag is fixed to a specific release.
+# You may also choose to always stay on the latest release with: latest-11_1
+# The default is rotheross/otobo:rel-11_1_0
+################################################################################
+
+# Examples:
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-11_1_0
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:latest-11_1
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-11_1
+#OTOBO_IMAGE_OTOBO=otobo:local-11.1.x                # where x is the verbatim letter 'x'
+
+################################################################################
+# The Docker image tag is fixed to a specific release.
+# You may also choose to always stay on the latest release with: latest-11_1
+# The default is rotheross/otobo-elasticsearch:rel-11_1_0
+################################################################################
+
+# Examples:
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-11_1_0
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:latest-11_1
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-11_1
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-11.1.x                # where x is the verbatim letter 'x'
+
+################################################################################
+# The Docker image for the service 'redis' can be specified explicitly if activated as override.
+# The default is redis:8-bookworm
+################################################################################
+#OTOBO_IMAGE_REDIS=
+
+################################################################################
+# The Docker image tag is fixed to a specific release.
+# You may also choose to always stay on the latest release with: latest-11_1
+# The default image is rotheross/otobo-selenium-chrome:rel-11_1_0
+################################################################################
+
+# Examples:
+#OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:rel-11_1_0
+#OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:latest-11_1
+#OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:devel-rel-11_1
+#OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=otobo-selenium-chrome:local-11.1.x                # where x is the verbatim letter 'x'
+
