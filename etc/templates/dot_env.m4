@@ -228,7 +228,7 @@ m4_ifdef( `otoflag_HTTP', `m4_divert(-1)')m4_dnl
 ################################################################################
 # The Docker image tag is fixed to a specific release.
 `#' You may also choose to always stay on the latest release with: latest-otovar_MAJOR()_`'otovar_MINOR()
-`#' The default image is rotheross/otovar_NGINX_IMAGE():rel-otovar_MAJOR()_`'otovar_MINOR()_`otovar_PATCH()
+`#' The default image is rotheross/otovar_NGINX_IMAGE():rel-otovar_MAJOR()_`'otovar_MINOR()_`'otovar_PATCH()
 ################################################################################
 
 # Examples:

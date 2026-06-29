@@ -110,14 +110,14 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 ################################################################################
 # The Docker image tag is fixed to a specific release.
 # You may also choose to always stay on the latest release with: latest-11_1
-# The default image is rotheross/otobo-nginx-webproxy:rel-11_1_otovar_PATCH()
+# The default image is rotheross/otobo-nginx-webproxy:rel-11_1_0-beta1
 ################################################################################
 
 # Examples:
-`#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():rel-otovar_MAJOR()_`'otovar_MINOR()_`'otovar_PATCH()
-`#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():latest-otovar_MAJOR()_`'otovar_MINOR()
-`#'OTOBO_IMAGE_OTOBO_NGINX=rotheross/otovar_NGINX_IMAGE():devel-rel-otovar_MAJOR()_`'otovar_MINOR()
-`#'OTOBO_IMAGE_OTOBO_NGINX=otovar_NGINX_IMAGE():local-otovar_MAJOR().otovar_MINOR().x                # where x is the verbatim letter x'
+#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:rel-11_1_0-beta1
+#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:latest-11_1
+#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:devel-rel-11_1
+#OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-webproxy:local-11.1.x                # where x is the verbatim letter 'x'
 
 
 # provide a custom Nginx config template dir
