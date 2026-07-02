@@ -57,11 +57,11 @@ Usage:
     # in the template for creating new releases or development branches.
     # The affected sample .env files are:
     #    .docker_compose_env_http
-    #    .docker_compose_env_http_selenium
+    #    .docker_compose_env_http_selenium (not created per default)
     #    .docker_compose_env_https
     #    .docker_compose_env_https_custom_nginx
     #    .docker_compose_env_https_kerberos
-    #    .docker_compose_env_https_selenium
+    #    .docker_compose_env_https_selenium (not created per default)
     $0
 
 END_HELP
@@ -96,12 +96,14 @@ if [[ -e "etc/templates/dot_env.m4" ]]; then
     cp --backup=numbered .docker_compose_env_https_custom_nginx .docker_compose_env_https_custom_nginx.bak || :
     m4 --prefix-builtins --define "otoflag_HTTPS" --define "otoflag_CUSTOM_NGINX" etc/templates/dot_env.m4 > .docker_compose_env_https_custom_nginx
 
+    # As of OTOBO 11.1.1 the configs for Selenium are no longer created per default
+
     # for testing: HTTPS and additionally Selenium Testing with Chrome
-    cp --backup=numbered .docker_compose_env_https_selenium .docker_compose_env_https_selenium.bak || :
-    m4 --prefix-builtins --define "otoflag_HTTPS" --define "otoflag_SELENIUM" etc/templates/dot_env.m4 > .docker_compose_env_https_selenium
+    #cp --backup=numbered .docker_compose_env_https_selenium .docker_compose_env_https_selenium.bak || :
+    #m4 --prefix-builtins --define "otoflag_HTTPS" --define "otoflag_SELENIUM" etc/templates/dot_env.m4 > .docker_compose_env_https_selenium
 
     # for testing: HTTP and additionally Selenium Testing with Chrome
-    cp --backup=numbered .docker_compose_env_http_selenium .docker_compose_env_http_selenium.bak || :
-    m4 --prefix-builtins --define "otoflag_HTTP" --define "otoflag_SELENIUM" etc/templates/dot_env.m4 > .docker_compose_env_http_selenium
+    #cp --backup=numbered .docker_compose_env_http_selenium .docker_compose_env_http_selenium.bak || :
+    #m4 --prefix-builtins --define "otoflag_HTTP" --define "otoflag_SELENIUM" etc/templates/dot_env.m4 > .docker_compose_env_http_selenium
 
 fi
