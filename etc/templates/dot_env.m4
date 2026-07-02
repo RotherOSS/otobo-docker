@@ -4,11 +4,9 @@ This file, etc/templates/dot_env.m4, is a M4 template file. The script scripts/d
 takes this template and generates the following files from it:
 
     .docker_compose_env_http
-    .docker_compose_env_http_selenium
     .docker_compose_env_https
     .docker_compose_env_https_custom_nginx
     .docker_compose_env_https_kerberos
-    .docker_compose_env_https_selenium
 
 Do not change the generated files, only change this template file.
 
@@ -45,7 +43,7 @@ m4_define(
     `:docker-compose/otobo-override-https-kerberos.yml',
     `'))
 
-# add the .yml file for HTTPS, including the custom config and the Selenium case
+# add the .yml file for HTTPS
 m4_define(
   `otovar_COMPOSE_FILE',
   otovar_COMPOSE_FILE`'m4_ifdef(
@@ -93,6 +91,7 @@ COMPOSE_PROJECT_NAME=otobo
 # - add caching using Redis DB                          :docker-compose/caching/redis.yml
 # - activate the MariaDB ed25519 authentication plugin: :docker-compose/database/mariadb/ed25519.yml
 # - activate the MariaDB PARSEC authentication plugin:  :docker-compose/database/mariadb/parsec.yml
+# - run a Selenium server for GUI tests:                :docker-compose/otobo-selenium.yml
 #
 # Developers may use experimental override files.
 # - add OpenLDAP server for use by the unit tests:      :docker-compose/testing/openldap.yml
