@@ -94,7 +94,7 @@ services:
       - opt_otobo_update:/opt/otobo_update
     command: web ${OTOBO_WEB_OPTION:-}
     healthcheck:
-      test: curl -s -f http://localhost:5000/robots.txt
+      test: curl -s -f http://localhost:5000/health | grep ✅ || exit 1
 
   # a container running the OTOBO daemon
   daemon:
