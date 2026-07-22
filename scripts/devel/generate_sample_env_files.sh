@@ -3,7 +3,7 @@
 # This script is a helper for generating sample Docker Compose environment files from a template.
 # It is meant to be used by developers of otobo-docker.
 # The goal is to have a single source file for all sample .env files.
-# The default template is located at "etc/templates/dot_env.m4"
+# The template is located at "etc/templates/dot_env.m4"
 
 # Pass -h for usage info.
 
@@ -11,7 +11,6 @@
 function args()
 {
     # -h and --help take no parameters
-    # --repository and --tag have mandatory parameters, as indicated by ':'
     options=$(getopt -o h --long help -- "$@")
 
     # print help message in case of invalid optiond
@@ -78,27 +77,33 @@ fi
 if [[ -e "etc/templates/dot_env.m4" ]]; then
 
     # the default file: HTTPS with Nginx
-    cp --backup=numbered .docker_compose_env_https .docker_compose_env_https.bak || :
-    m4 --prefix-builtins --define "otoflag_HTTPS" etc/templates/dot_env.m4 > .docker_compose_env_https
+    sample_file=.docker_compose_env_https
+    cp --backup=numbered $sample_file $sample_file.bak || :
+    m4 --prefix-builtins --define "otoflag_HTTPS" --define "otovar_SAMPLE_FILE=$sample_file"  etc/templates/dot_env.m4 > $sample_file
 
     # HTTPS with Kerberos configuration
-    cp --backup=numbered .docker_compose_env_https_kerberos .docker_compose_env_https_kerberos.bak || :
-    m4 --prefix-builtins --define "otoflag_KERBEROS" etc/templates/dot_env.m4 > .docker_compose_env_https_kerberos
+    sample_file=.docker_compose_env_https_kerberos
+    cp --backup=numbered $sample_file $sample_file.bak || :
+    m4 --prefix-builtins --define "otoflag_KERBEROS" --define "otovar_SAMPLE_FILE=$sample_file" etc/templates/dot_env.m4 > $sample_file
 
     # HTTP only
-    cp --backup=numbered .docker_compose_env_http  .docker_compose_env_http.bak || :
-    m4 --prefix-builtins --define "otoflag_HTTP" etc/templates/dot_env.m4 > .docker_compose_env_http
+    sample_file=.docker_compose_env_http
+    cp --backup=numbered $sample_file $sample_file.bak || :
+    m4 --prefix-builtins --define "otoflag_HTTP" --define "otovar_SAMPLE_FILE=$sample_file" etc/templates/dot_env.m4 > $sample_file
 
     # HTTPS with a custom nginx config
-    cp --backup=numbered .docker_compose_env_https_custom_nginx .docker_compose_env_https_custom_nginx.bak || :
-    m4 --prefix-builtins --define "otoflag_HTTPS" --define "otoflag_CUSTOM_NGINX" etc/templates/dot_env.m4 > .docker_compose_env_https_custom_nginx
+    sample_file=.docker_compose_env_https_custom_nginx
+    cp --backup=numbered $sample_file $sample_file.bak || :
+    m4 --prefix-builtins --define "otoflag_HTTPS" --define "otoflag_CUSTOM_NGINX" --define "otovar_SAMPLE_FILE=$sample_file" etc/templates/dot_env.m4 > $sample_file
 
     # for testing: HTTPS and additionally Selenium Testing with Chrome
-    cp --backup=numbered .docker_compose_env_https_selenium .docker_compose_env_https_selenium.bak || :
-    m4 --prefix-builtins --define "otoflag_HTTPS" --define "otoflag_SELENIUM" etc/templates/dot_env.m4 > .docker_compose_env_https_selenium
+    sample_file=.docker_compose_env_https_selenium
+    cp --backup=numbered $sample_file $sample_file.bak || :
+    m4 --prefix-builtins --define "otoflag_HTTPS" --define "otoflag_SELENIUM" --define "otovar_SAMPLE_FILE=$sample_file" etc/templates/dot_env.m4 > $sample_file
 
     # for testing: HTTP and additionally Selenium Testing with Chrome
-    cp --backup=numbered .docker_compose_env_http_selenium .docker_compose_env_http_selenium.bak || :
-    m4 --prefix-builtins --define "otoflag_HTTP" --define "otoflag_SELENIUM" etc/templates/dot_env.m4 > .docker_compose_env_http_selenium
+    sample_file=.docker_compose_env_http_selenium
+    cp --backup=numbered $sample_file $sample_file.bak || :
+    m4 --prefix-builtins --define "otoflag_HTTP" --define "otoflag_SELENIUM" --define "otovar_SAMPLE_FILE=$sample_file" etc/templates/dot_env.m4 > $sample_file
 
 fi
