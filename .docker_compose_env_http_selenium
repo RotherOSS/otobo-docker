@@ -1,4 +1,5 @@
-# This file contains default values for environment values that are needed either by Docker Compose itself
+# This file '.env' was derived from the sample file '.docker_compose_env_http_selenium'.
+# It contains default values for environment values that are needed either by Docker Compose itself
 # or by the docker compose files.
 
 # COMPOSE_PROJECT_NAME declares the prefix of the name of the Docker containers. So if the
