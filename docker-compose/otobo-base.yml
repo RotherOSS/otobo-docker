@@ -60,14 +60,14 @@ services:
       - --innodb-log-file-size=268435456
       - --query-cache-size=${OTOBO_DB_QUERY_CACHE_SIZE:-33554432}
 
-    # "mariadb-admin ping" sets the exit code $?. The exit code will be 0 (success) when the server can be reached,
-    # not 0 (failure) otherwise.
-    # The host is given as db, because localhost might not be resolved on some systems.
-    # The credentials are not really needed for pinging, but without them we would get "Access denied" log messages
-    # every time the health check is executed.
-    # Note: alternatively /usr/local/bin/healthcheck.sh could be used.
+    # See https://mariadb.org/mariadb-server-docker-official-images-healthcheck-without-mysqladmin/
     healthcheck:
-      test: mariadb-admin -h db --user=root --password='${OTOBO_DB_ROOT_PASSWORD}' ping
+        test: [ "CMD", "healthcheck.sh", "--connect", "--innodb_initialized" ]
+        start_period: 1m
+        start_interval: 10s
+        interval: 1m
+        timeout: 5s
+        retries: 3
 
   # a container running a webserver
   web:
