@@ -71,7 +71,8 @@ m4_define(
 m4_define(`otovar_DEFAULT_TAG',`latest-10_1')
 
 m4_divert(0)m4_dnl
-# This file contains default values for environment values that are needed either by Docker Compose itself
+`#' This file '.env' was derived from the sample file 'otovar_SAMPLE_FILE()'.
+# It contains default values for environment values that are needed either by Docker Compose itself
 # or by the docker compose files.
 
 # COMPOSE_PROJECT_NAME declares the prefix of the name of the Docker containers, e.g. 'otobo_web_1'.
