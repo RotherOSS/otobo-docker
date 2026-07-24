@@ -1,0 +1,18 @@
+# This Docker compose file should be used only for development.
+#
+# It activate coverage tracking by setting PERL5OPT.
+# This means that all Perl processes in the web and daemon container
+# start tracking coverage.
+#
+# The coverage data is written to /opt/otobo/cover_db.
+#
+# Ignore ZZZ*.pm files as these are subject to change
+#
+# Ignore Test2 modules as we are not interested in those
+services:
+  web:
+    environment:
+      PERL5OPT: "-MDevel::Cover=-db,/opt/otobo/cover_db,-ignore,ZZZ,+ignore,Test2"
+  daemon:
+    environment:
+      PERL5OPT: "-MDevel::Cover=-db,/opt/otobo/cover_db,-ignore,ZZZ,+ignore,Test2"
