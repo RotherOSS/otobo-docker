@@ -6,13 +6,16 @@
 #
 # The coverage data is written to /opt/otobo/cover_db.
 #
+# Modules in /opt/otobo/local/lib/perl5 and in /opt/otobo_install/local/lib/perl5
+# are ignored by default as they are in the initial @INC.
 # Ignore ZZZ*.pm files as these are subject to change
-#
 # Ignore Test2 modules as we are not interested in those
+# Ignore Kernel/Language modules as these contain just data
+# Ignore Kernel/cpan-lib as these are not interesting
 services:
   web:
     environment:
-      PERL5OPT: "-MDevel::Cover=-db,/opt/otobo/cover_db,-ignore,ZZZ,+ignore,Test2"
+      PERL5OPT: "-MDevel::Cover=-db,/opt/otobo/cover_db,-ignore,ZZZ,+ignore,Test2,+ignore,Kernel/Language,+ignore,Kernel/cpan-lib"
   daemon:
     environment:
       PERL5OPT: "-MDevel::Cover=-db,/opt/otobo/cover_db,-ignore,ZZZ,+ignore,Test2"
