@@ -15,7 +15,7 @@
 services:
   web:
     environment:
-      PERL5OPT: "-MDevel::Cover=-db,/opt/otobo/cover_db,-ignore,ZZZ,+ignore,Test2,+ignore,Kernel/Language,+ignore,Kernel/cpan-lib"
+      PERL5OPT: "-MDevel::Cover=-db,/opt/otobo/cover_db,-ignore,ZZZ,+ignore,Test2,+ignore,Kernel/Language,+ignore,Kernel/cpan.lib"
   daemon:
     environment:
       PERL5OPT: "-MDevel::Cover=-db,/opt/otobo/cover_db,-ignore,ZZZ,+ignore,Test2"
