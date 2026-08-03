@@ -65,11 +65,11 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 ################################################################################
 # The Docker image tag is fixed to a specific release.
 # You may also choose to always stay on the latest release with: latest-11_1
-# The default is rotheross/otobo:rel-11_1_0-beta1
+# The default is rotheross/otobo:rel-11_1_0-beta2
 ################################################################################
 
 # Examples:
-#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-11_1_0-beta1
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-11_1_0-beta2
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:latest-11_1
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-11_1
 #OTOBO_IMAGE_OTOBO=otobo:local-11.1.x                # where x is the verbatim letter 'x'
@@ -77,11 +77,11 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 ################################################################################
 # The Docker image tag is fixed to a specific release.
 # You may also choose to always stay on the latest release with: latest-11_1
-# The default is rotheross/otobo-elasticsearch:rel-11_1_0-beta1
+# The default is rotheross/otobo-elasticsearch:rel-11_1_0-beta2
 ################################################################################
 
 # Examples:
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-11_1_0-beta1
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-11_1_0-beta2
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:latest-11_1
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-11_1
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-11.1.x                # where x is the verbatim letter 'x'
@@ -95,11 +95,11 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 ################################################################################
 # The Docker image tag is fixed to a specific release.
 # You may also choose to always stay on the latest release with: latest-11_1
-# The default image is rotheross/otobo-selenium-chrome:rel-11_1_0-beta1
+# The default image is rotheross/otobo-selenium-chrome:rel-11_1_0-beta2
 ################################################################################
 
 # Examples:
-#OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:rel-11_1_0-beta1
+#OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:rel-11_1_0-beta2
 #OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:latest-11_1
 #OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=rotheross/otobo-selenium-chrome:devel-rel-11_1
 #OTOBO_IMAGE_OTOBO_SELENIUM_CHROME=otobo-selenium-chrome:local-11.1.x                # where x is the verbatim letter 'x'
