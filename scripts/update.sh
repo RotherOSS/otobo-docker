@@ -35,7 +35,7 @@ done
 # Get the name of the running script in order to mark the messages printed by the script itself
 script_name=${BASH_SOURCE[0]##*/}
 
-# Define colors for the output, usage: 
+# Define colors for the output, usage:
 # ${GREEN}✓ Everything is fine.${NC}
 # ${YELLOW}⚠ Warning: Something might need attention${NC}
 # ${RED}✗ Error: Something went wrong${NC}
@@ -59,9 +59,17 @@ cd $compose_dir
 DOCKERCOMPOSE="docker compose"
 
 # During the update there should be no interference from the outside.
-# Stop and remove the containers, but keep the named volumes intact
+# Stop and remove the containers, but keep the named volumes intact.
 echo -e "[$script_name] ${CYAN}ℹ Stopping the services before starting to update.${NC}"
 $DOCKERCOMPOSE down
+
+# Get, or update, the non-local images.
+# There will be error messages for local images,
+# but this is acceptable as developers are responsible for the local images.
+echo -e "[$script_name] ${CYAN}ℹ Pulling Docker images from their repositories.${NC}"
+echo -e "[$script_name] ${CYAN} See the file .env for which repositories and tags are used.${NC}"
+echo -e "[$script_name] ${CYAN} Error messages for local images can be ignored.${NC}"
+$DOCKERCOMPOSE pull
 
 # Set up some variables
 
@@ -75,10 +83,6 @@ update_volume="${compose_project_name}_opt_otobo_update"
 # from `docker compose config --format json`. But we can't rely on jq being present.
 otobo_image=$($DOCKERCOMPOSE config --images | grep 'otobo:' | head -n 1)
 echo -e "[$script_name] ${CYAN}ℹ Running the upgrade with the image image: '$otobo_image'.${NC}"
-
-# Make sure that the image is available
-echo -e "[$script_name] ${CYAN}ℹ Pulling $otobo_image, please ignore error about local images.${NC}"
-docker pull $otobo_image
 
 # Running commands with different entrypoints in the otobo image.
 tmpl_docker_run_cmd="docker run --rm --volume ${otobo_volume}:/opt/otobo --volume ${update_volume}:/opt/otobo_update --entrypoint ENTRYPOINT $otobo_image"
