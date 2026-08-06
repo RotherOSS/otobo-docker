@@ -71,23 +71,9 @@ echo -e "[$script_name] ${CYAN} See the file .env for which repositories and tag
 echo -e "[$script_name] ${CYAN} Error messages for local images can be ignored.${NC}"
 $DOCKERCOMPOSE pull
 
-# Set up some variables
-
-# The names of the volumes depend on the project name
-compose_project_name=$($DOCKERCOMPOSE config --environment | perl -n -e 'm/^COMPOSE_PROJECT_NAME=(.*)/ && print $1')
-otobo_volume="${compose_project_name}_opt_otobo"
-update_volume="${compose_project_name}_opt_otobo_update"
-
-# Use the same docker image for the update as will be used in the new version.
-# Getting that relevant name is not really simple. Usually it is be extracted with jq
-# from `docker compose config --format json`. But we can't rely on jq being present.
-otobo_image=$($DOCKERCOMPOSE config --images | grep 'otobo:' | head -n 1)
-echo -e "[$script_name] ${CYAN}ℹ Running the upgrade with the image image: '$otobo_image'.${NC}"
-
 # Running commands with different entrypoints in the otobo image.
-tmpl_docker_run_cmd="docker run --rm --volume ${otobo_volume}:/opt/otobo --volume ${update_volume}:/opt/otobo_update --entrypoint ENTRYPOINT $otobo_image"
-docker_run_rsync=${tmpl_docker_run_cmd/ENTRYPOINT/rsync}
-docker_run_perl=${tmpl_docker_run_cmd/ENTRYPOINT/perl}
+docker_run_rsync="docker compose run --rm --entrypoint rsync web"
+docker_run_perl="docker compose run --rm --entrypoint perl web"
 
 # For digging into rsync
 rsync_verbose=""    # not verbose
