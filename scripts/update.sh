@@ -80,14 +80,6 @@ rsync_verbose=""    # not verbose
 #rsync_verbose="-v"  # print the file list
 #rsync_verbose="-vv" # print the file list and explain the decision making
 
-# Get, or update, the non-local images.
-# There will be error messages for local images,
-# but this is acceptable as developers are responsible for the local images.
-echo -e "[$script_name] ${CYAN}ℹ Pulling Docker images from their repositories.${NC}"
-echo -e "[$script_name] ${CYAN} See the file .env for which repositories and tags are used.${NC}"
-echo -e "[$script_name] ${CYAN} Error messages for local images can be ignored.${NC}"
-$DOCKERCOMPOSE pull
-
 # There are some directories which require special treatment. These directories should not be moved
 # to the update directory. They must be left where they currently are. For that we first
 # need to ask the service 'web' for the relevant SysConfig settings.
