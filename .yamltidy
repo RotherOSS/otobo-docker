@@ -1,0 +1,12 @@
+---
+# config for YAML::Tidy: find docker-compose -name '*.yml' -exec yamltidy --inplace {} \;
+v: v0.1
+indentation:
+  spaces: 2
+  # indention of sequences
+  block-sequence-in-mapping: 2
+trailing-spaces: fix
+header: false
+scalar-style:
+  default: none
+adjacency: 0
