@@ -1,0 +1,120 @@
+    # ---------------------------------------------------- #
+    # insert your own config settings "here"               #
+    # config settings taken from Kernel/Config/Defaults.pm #
+    # ---------------------------------------------------- #
+
+    # This is an example configuration for an LDAP auth. backend.
+    # (take care that Net::LDAP is installed!)
+    $Self->{AuthModule1} = 'Kernel::System::Auth::LDAP';
+    $Self->{'AuthModule::LDAP::Host1'} = 'openldap';
+    $Self->{'AuthModule::LDAP::BaseDN1'} = 'dc=otobotesting';
+    $Self->{'AuthModule::LDAP::UID1'} = 'uid';
+
+    # Check if the user is allowed to auth in a posixGroup
+    # (e. g. user needs to be in a group xyz to use otobo)
+#    $Self->{'AuthModule::LDAP::GroupDN'} = 'cn=otoboallow,ou=posixGroups,dc=otobotesting';
+#    $Self->{'AuthModule::LDAP::AccessAttr'} = 'memberUid';
+    # for ldap posixGroups objectclass (just uid)
+#    $Self->{'AuthModule::LDAP::UserAttr'} = 'UID';
+    # for non ldap posixGroups objectclass (with full user dn)
+#    $Self->{'AuthModule::LDAP::UserAttr'} = 'DN';
+
+    # The following is valid but would only be necessary if the
+    # anonymous user do NOT have permission to read from the LDAP tree
+    $Self->{'AuthModule::LDAP::SearchUserDN1'} = 'cn=admin,dc=otobotesting';
+    $Self->{'AuthModule::LDAP::SearchUserPw1'} = 'admin';
+
+
+
+ # --------------------------------------------------- #
+    # authentication sync settings                        #
+    # (enable agent data sync. after succsessful          #
+    # authentication)                                     #
+    # --------------------------------------------------- #
+    # This is an example configuration for an LDAP auth sync. backend.
+    # (take care that Net::LDAP is installed!)
+    $Self->{AuthSyncModule1} = 'Kernel::System::Auth::Sync::LDAP';
+    $Self->{'AuthSyncModule::LDAP::Host1'} = 'openldap';
+    $Self->{'AuthSyncModule::LDAP::BaseDN1'} = 'dc=otobotesting';
+    $Self->{'AuthSyncModule::LDAP::UID1'} = 'uid';
+#    $Self->{'AuthSyncModule::LDAP::GroupDN1'} = 'cn=agents,ou=devops,dc=otobotesting';
+
+    # The following is valid but would only be necessary if the
+    # anonymous user do NOT have permission to read from the LDAP tree
+    $Self->{'AuthSyncModule::LDAP::SearchUserDN1'} = 'cn=admin,dc=otobotesting';
+    $Self->{'AuthSyncModule::LDAP::SearchUserPw1'} = 'admin';
+
+    # in case you want to add always one filter to each ldap query, use
+    # this option. e. g. AlwaysFilter => '(mail=*)' or AlwaysFilter => '(objectclass=user)'
+    # or if you want to filter with a logical OR-Expression, like AlwaysFilter => '(|(mail=*abc.com)(mail=*xyz.com))'
+#    $Self->{'AuthSyncModule::LDAP::AlwaysFilter'} = '';
+
+    # AuthSyncModule::LDAP::UserSyncMap
+    # (map if agent should create/synced from LDAP to DB after successful login)
+    # you may specify LDAP-Fields as either
+    #  * list, which will check each field. first existing will be picked ( ["givenName","cn","_empty"] )
+    #  * name of an LDAP-Field (may return empty strings) ("givenName")
+    #  * fixed strings, prefixed with an underscore: "_test", which will always return this fixed string
+    $Self->{'AuthSyncModule::LDAP::UserSyncMap1'} = {
+        # DB -> LDAP
+        UserFirstname => 'givenName',
+        UserLastname  => 'sn',
+        UserEmail     => 'mail',
+    };
+
+    # Net::LDAP new params (if needed - for more info see perldoc Net::LDAP)
+#    $Self->{'AuthSyncModule::LDAP::Params'} = {
+#        port    => 389,
+#        timeout => 120,
+#        async   => 0,
+#        version => 3,
+#    };
+    # Net::LDAP::start_tls verify type (if needed - for more info see Net::LDAP::start_tls)
+#    $Self->{'AuthSyncModule::LDAP::StartTLS'} = 'required';
+
+
+    # Die if backend can't work, e. g. can't connect to server.
+#    $Self->{'AuthSyncModule::LDAP::Die'} = 1;
+
+    # Attributes needed for group syncs
+    # (attribute name for group value key)
+    $Self->{'AuthSyncModule::LDAP::AccessAttr1'} = 'member';
+    # (attribute for type of group content UID/DN for full ldap name)
+    $Self->{'AuthSyncModule::LDAP::UserAttr'} = 'UID';
+#    $Self->{'AuthSyncModule::LDAP::UserAttr1'} = 'DN';
+
+    # AuthSyncModule::LDAP::UserSyncInitialGroups
+    # (sync following group with rw permission after initial create of first agent
+    # login)
+#    $Self->{'AuthSyncModule::LDAP::UserSyncInitialGroups1'} = [
+#        'users',
+#    ];
+
+    # Utilize extended nested group search?
+#    $Self->{'AuthSyncModule::LDAP::NestedGroupSearch'} = '1';
+
+    # AuthSyncModule::LDAP::UserSyncGroupsDefinition
+    # (If "LDAP" was selected for AuthModule and you want to sync LDAP
+    # groups to otobo groups, define the following.)
+   $Self->{'AuthSyncModule::LDAP::UserSyncGroupsDefinition1'} = {
+       # ldap group
+       'cn=admins,dc=otobotesting' => {
+           # otobo group
+           'admin' => {
+               # permission
+               rw => 1,
+               ro => 1,
+           },
+           'faq' => {
+               rw => 0,
+               ro => 1,
+           },
+       },
+       'cn=agents,dc=otobotesting' => {
+           'users' => {
+               rw => 1,
+               ro => 1,
+           },
+       }
+   };
+

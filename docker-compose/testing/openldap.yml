@@ -1,42 +1,21 @@
-# Run a standalone container for OpenLDAP testing.
-
-# There is no persistent data
-
-# Can be activated by appending the path to this file to the setting COMPOSE_FILE
-# in the setup file .env.
-
-# The ports are exposed. On the Docker host the tree can be dumped with:
-
-# Examples for querying LDAP:
-
-#ldapsearch -x -b "dc=otobotesting" -H ldap://localhost:1389
-
-# check connectivity
-#ldapsearch -x -H ldap://localhost:1389 -b dc=otobotesting -D "dc=otobotesting" -w password
-
-# list all entries
-#ldapsearch -x -H ldap://localhost:1389 -b dc=otobotesting -s sub -D "cn=openldap_admin,dc=otobotesting" -w password '(objectClass=*)' +
-
-# show a group
-#ldapsearch -x -H ldap://localhost:1389 -b dc=otobotesting -s sub -D "cn=openldap_admin,dc=otobotesting" -w password '(cn=admins)' dn member
-
-# show a user
-#ldapsearch -x -H ldap://localhost:1389 -b dc=otobotesting -s sub -D "cn=openldap_admin,dc=otobotesting" -w password '(uid=testadmin)' uid memberOf
-
 services:
 
+  # Service for testing integration with LDAP
+  # See testing/openldap/README.md
   testing-openldap:
-    image: bitnamilegacy/openldap:latest
-    ports:
-      - 1389:1389
-      - 1636:1636
+    image: osixia/openldap:1.5.0
+    command: --copy-service --loglevel debug
     environment:
-      - LDAP_ADMIN_USERNAME=openldap_admin
-      - LDAP_ADMIN_PASSWORD=openldap_admin
-      - LDAP_USERS=otobotestuser1,otobotestuser2
-      - LDAP_PASSWORDS=otobotestuser1,otobotestuser2
-      - LDAP_ROOT=dc=otobotesting
-      - LDAP_USER_OU=agents
-      - LDAP_GROUP_OU=agent_groups
-      - LDAP_LOGLEVEL=any
-    restart: always
+      - LDAP_ORGANISATION=OTOBO Testing
+      - LDAP_DOMAIN=otobotesting
+      - LDAP_BASE_DN=dc=otobotesting
+      - LDAP_PORT=1389
+      - LDAP_ADMIN_PASSWORD=admin
+      - LDAP_RFC2307BIS_SCHEMA=true
+    ports:
+      - 389:389
+      - 636:636
+    volumes:
+
+      # bind mount relative to the directory docker-compose, but the logic is not obvious
+      - ../testing/openldap/data/bootstrap.ldif:/container/service/slapd/assets/config/bootstrap/ldif/custom/bootstrap.ldif

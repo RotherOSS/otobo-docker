@@ -1,0 +1,61 @@
+# example OU
+dn: ou=devops,{{ LDAP_BASE_DN }}
+changetype: add
+objectClass: organizationalUnit
+ou: devops
+
+# example admin user
+dn: cn=testadmin,ou=devops,{{ LDAP_BASE_DN }}
+changetype: add
+objectClass: inetOrgPerson
+givenName: Admin
+cn: testadmin
+sn: TestAdmin
+uid: testadmin
+mail: testadmin@{{ LDAP_DOMAIN }}
+preferredLanguage: en
+userPassword: testadmin
+
+# example agent user otobotestuser1
+dn: cn=otobotestuser1,ou=devops,{{ LDAP_BASE_DN }}
+changetype: add
+objectClass: inetOrgPerson
+givenName: User
+cn: otobotestuser1
+sn: TestAgent 1
+uid: otobotestuser1
+mail: mail.testuser1@{{ LDAP_DOMAIN }}
+preferredLanguage: de
+userPassword: otobotestuser1
+
+# example agent user otobotestuser2
+dn: cn=otobotestuser2,ou=devops,{{ LDAP_BASE_DN }}
+changetype: add
+objectClass: inetOrgPerson
+givenName: User
+cn: otobotestuser2
+sn: TestAgent 2
+uid: otobotestuser2
+mail: mail.testuser2@{{ LDAP_DOMAIN }}
+preferredLanguage: de
+userPassword: otobotestuser2
+
+# example admins LDAP group
+dn: cn=admins,{{ LDAP_BASE_DN }}
+changetype: add
+objectClass: top
+objectClass: groupOfNames
+cn: admins
+description: admin team
+member: cn=testadmin,ou=devops,{{ LDAP_BASE_DN }}
+
+# example agents LDAP group
+dn: cn=agents,{{ LDAP_BASE_DN }}
+changetype: add
+objectClass: top
+objectClass: groupOfNames
+cn: agents
+description: agent team
+member: cn=otobotestuser1,ou=devops,{{ LDAP_BASE_DN }}
+member: cn=otobotestuser2,ou=devops,{{ LDAP_BASE_DN }}
+member: cn=testadmin,ou=devops,{{ LDAP_BASE_DN }}
