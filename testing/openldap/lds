@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# examples
+
+# check connectivity
+ldapsearch -x -H ldap://localhost -b dc=otobotesting -D "cn=admin,dc=otobotesting" -w admin
+
+# list all entries
+ldapsearch -x -H ldap://localhost -b dc=otobotesting -s sub -D "cn=admin,dc=otobotesting" -w admin '(objectClass=*)' +
+
+# show a group
+ldapsearch -x -H ldap://localhost -b dc=otobotesting -s sub -D "cn=admin,dc=otobotesting" -w admin '(cn=admins)' dn member
+ldapsearch -x -H ldap://localhost -b dc=otobotesting -s sub -D "cn=admin,dc=otobotesting" -w admin '(cn=agents)' dn member
+
+# show a user
+ldapsearch -x -H ldap://localhost -b dc=otobotesting -s sub -D "cn=admin,dc=otobotesting" -w admin '(uid=testadmin)' uid memberOf
+ldapsearch -x -H ldap://localhost -b dc=otobotesting -s sub -D "cn=admin,dc=otobotesting" -w admin '(uid=otobotestuser1)' uid memberOf
+ldapsearch -x -H ldap://localhost -b dc=otobotesting -s sub -D "cn=admin,dc=otobotesting" -w admin '(uid=otobotestuser2)' uid memberOf
