@@ -135,7 +135,10 @@ services:
     volumes:
       - elasticsearch_data:/usr/share/elasticsearch/data
     healthcheck:
-      test: curl -s -f http://localhost:9200/_cat/health
+      test: [
+        "CMD-SHELL",
+        "curl --silent --fail http://localhost:9200/_cluster/health?wait_for_status=yellow&timeout=5s || exit 1"
+      ]
 
 
 # no volumes need to be exposed across services
