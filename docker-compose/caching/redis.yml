@@ -7,14 +7,14 @@ services:
     image: ${OTOBO_IMAGE_REDIS:-redis:8-bookworm}
     user: redis:redis
     cap_drop:
-        - ALL
+      - ALL
     #cap_add:
     restart: always
     logging:
-        driver: "local"
-        options:
-            max-file: "5"
-            max-size: "10m"
+      driver: "local"
+      options:
+        max-file: "5"
+        max-size: "10m"
     healthcheck:
       test: redis-cli ping
     command: [ "redis-server", "--save", "" ]
