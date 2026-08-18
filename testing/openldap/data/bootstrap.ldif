@@ -1,4 +1,8 @@
-# example OU
+##########################
+# Agents and OTOBO admin #
+##########################
+
+# example OU of the agents
 dn: ou=devops,{{ LDAP_BASE_DN }}
 changetype: add
 objectClass: organizationalUnit
@@ -59,3 +63,47 @@ description: agent team
 member: cn=otobotestuser1,ou=devops,{{ LDAP_BASE_DN }}
 member: cn=otobotestuser2,ou=devops,{{ LDAP_BASE_DN }}
 member: cn=testadmin,ou=devops,{{ LDAP_BASE_DN }}
+
+##########################
+# Customer Users         #
+##########################
+
+# example OU of the customer users, tenants of buildings in the peacock garden
+dn: ou=tenants,{{ LDAP_BASE_DN }}
+changetype: add
+objectClass: organizationalUnit
+ou: tenants
+
+# example customer user, tenant of the keepers cabin in the peacock garden
+dn: cn=keeperscabin,ou=tenants,{{ LDAP_BASE_DN }}
+changetype: add
+objectClass: inetOrgPerson
+givenName: Holger
+cn: keeperscabin
+sn: Heger
+uid: keeperscabin
+mail: keeperscabin.peacockgarden@{{ LDAP_DOMAIN }}
+preferredLanguage: ca
+userPassword: keeperscabin
+
+# example customer user, tenant of the mansion in the peacock garden
+dn: cn=mansion,ou=tenants,{{ LDAP_BASE_DN }}
+changetype: add
+objectClass: inetOrgPerson
+givenName: Monika
+cn: mansion
+sn: Millikan
+uid: mansion
+mail: mansion.peacockgarden@{{ LDAP_DOMAIN }}
+preferredLanguage: ca
+userPassword: mansion
+
+# example customer users LDAP group
+dn: cn=peacockgarden,{{ LDAP_BASE_DN }}
+changetype: add
+objectClass: top
+objectClass: groupOfNames
+cn: peacockgarden
+description: Tenants of the Peacock Garden in the Seaside District
+member: cn=keeperscabin,ou=tenants,{{ LDAP_BASE_DN }}
+member: cn=mansion,ou=tenants,{{ LDAP_BASE_DN }}
