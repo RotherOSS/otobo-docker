@@ -136,6 +136,16 @@ m4_ifdef( `otoflag_HTTP', `m4_divert(-1)')m4_dnl
 #OTOBO_NGINX_SSL_CERTIFICATE_KEY=/etc/nginx/ssl/ssl-key.key
 OTOBO_NGINX_SSL_CERTIFICATE=
 OTOBO_NGINX_SSL_CERTIFICATE_KEY=
+
+# Shared secret between the nginx reverse proxy and OTOBO.
+# nginx sends it in the HTTP header X-OTOBO-Proxy-Secret. OTOBO only believes
+# the X-Forwarded-* headers and (if 'AuthModule::HTTPBasicAuth::TrustProxyHeader'
+# is enabled) the Remote-User header of requests that carry the correct secret.
+# Generate a value with e.g.:  openssl rand -hex 32
+# Leaving this empty keeps the legacy behaviour, which is not recommended.
+OTOBO_PROXY_SECRET=
+
+
 m4_ifdef( `otoflag_HTTP', `m4_divert(0)')m4_dnl
 m4_ifdef( `otoflag_KERBEROS', `', `m4_divert(-1)')m4_dnl
 
