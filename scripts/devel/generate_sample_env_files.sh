@@ -1,11 +1,21 @@
 #!/bin/bash
 
 # This script is a helper for generating sample Docker Compose environment files from a template.
-# It is meant to be used by developers of otobo-docker.
+# It is meant to be only used by developers of 'otobo-docker'.
+#
 # The goal is to have a single source file for all sample .env files.
-# The template is located at "etc/templates/dot_env.m4"
+# The template is located at "etc/templates/dot_env.m4".
+#
+# As of OTOBO 11.1.0 the Docker Compose configs docker-compose/*.yml use a fixed version
+# of the OTOBO specific Docker images. This script also adapts the *.yml files.
 
-# Pass -h for usage info.
+
+# The version of OTOBO must be declared in this script.
+major='11'
+minor='1'
+patch='0-beta2'
+
+# Pass --help or -h for usage info.
 
 # parse command line argument
 function args()
@@ -52,8 +62,8 @@ Usage:
     $0 --help
 
     # the standard behavior is to recreate the sample .env files from the template etc/templates/dot_env.m4.
-    # Please adapt the macros otovar_MAJOR and otovar_MINOR
-    # in the template for creating new releases or development branches.
+    # The docker-compose/*.yml files are also adapted.
+    # Please set otovar_MAJOR, otovar_MINOR, and otovar_PATCH in this script.
     # The affected sample .env files are:
     #    .docker_compose_env_http
     #    .docker_compose_env_http_selenium
@@ -79,34 +89,36 @@ fi
 # for now we support only the hardcoded template
 if [[ -e "etc/templates/dot_env.m4" ]]; then
 
+    common_defines="--define otovar_MAJOR=$major --define otovar_MINOR=$minor --define otovar_PATCH=$patch";
+
     # the default file: HTTPS with Nginx
     sample_file=.docker_compose_env_https
     cp --backup=numbered $sample_file $sample_file.bak || :
-    m4 --prefix-builtins --define "otoflag_HTTPS" --define "otovar_SAMPLE_FILE=$sample_file"  etc/templates/dot_env.m4 > $sample_file
+    m4 --prefix-builtins --define "otoflag_HTTPS" --define "otovar_SAMPLE_FILE=$sample_file" $common_defines etc/templates/dot_env.m4 > $sample_file
 
     # HTTPS with Kerberos configuration
     sample_file=.docker_compose_env_https_kerberos
     cp --backup=numbered $sample_file $sample_file.bak || :
-    m4 --prefix-builtins --define "otoflag_KERBEROS" --define "otovar_SAMPLE_FILE=$sample_file" etc/templates/dot_env.m4 > $sample_file
+    m4 --prefix-builtins --define "otoflag_KERBEROS" --define "otovar_SAMPLE_FILE=$sample_file" $common_defines etc/templates/dot_env.m4 > $sample_file
 
     # HTTP only
     sample_file=.docker_compose_env_http
     cp --backup=numbered $sample_file $sample_file.bak || :
-    m4 --prefix-builtins --define "otoflag_HTTP" --define "otovar_SAMPLE_FILE=$sample_file" etc/templates/dot_env.m4 > $sample_file
+    m4 --prefix-builtins --define "otoflag_HTTP" --define "otovar_SAMPLE_FILE=$sample_file" $common_defines etc/templates/dot_env.m4 > $sample_file
 
     # HTTPS with a custom nginx config
     sample_file=.docker_compose_env_https_custom_nginx
     cp --backup=numbered $sample_file $sample_file.bak || :
-    m4 --prefix-builtins --define "otoflag_HTTPS" --define "otoflag_CUSTOM_NGINX" --define "otovar_SAMPLE_FILE=$sample_file" etc/templates/dot_env.m4 > $sample_file
+    m4 --prefix-builtins --define "otoflag_HTTPS" --define "otoflag_CUSTOM_NGINX" --define "otovar_SAMPLE_FILE=$sample_file" $common_defines etc/templates/dot_env.m4 > $sample_file
 
     # for testing: HTTPS and additionally Selenium Testing with Chrome
     sample_file=.docker_compose_env_https_selenium
     cp --backup=numbered $sample_file $sample_file.bak || :
-    m4 --prefix-builtins --define "otoflag_HTTPS" --define "otoflag_SELENIUM" --define "otovar_SAMPLE_FILE=$sample_file" etc/templates/dot_env.m4 > $sample_file
+    m4 --prefix-builtins --define "otoflag_HTTPS" --define "otoflag_SELENIUM" --define "otovar_SAMPLE_FILE=$sample_file" $common_defines etc/templates/dot_env.m4 > $sample_file
 
     # for testing: HTTP and additionally Selenium Testing with Chrome
     sample_file=.docker_compose_env_http_selenium
     cp --backup=numbered $sample_file $sample_file.bak || :
-    m4 --prefix-builtins --define "otoflag_HTTP" --define "otoflag_SELENIUM" --define "otovar_SAMPLE_FILE=$sample_file" etc/templates/dot_env.m4 > $sample_file
+    m4 --prefix-builtins --define "otoflag_HTTP" --define "otoflag_SELENIUM" --define "otovar_SAMPLE_FILE=$sample_file" $common_defines etc/templates/dot_env.m4 > $sample_file
 
 fi
