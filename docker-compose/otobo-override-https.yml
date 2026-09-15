@@ -14,9 +14,9 @@ services:
   web:
     environment:
       # Shared secret with which nginx proves to OTOBO that a request really comes from the
-      # proxy. Only then are X-Forwarded-* headers and, when enabled in OTOBO, the
-      # authenticated user in the Remote-User header believed. Set OTOBO_PROXY_SECRET in .env
-      # to a long random string. The same value is passed to nginx below.
+      # proxy. Only then, and when enabled in OTOBO, the authenticated user in the Remote-User
+      # header will be trusted. Set OTOBO_PROXY_SECRET in .env to a long random string.
+      # The same value is passed to nginx below.
       OTOBO_PROXY_SECRET: ${OTOBO_PROXY_SECRET:-}
 
   nginx:
