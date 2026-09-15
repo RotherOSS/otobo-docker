@@ -10,20 +10,13 @@ takes this template and generates the following files from it:
     .docker_compose_env_https_kerberos
     .docker_compose_env_https_selenium
 
-Do not change the generated files, only change this template file.
+Do not change the generated files, only change this template file. The version of OTOBO is declared
+in scripts/devel/generate_sample_env_files.sh
 
 These generated files are not used for running OTOBO. They are only sample files for the actual config file .env.
 Users can choose their use case and use the appropriate sample file as a starting point for their own .env file.
 
-Please adapt the macros otovar_MAJOR, otovar_MINOR, and otovar_PATCH when creating a new release series
-with a new major, minor, or patch version.
 See ./scripts/devel/generate_sample_env_files.sh -h for how to regenerate the sample file after making changes here.
-
-# These are the macros that should be adapted for new releases series.
-# These two macros affect only comment lines in the generated sample .env files.
-m4_define(`otovar_MAJOR',`11')
-m4_define(`otovar_MINOR',`1')
-m4_define(`otovar_PATCH',`0-beta2')
 
 # Collect which services should be started by collecting the relevant
 # Docker Compose .yml files. The otobo-base.yml file is always needed.
