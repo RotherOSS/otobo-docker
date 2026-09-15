@@ -89,6 +89,7 @@ fi
 # for now we support only the hardcoded template
 if [[ -e "etc/templates/dot_env.m4" ]]; then
 
+    # pass the OTOBO version to the template
     common_defines="--define otovar_MAJOR=$major --define otovar_MINOR=$minor --define otovar_PATCH=$patch";
 
     # the default file: HTTPS with Nginx
@@ -121,4 +122,17 @@ if [[ -e "etc/templates/dot_env.m4" ]]; then
     cp --backup=numbered $sample_file $sample_file.bak || :
     m4 --prefix-builtins --define "otoflag_HTTP" --define "otoflag_SELENIUM" --define "otovar_SAMPLE_FILE=$sample_file" $common_defines etc/templates/dot_env.m4 > $sample_file
 
+fi
+
+# Adapt the Docker compose files.
+# The default image is the image for the specific patch version.
+if [[ -d "docker-compose" ]]; then
+
+    # E.g. rel-11_1_0-beta2
+    version_tag="rel-${major}_${minor}_${patch}"
+
+    # Fiddle with the image declaration lines like:
+    #image: ${OTOBO_IMAGE_OTOBO:-rotheross/otobo:rel-11_1_0-beta2}
+    # Only the tags of the Rother OSS images are adapted.
+    sed -i "s/\(image:\s\+.*-rotheross\/.*:\).*\(}\)/\1$version_tag\2/g" docker-compose/*.yml
 fi
