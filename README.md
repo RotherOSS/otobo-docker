@@ -1,11 +1,10 @@
+# OTOBO Docker Compose Stack
+
 OTOBO comes with official support for Docker.
+Please refer to the [documentation](https://doc.otobo.org/manual/installation/11.0/en/content/installation/installation-docker.html) on how to get started.
 
-The chapter "Installing using Docker and Docker Compose" in the "Installation and Update" manual
-has more information on how the get started.
-See https://doc.otobo.org/manual/installation/11.0/en/content/installation-docker.html.
-
-Here is quick overview over the files in this distribution. Note that some of the files are hidden
-and are only listed with ls -a.
+Here is quick overview over the files in this distribution.
+Note that some of the files are hidden and are only listed with `ls -a`.
 
     - .docker_compose_env_http                  sample .env file for a HTTP based installation
     - .docker_compose_env_https                 sample .env file for a HTTPS based installation
