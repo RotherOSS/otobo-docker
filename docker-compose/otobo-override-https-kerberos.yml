@@ -21,7 +21,7 @@ services:
       OTOBO_PROXY_SECRET: ${OTOBO_PROXY_SECRET:-}
 
   nginx:
-    image: ${OTOBO_IMAGE_OTOBO_NGINX:-rotheross/otobo-nginx-kerberos-webproxy:rel-11_1_0-beta2}
+    image: ${OTOBO_IMAGE_OTOBO_NGINX:-rotheross/otobo-nginx-kerberos-webproxy:rel-11_1_0-beta3}
     # according to https://stackoverflow.com/questions/43467670/which-capabilities-can-i-drop-in-a-docker-nginx-container
     cap_drop:
       - ALL

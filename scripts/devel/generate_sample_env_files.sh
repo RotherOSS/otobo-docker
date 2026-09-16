@@ -13,7 +13,7 @@
 # The version of OTOBO must be declared in this script.
 major='11'
 minor='1'
-patch='0-beta2'
+patch='0-beta3'
 
 # Pass --help or -h for usage info.
 
