@@ -63,6 +63,8 @@ OTOBO_NGINX_SSL_CERTIFICATE_KEY=
 # Leaving this empty keeps the legacy behaviour, which is not recommended.
 OTOBO_PROXY_SECRET=
 
+
+
 # Elasticsearch options
 OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
@@ -84,7 +86,7 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
 # More examples
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:latest-10_1
-#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-10_1_18
+#OTOBO_IMAGE_OTOBO=rotheross/otobo:rel-10_1_19
 #OTOBO_IMAGE_OTOBO=rotheross/otobo:devel-rel-10_1
 #OTOBO_IMAGE_OTOBO=otobo:local-10.1.x
 
@@ -100,7 +102,7 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
 # More examples
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:latest-10_1
-#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-10_1_18
+#OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:rel-10_1_19
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=rotheross/otobo-elasticsearch:devel-rel-10_1
 #OTOBO_IMAGE_OTOBO_ELASTICSEARCH=otobo-elasticsearch:local-10.1.x
 
@@ -122,7 +124,7 @@ OTOBO_ELASTICSEARCH_ES_JAVA_OPTS=-Xms512m -Xmx512m
 
 # More examples
 #OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:latest-10_1
-#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:rel-10_1_18
+#OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:rel-10_1_19
 #OTOBO_IMAGE_OTOBO_NGINX=rotheross/otobo-nginx-webproxy:devel-rel-10_1
 #OTOBO_IMAGE_OTOBO_NGINX=otobo-nginx-webproxy:local-10.1.x
 
