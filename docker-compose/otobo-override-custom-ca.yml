@@ -1,0 +1,25 @@
+# Use this file to inject your hosts trust anchor into the OTOBO docker container.
+# See your distributions manual for more information on how to add a CA certs to
+# the trust anchor.
+#
+# Ubuntu
+# see: https://ubuntu.com/server/docs/how-to/security/install-a-root-ca-certificate-in-the-trust-store/
+#
+# RHEL
+# see: https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/10/html/securing_networks/using-shared-system-certificates
+# and set OTOBO_CUSTOM_TRUST_ANCHOR to /etc/pki/tls/certs/ca-bundle.crt
+
+x-cert-mount: &cert-mount
+  type: bind
+  source: ${OTOBO_CUSTOM_TRUST_ANCHOR:-/etc/ssl/certs/ca-certificates.crt}
+  target: /etc/ssl/certs/ca-certificates.crt
+  read_only: true
+
+services:
+  web:
+    volumes:
+      - *cert-mount
+
+  daemon:
+    volumes:
+      - *cert-mount
