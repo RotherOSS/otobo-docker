@@ -10,6 +10,13 @@ takes this template and generates the following files from it:
     .docker_compose_env_https_kerberos
     .docker_compose_env_https_selenium
 
+    .podman_compose_env_http
+    .podman_compose_env_http_selenium
+    .podman_compose_env_https
+    .podman_compose_env_https_custom_nginx
+    .podman_compose_env_https_kerberos
+    .podman_compose_env_https_selenium
+
 Do not change the generated files, only change this template file. The version of OTOBO is declared
 in scripts/devel/generate_sample_env_files.sh
 
@@ -20,14 +27,15 @@ See ./scripts/devel/generate_sample_env_files.sh -h for how to regenerate the sa
 
 # Collect which services should be started by collecting the relevant
 # Docker Compose .yml files. The otobo-base.yml file is always needed.
-m4_define(`otovar_COMPOSE_FILE',`docker-compose/otobo-base.yml')
+m4_define(`otovar_COMPOSE_FILE',`$OTOBO_COMPOSE_DIR/otobo-base.yml')
 
+# Se
 # add the .yml file for HTTP
 m4_define(
   `otovar_COMPOSE_FILE',
   otovar_COMPOSE_FILE`'m4_ifdef(
     `otoflag_HTTP',
-    `:docker-compose/otobo-override-http.yml',
+    `:$OTOBO_COMPOSE_DIR/otobo-override-http.yml',
     `'))
 
 # add the .yml file for HTTPS with Kerberos
@@ -35,7 +43,7 @@ m4_define(
   `otovar_COMPOSE_FILE',
   otovar_COMPOSE_FILE`'m4_ifdef(
     `otoflag_KERBEROS',
-    `:docker-compose/otobo-override-https-kerberos.yml',
+    `:$OTOBO_COMPOSE_DIR/otobo-override-https-kerberos.yml',
     `'))
 
 # add the .yml file for HTTPS, including the custom config and the Selenium case
@@ -43,7 +51,7 @@ m4_define(
   `otovar_COMPOSE_FILE',
   otovar_COMPOSE_FILE`'m4_ifdef(
     `otoflag_HTTPS',
-    `:docker-compose/otobo-override-https.yml',
+    `:$OTOBO_COMPOSE_DIR/otobo-override-https.yml',
     `'))
 
 # add the .yml file for the custom Nginx config if required
@@ -51,7 +59,7 @@ m4_define(
   `otovar_COMPOSE_FILE',
   otovar_COMPOSE_FILE`'m4_ifdef(
     `otoflag_CUSTOM_NGINX',
-    `:docker-compose/otobo-nginx-custom-config.yml',
+    `:$OTOBO_COMPOSE_DIR/otobo-nginx-custom-config.yml',
     `'))
 
 # add the .yml file for Selenium if required
@@ -59,7 +67,7 @@ m4_define(
   `otovar_COMPOSE_FILE',
   otovar_COMPOSE_FILE`'m4_ifdef(
     `otoflag_SELENIUM',
-    `:docker-compose/otobo-selenium.yml',
+    `:$OTOBO_COMPOSE_DIR/otobo-selenium.yml',
     `'))
 
 m4_divert(0)m4_dnl
@@ -78,22 +86,26 @@ m4_divert(0)m4_dnl
 COMPOSE_PROJECT_NAME=otobo
 #COMPOSE_PROJECT_NAME=acme_support
 
+# Declare in which directory the compose configuration lies.
+# Effectively this allows to switch between "Docker Compose" and "Podman Compose".
+OTOBO_COMPOSE_DIR=otovar_COMPOSE_DIR()
+
 # COMPOSE_FILE is a collection of files, separated by COMPOSE_PATH_SEPARATOR, that make up the final config.
-# These files usually reside in the subdirectory docker-compose.
+# These files usually reside either in the subdirectory docker-compose or podman-compose.
 #
 # Additional services can be added by concatenating more files to COMPOSE_FILE.
-# - add services for S3 compatible storage:             :docker-compose/otobo-localstack.yml or
-#                                                       :docker-compose/otobo-minio.yml
-# - add caching using Redis DB                          :docker-compose/caching/redis.yml
-# - activate the MariaDB ed25519 authentication plugin: :docker-compose/database/mariadb/ed25519.yml
-# - activate the MariaDB PARSEC authentication plugin:  :docker-compose/database/mariadb/parsec.yml
+# - add services for S3 compatible storage:             :$OTOBO_COMPOSE_DIR/otobo-localstack.yml or
+#                                                       :$OTOBO_COMPOSE_DIR/otobo-minio.yml
+# - add caching using Redis DB                          :$OTOBO_COMPOSE_DIR/caching/redis.yml
+# - activate the MariaDB ed25519 authentication plugin: :$OTOBO_COMPOSE_DIR/database/mariadb/ed25519.yml
+# - activate the MariaDB PARSEC authentication plugin:  :$OTOBO_COMPOSE_DIR/database/mariadb/parsec.yml
 #
 # Developers may use experimental override files.
-# - add OpenLDAP server for use by the unit tests:      :docker-compose/testing/openldap.yml
-# - replace MariaDB with PostgreSQL:                    :docker-compose/testing/postgresql.yml
-# - replace MariaDB with MySQL:                         :docker-compose/testing/mysql.yml
-# - start an experimental mail server                   :docker-compose/testing/greenmail.yml
-# - activate Devel::Cover                               :docker-compose/testing/coverage.yml
+# - add OpenLDAP server for use by the unit tests:      :$OTOBO_COMPOSE_DIR/testing/openldap.yml
+# - replace MariaDB with PostgreSQL:                    :$OTOBO_COMPOSE_DIR/testing/postgresql.yml
+# - replace MariaDB with MySQL:                         :$OTOBO_COMPOSE_DIR/testing/mysql.yml
+# - start an experimental mail server                   :$OTOBO_COMPOSE_DIR/testing/greenmail.yml
+# - activate Devel::Cover                               :$OTOBO_COMPOSE_DIR/testing/coverage.yml
 COMPOSE_PATH_SEPARATOR=:
 COMPOSE_FILE=otovar_COMPOSE_FILE
 

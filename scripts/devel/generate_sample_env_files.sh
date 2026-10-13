@@ -92,35 +92,75 @@ if [[ -e "etc/templates/dot_env.m4" ]]; then
     # pass the OTOBO version to the template
     common_defines="--define otovar_MAJOR=$major --define otovar_MINOR=$minor --define otovar_PATCH=$patch";
 
+    ##################
+    # Docker Compose #
+    ##################
+    compose_dir_defines="--define otovar_COMPOSE_DIR=docker-compose"
+
     # the default file: HTTPS with Nginx
     sample_file=.docker_compose_env_https
     cp --backup=numbered $sample_file $sample_file.bak || :
-    m4 --prefix-builtins --define "otoflag_HTTPS" --define "otovar_SAMPLE_FILE=$sample_file" $common_defines etc/templates/dot_env.m4 > $sample_file
+    m4 --prefix-builtins --define "otoflag_HTTPS" --define "otovar_SAMPLE_FILE=$sample_file" $compose_dir_defines $common_defines etc/templates/dot_env.m4 > $sample_file
 
     # HTTPS with Kerberos configuration
     sample_file=.docker_compose_env_https_kerberos
     cp --backup=numbered $sample_file $sample_file.bak || :
-    m4 --prefix-builtins --define "otoflag_KERBEROS" --define "otovar_SAMPLE_FILE=$sample_file" $common_defines etc/templates/dot_env.m4 > $sample_file
+    m4 --prefix-builtins --define "otoflag_KERBEROS" --define "otovar_SAMPLE_FILE=$sample_file" $compose_dir_defines $common_defines etc/templates/dot_env.m4 > $sample_file
 
     # HTTP only
     sample_file=.docker_compose_env_http
     cp --backup=numbered $sample_file $sample_file.bak || :
-    m4 --prefix-builtins --define "otoflag_HTTP" --define "otovar_SAMPLE_FILE=$sample_file" $common_defines etc/templates/dot_env.m4 > $sample_file
+    m4 --prefix-builtins --define "otoflag_HTTP" --define "otovar_SAMPLE_FILE=$sample_file" $compose_dir_defines $common_defines etc/templates/dot_env.m4 > $sample_file
 
     # HTTPS with a custom nginx config
     sample_file=.docker_compose_env_https_custom_nginx
     cp --backup=numbered $sample_file $sample_file.bak || :
-    m4 --prefix-builtins --define "otoflag_HTTPS" --define "otoflag_CUSTOM_NGINX" --define "otovar_SAMPLE_FILE=$sample_file" $common_defines etc/templates/dot_env.m4 > $sample_file
+    m4 --prefix-builtins --define "otoflag_HTTPS" --define "otoflag_CUSTOM_NGINX" --define "otovar_SAMPLE_FILE=$sample_file" $compose_dir_defines $common_defines etc/templates/dot_env.m4 > $sample_file
 
     # for testing: HTTPS and additionally Selenium Testing with Chrome
     sample_file=.docker_compose_env_https_selenium
     cp --backup=numbered $sample_file $sample_file.bak || :
-    m4 --prefix-builtins --define "otoflag_HTTPS" --define "otoflag_SELENIUM" --define "otovar_SAMPLE_FILE=$sample_file" $common_defines etc/templates/dot_env.m4 > $sample_file
+    m4 --prefix-builtins --define "otoflag_HTTPS" --define "otoflag_SELENIUM" --define "otovar_SAMPLE_FILE=$sample_file" $compose_dir_defines $common_defines etc/templates/dot_env.m4 > $sample_file
 
     # for testing: HTTP and additionally Selenium Testing with Chrome
     sample_file=.docker_compose_env_http_selenium
     cp --backup=numbered $sample_file $sample_file.bak || :
-    m4 --prefix-builtins --define "otoflag_HTTP" --define "otoflag_SELENIUM" --define "otovar_SAMPLE_FILE=$sample_file" $common_defines etc/templates/dot_env.m4 > $sample_file
+    m4 --prefix-builtins --define "otoflag_HTTP" --define "otoflag_SELENIUM" --define "otovar_SAMPLE_FILE=$sample_file" $compose_dir_defines $common_defines etc/templates/dot_env.m4 > $sample_file
+
+    ##################
+    # Podman Compose #
+    ##################
+    compose_dir_defines="--define otovar_COMPOSE_DIR=podman-compose"
+
+    # the default file: HTTPS with Nginx
+    sample_file=.podman_compose_env_https
+    cp --backup=numbered $sample_file $sample_file.bak || :
+    m4 --prefix-builtins --define "otoflag_HTTPS" --define "otovar_SAMPLE_FILE=$sample_file" $compose_dir_defines $common_defines etc/templates/dot_env.m4 > $sample_file
+
+    # HTTPS with Kerberos configuration
+    sample_file=.podman_compose_env_https_kerberos
+    cp --backup=numbered $sample_file $sample_file.bak || :
+    m4 --prefix-builtins --define "otoflag_KERBEROS" --define "otovar_SAMPLE_FILE=$sample_file" $compose_dir_defines $common_defines etc/templates/dot_env.m4 > $sample_file
+
+    # HTTP only
+    sample_file=.podman_compose_env_http
+    cp --backup=numbered $sample_file $sample_file.bak || :
+    m4 --prefix-builtins --define "otoflag_HTTP" --define "otovar_SAMPLE_FILE=$sample_file" $compose_dir_defines $common_defines etc/templates/dot_env.m4 > $sample_file
+
+    # HTTPS with a custom nginx config
+    sample_file=.podman_compose_env_https_custom_nginx
+    cp --backup=numbered $sample_file $sample_file.bak || :
+    m4 --prefix-builtins --define "otoflag_HTTPS" --define "otoflag_CUSTOM_NGINX" --define "otovar_SAMPLE_FILE=$sample_file" $compose_dir_defines $common_defines etc/templates/dot_env.m4 > $sample_file
+
+    # for testing: HTTPS and additionally Selenium Testing with Chrome
+    sample_file=.podman_compose_env_https_selenium
+    cp --backup=numbered $sample_file $sample_file.bak || :
+    m4 --prefix-builtins --define "otoflag_HTTPS" --define "otoflag_SELENIUM" --define "otovar_SAMPLE_FILE=$sample_file" $compose_dir_defines $common_defines etc/templates/dot_env.m4 > $sample_file
+
+    # for testing: HTTP and additionally Selenium Testing with Chrome
+    sample_file=.podman_compose_env_http_selenium
+    cp --backup=numbered $sample_file $sample_file.bak || :
+    m4 --prefix-builtins --define "otoflag_HTTP" --define "otoflag_SELENIUM" --define "otovar_SAMPLE_FILE=$sample_file" $compose_dir_defines $common_defines etc/templates/dot_env.m4 > $sample_file
 
 fi
 

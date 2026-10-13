@@ -1,0 +1,22 @@
+# Run a standalone container for Selenium testing.
+# Access via port 4444.
+
+# See also README.md.
+
+services:
+
+  selenium-chrome:
+    image: ${OTOBO_IMAGE_OTOBO_SELENIUM_CHROME:-rotheross/otobo-selenium-chrome:rel-11_1_0-beta3}
+    #cap_drop:
+    #    - ALL
+    #cap_add:
+    #    - CAP_SYS_CHROOT
+    #    - CAP_CHOWN
+    #    - CAP_DAC_OVERRIDE
+    #    - CAP_SETGID
+    #    - CAP_SETUID
+    restart: always
+    volumes:
+      - /dev/shm:/dev/shm
+    ports:
+      - "${OTOBO_SELENIUM_VNC_CHROME:-5900}:5900"

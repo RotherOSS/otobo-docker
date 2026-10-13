@@ -1,0 +1,21 @@
+services:
+
+  # Service for testing integration with LDAP
+  # See testing/openldap/README.md
+  testing-openldap:
+    image: osixia/openldap:1.5.0
+    command: --copy-service --loglevel debug
+    environment:
+      - LDAP_ORGANISATION=OTOBO Testing
+      - LDAP_DOMAIN=otobotesting
+      - LDAP_BASE_DN=dc=otobotesting
+      - LDAP_PORT=1389
+      - LDAP_ADMIN_PASSWORD=admin
+      - LDAP_RFC2307BIS_SCHEMA=true
+    ports:
+      - 389:389
+      - 636:636
+    volumes:
+
+      # bind mount relative to the directory docker-compose, but the logic is not obvious
+      - ../testing/openldap/data/bootstrap.ldif:/container/service/slapd/assets/config/bootstrap/ldif/custom/bootstrap.ldif

@@ -1,7 +1,8 @@
-# OTOBO Docker Compose Stack
+# OTOBO Compose Stack
 
-OTOBO comes with official support for Docker.
-Please refer to the [documentation](https://doc.otobo.org/manual/installation/11.0/en/content/installation/installation-docker.html) on how to get started.
+OTOBO comes with official support for Docker and for Podman.
+Please refer to the [documentation](https://doc.otobo.org/manual/installation/11.0/en/content/installation/installation-docker.html)
+on how to get started with a Docker based installation.
 
 Here is quick overview over the files in this distribution.
 Note that some of the files are hidden and are only listed with `ls -a`.
@@ -12,8 +13,15 @@ Note that some of the files are hidden and are only listed with `ls -a`.
     - .docker_compose_env_https_kerberos        sample .env file for a HTTPS based installation with support for Kerberos
     - .docker_compose_env_http_selenium         sample .env file for development, support Selenium testing via HTTP
     - .docker_compose_env_https_selenium        sample .env file for development, support Selenium testing via HTTPS
+    - .podman_compose_env_http                  sample .env file for a HTTP based installation
+    - .podman_compose_env_https                 sample .env file for a HTTPS based installation
+    - .podman_compose_env_https_custom_nginx    sample .env file for a HTTPS based installation with custom Nginx config
+    - .podman_compose_env_https_kerberos        sample .env file for a HTTPS based installation with support for Kerberos
+    - .podman_compose_env_http_selenium         sample .env file for development, support Selenium testing via HTTP
+    - .podman_compose_env_https_selenium        sample .env file for development, support Selenium testing via HTTPS
     - .env                                      Docker Compose environment file, must be created by the user
-    - docker-compose                            directory with Docker Compose configuration snippets
+    - docker-compose                            directory with Docker Compose YAML files
+    - podman-compose                            directory with Podman Compose YAML files
     - etc/templates/dot_env.m4                  template file used by create_sample_env_files.sh
     - scripts/devel/create_sample_env_files.sh  a small helper for creating the sample env files
     - scripts/devel/generate_dot_env.sh         a small helper for recreating .env from dot_env.m4

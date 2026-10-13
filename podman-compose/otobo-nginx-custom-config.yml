@@ -1,0 +1,12 @@
+# Provide a custom nginx config.
+
+# See also README.md.
+
+services:
+  nginx:
+    volumes:
+      - otobo_nginx_custom_config:/etc/nginx/config/template-custom
+
+volumes:
+  otobo_nginx_custom_config:
+    external: true

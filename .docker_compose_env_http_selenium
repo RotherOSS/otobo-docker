@@ -13,24 +13,28 @@
 COMPOSE_PROJECT_NAME=otobo
 #COMPOSE_PROJECT_NAME=acme_support
 
+# Declare in which directory the compose configuration lies.
+# Effectively this allows to switch between "Docker Compose" and "Podman Compose".
+OTOBO_COMPOSE_DIR=docker-compose
+
 # COMPOSE_FILE is a collection of files, separated by COMPOSE_PATH_SEPARATOR, that make up the final config.
-# These files usually reside in the subdirectory docker-compose.
+# These files usually reside either in the subdirectory docker-compose or podman-compose.
 #
 # Additional services can be added by concatenating more files to COMPOSE_FILE.
-# - add services for S3 compatible storage:             :docker-compose/otobo-localstack.yml or
-#                                                       :docker-compose/otobo-minio.yml
-# - add caching using Redis DB                          :docker-compose/caching/redis.yml
-# - activate the MariaDB ed25519 authentication plugin: :docker-compose/database/mariadb/ed25519.yml
-# - activate the MariaDB PARSEC authentication plugin:  :docker-compose/database/mariadb/parsec.yml
+# - add services for S3 compatible storage:             :$OTOBO_COMPOSE_DIR/otobo-localstack.yml or
+#                                                       :$OTOBO_COMPOSE_DIR/otobo-minio.yml
+# - add caching using Redis DB                          :$OTOBO_COMPOSE_DIR/caching/redis.yml
+# - activate the MariaDB ed25519 authentication plugin: :$OTOBO_COMPOSE_DIR/database/mariadb/ed25519.yml
+# - activate the MariaDB PARSEC authentication plugin:  :$OTOBO_COMPOSE_DIR/database/mariadb/parsec.yml
 #
 # Developers may use experimental override files.
-# - add OpenLDAP server for use by the unit tests:      :docker-compose/testing/openldap.yml
-# - replace MariaDB with PostgreSQL:                    :docker-compose/testing/postgresql.yml
-# - replace MariaDB with MySQL:                         :docker-compose/testing/mysql.yml
-# - start an experimental mail server                   :docker-compose/testing/greenmail.yml
-# - activate Devel::Cover                               :docker-compose/testing/coverage.yml
+# - add OpenLDAP server for use by the unit tests:      :$OTOBO_COMPOSE_DIR/testing/openldap.yml
+# - replace MariaDB with PostgreSQL:                    :$OTOBO_COMPOSE_DIR/testing/postgresql.yml
+# - replace MariaDB with MySQL:                         :$OTOBO_COMPOSE_DIR/testing/mysql.yml
+# - start an experimental mail server                   :$OTOBO_COMPOSE_DIR/testing/greenmail.yml
+# - activate Devel::Cover                               :$OTOBO_COMPOSE_DIR/testing/coverage.yml
 COMPOSE_PATH_SEPARATOR=:
-COMPOSE_FILE=docker-compose/otobo-base.yml:docker-compose/otobo-override-http.yml:docker-compose/otobo-selenium.yml
+COMPOSE_FILE=$OTOBO_COMPOSE_DIR/otobo-base.yml:$OTOBO_COMPOSE_DIR/otobo-override-http.yml:$OTOBO_COMPOSE_DIR/otobo-selenium.yml
 
 # Database configuration
 # OTOBO_DB_ROOT_PASSWORD must be set
