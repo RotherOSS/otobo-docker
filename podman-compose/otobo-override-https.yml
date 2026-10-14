@@ -1,5 +1,5 @@
-# Run the OTOBO web app via HTTPS on the port $OTOBO_WEB_HTTPS_PORT or port 443 per default.
-# HTTP on port 80 redirects to HTTPS on port 443.
+# Run the OTOBO web app via HTTPS on the port $OTOBO_WEB_HTTPS_PORT or port 8443 per default.
+# HTTP on port 8080 redirects to HTTPS on port 8443.
 # This is implemented by running nginx as a reverse proxy for a webserver running otobo.psgi.
 
 # See also README.md.
@@ -10,7 +10,7 @@ services:
   # Note that the nginx service does provide service to port 80, but only to redirect to HTTPS.
   #web:
   #  ports:
-  #    - "${OTOBO_WEB_HTTP_IPADDR:-0.0.0.0}:${OTOBO_WEB_HTTP_PORT:-80}:5000"
+  #    - "${OTOBO_WEB_HTTP_IPADDR:-0.0.0.0}:${OTOBO_WEB_HTTP_PORT:-8080}:5000"
   web:
     environment:
       # Shared secret with which nginx proves to OTOBO that a request really comes from the
@@ -37,8 +37,8 @@ services:
       - otobo_nginx_ssl:/etc/nginx/ssl
     # The HTTP port is exposed, but only redirects to HTTPS
     ports:
-      - "${OTOBO_WEB_HTTPS_IPADDR:-0.0.0.0}:${OTOBO_WEB_HTTPS_PORT:-443}:8443"
-      - "${OTOBO_WEB_HTTP_IPADDR:-0.0.0.0}:${OTOBO_WEB_HTTP_PORT:-80}:8080"
+      - "${OTOBO_WEB_HTTPS_IPADDR:-0.0.0.0}:${OTOBO_WEB_HTTPS_PORT:-8443}:8443"
+      - "${OTOBO_WEB_HTTP_IPADDR:-0.0.0.0}:${OTOBO_WEB_HTTP_PORT:-8080}:8080"
     # inside the docker network the host and the port is fixed
     environment:
       OTOBO_NGINX_WEB_HOST: web
