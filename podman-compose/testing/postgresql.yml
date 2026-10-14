@@ -11,11 +11,6 @@ services:
     cap_add:
       - CAP_SYS_CHROOT
     restart: always
-    logging:
-      driver: "local"
-      options:
-        max-file: "5"
-        max-size: "10m"
     volumes:
       - postgresql_data:/var/lib/postgresql
 

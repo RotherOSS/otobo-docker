@@ -9,11 +9,6 @@ services:
     cap_drop:
       - ALL
     restart: always
-    logging:
-      driver: "local"
-      options:
-        max-file: "5"
-        max-size: "10m"
     healthcheck:
       test: redis-cli ping
     command: [ "redis-server", "--save", "" ]
