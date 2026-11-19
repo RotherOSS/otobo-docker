@@ -123,6 +123,10 @@ relative_static_dir=var/httpd/htdocs/static
 relative_virtual_fs_dir=var/virtualfs
 echo -e "[$script_name] ${CYAN}ℹ The virtual fs has files in $relative_virtual_fs_dir${NC}"
 
+# Emails that could not be imported are kept in the spool directory until they are reprocessed.
+# The directory is hard coded in OTOBO, see e.g. Maint::PostMaster::SpoolMailsReprocess.
+relative_spool_dir=var/spool
+
 # The containers are still stopped.
 # Copy the OTOBO software from the potentially changed image into the volume mounted at /opt/otobo.
 # The required config is taken from the .env file.
@@ -154,6 +158,7 @@ $docker_run_rsync \
  --exclude "$relative_gpg_dir" \
  --exclude "$relative_static_dir" \
  --exclude "$relative_virtual_fs_dir" \
+ --exclude "$relative_spool_dir" \
  /opt/otobo/ "$dir_otobo_update/"
 
 # Restore the hidden files, but some of them will be overwritten by copy_otobo_next
