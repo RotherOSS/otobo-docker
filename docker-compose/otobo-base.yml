@@ -58,6 +58,7 @@ services:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
       - --innodb-log-file-size=268435456
+      - --innodb-buffer-pool-size=${OTOBO_DB_INNODB_BUFFER_POOL_SIZE:-2G}
       - --query-cache-size=${OTOBO_DB_QUERY_CACHE_SIZE:-33554432}
 
     # See https://mariadb.org/mariadb-server-docker-official-images-healthcheck-without-mysqladmin/

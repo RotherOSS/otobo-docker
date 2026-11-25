@@ -104,6 +104,9 @@ OTOBO_DB_ROOT_PASSWORD=
 # Set this to a value in bytes to overwrite the default query size set for OTOBO
 #OTOBO_DB_QUERY_CACHE_SIZE=
 
+# Set this value to set the DB buffer pool size.
+#OTOBO_DB_INNODB_BUFFER_POOL_SIZE=
+
 # HTTP options
 m4_ifdef(
   `otoflag_HTTP',
